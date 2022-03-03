@@ -1,0 +1,63 @@
+\documentclass[12pt,a4paper]{scrbook}
+
+%%% PREAMBLE   
+\include{preamble_h2-auswertung}
+\addbibresource{sources/bib_h2-auswertung.bib}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%
+%%% FRONT MATTER %%%
+%%% ============ %%%
+
+\frontmatter
+
+%%% TITLEPAGE 
+\include{pages/titlepage}
+
+%%% SECOND SITE
+\include{pages/second-site}
+
+%%% TABLE OF CONTENT
+\tableofcontents 
+
+%%% LIST OF FIGURES
+\listoffigures
+
+%%% LIST OF TABLES
+\listoftables
+
+%%%%%%%%%%%%%%%%%%%%
+%%% MAIN MATTER %%%%
+%%% =========== %%%%
+
+\mainmatter
+
+%%% THEORETICAL BASICS
+\include{chapters/theoretical-basics}
+
+%%% EXPERIMENT AND MEASUREMENT
+\include{chapters/experiment}
+
+%%% DATA, ERROR ANALYSIS AND INTERPRETATION
+\include{chapters/data-error-analysis-and-interpretation}
+
+%%% CONCLUSION
+\include{chapters/conclusion}
+
+%%% APPENDIX
+\include{appendix/appendix}
+
+
+%%%%%%%%%%%%%%%%%%%
+%%% BACK MATTER %%%
+%%% =========== %%%
+
+\backmatter
+
+%%% BIBLIOGRAPHY
+\nocite{*}
+\printbibliography
+
+
+\end{document}
