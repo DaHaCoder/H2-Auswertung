@@ -15,7 +15,7 @@ from scipy import special as sp         #   for special mathematical functions -
 ## for 'Latin Modern' and other serif fonts use:
 rc('font',**{'family':'serif','serif':['Latin Modern'], 'size':'16'})
 rc('text', usetex=True)
-#plt.rcParams
+plt.rcParams['text.latex.preamble']=[r"\usepackage{amsmath}"]
 
 def find_local_maxima(thresh: float, time: np.ndarray, voltage: np.ndarray) -> np.ndarray:
     local_maxima = []
@@ -32,9 +32,6 @@ def find_local_maxima(thresh: float, time: np.ndarray, voltage: np.ndarray) -> n
                 new_maximum = True
 
     return local_maxima
-
-#def quad_fit_func(omega, a, b, c):
-#    return a*(omega - b)**2.0 + c
 
 def gauss_fit_func(omega, I_0, omega_0, delta_omega, I_y):
     return I_0*np.exp(-((omega - omega_0)/(delta_omega/(2.0*np.sqrt(np.log(2.0)))))**2.0) + I_y
@@ -140,35 +137,35 @@ def main():
 
     #   initial guess and mask for peak #1
     #   ==================================
-    p0_1_dip_2 = [1.0, 0.012462, 0.0000001, 1.0]         #   I_0, omega_0, gamma, I_y
+    p0_1_dip_2 = [1.0, 0.012462, 1e-6, 1.0]         #   I_0, omega_0, gamma, I_y
     t_init_1_dip_2 = 0.012455
     t_end_1_dip_2 = 0.01247
     mask_1_dip_2 = (time > t_init_1_dip_2) & (time < t_end_1_dip_2)
 
     #   initial guess and mask for peak #2
     #   ==================================
-    p0_2_dip_2 = [1.0, 0.012495, 0.0000001, 1.0]         #   I_0, omega_0, gamma, I_y
+    p0_2_dip_2 = [1.0, 0.012495, 1e-6, 1.0]         #   I_0, omega_0, gamma, I_y
     t_init_2_dip_2 = 0.01248
     t_end_2_dip_2 = 0.01250
     mask_2_dip_2 = (time > t_init_2_dip_2) & (time < t_end_2_dip_2)
 
     #   initial guess and mask for peak #3
     #   ==================================
-    p0_3_dip_2 = [1.0, 0.012518, 0.0000001, 1.0]         #   I_0, omega_0, gamma, I_y
+    p0_3_dip_2 = [1.0, 0.012518, 1e-6, 1.0]         #   I_0, omega_0, gamma, I_y
     t_init_3_dip_2 = 0.012505
     t_end_3_dip_2 = 0.01253
     mask_3_dip_2 = (time > t_init_3_dip_2) & (time < t_end_3_dip_2)
 
     #   initial guess and mask for peak #4
     #   ==================================
-    p0_4_dip_2 = [1.0, 0.012543, 0.000001, 1.0]          #   I_0, omega_0, gamma, I_y
+    p0_4_dip_2 = [1.0, 0.012543, 1e-5, 1.0]         #   I_0, omega_0, gamma, I_y
     t_init_4_dip_2 = 0.012535
     t_end_4_dip_2 = 0.012555
     mask_4_dip_2 = (time > t_init_4_dip_2) & (time < t_end_4_dip_2)
 
     #   initial guess and mask for peak #5
     #   ==================================
-    p0_5_dip_2 = [1.0, 0.01259, 0.0000001, 1.0]          #   I_0, omega_0, gamma, I_y
+    p0_5_dip_2 = [1.0, 0.01259, 1e-6, 1.0]          #   I_0, omega_0, gamma, I_y
     t_init_5_dip_2 = 0.012585
     t_end_5_dip_2 = 0.012595
     mask_5_dip_2 = (time > t_init_5_dip_2) & (time < t_end_5_dip_2)
@@ -369,7 +366,7 @@ def main():
     #   plot raw data
     #   =============
     #ax.plot(time_to_freq(time, c, d, mean_delta_t)*10**(-9), voltage_3, color = 'tab:blue', label = 'Rohdaten')
-    ax.plot(time, voltage_3, color = 'tab:blue')
+    ax.plot(time, voltage_3, color = 'tab:blue', label = 'Rohdaten')
 
     #   plot gauss fit for dip #1
     #   =========================
@@ -378,8 +375,8 @@ def main():
 
     #   plot gauss fit for dip #2
     #   =========================
-    #ax.plot(time_to_freq(time, c, d, mean_delta_t)*10**(-9)[mask_dip_2], voltage_3_dip_2_gauss_fit[mask_dip_2], color = 'tab:orange', label = 'Gauß-Fit')
-    ax.plot(time[mask_dip_2], voltage_3_dip_2_gauss_fit[mask_dip_2], color = 'tab:orange', label = 'Gauß-Fit')
+    #ax.plot(time_to_freq(time, c, d, mean_delta_t)*10**(-9)[mask_dip_2], voltage_3_dip_2_gauss_fit[mask_dip_2], color = 'tab:orange')
+    ax.plot(time[mask_dip_2], voltage_3_dip_2_gauss_fit[mask_dip_2], color = 'tab:orange')
 
     
     #   draw rectangles around peaks in dips
@@ -396,7 +393,7 @@ def main():
     #ax.set_ylim(time_to_freq(ymin, c, d, mean_delta_t)*10**(-9), time_to_freq(ymax, c, d, mean_delta_t)*10**(-9))
     ax.set_ylim(ymin, ymax)
 
-    #ax.legend(loc = 'lower left')
+    ax.legend(loc = 'lower left')
     
     ax.grid(True)
     
@@ -405,11 +402,10 @@ def main():
     #   save figure with raw data and gauss fit
     #   =======================================
 
-    fig.savefig("../report/figures/plots/PNG/plot-data20-gain30-01-rubidium-fit.png", format = 'png', bbox_inches = 'tight', dpi = 400)
-    #fig_i.savefig("../report/figures/plots/EPS/plot-data20-gain30-01-rubidium-fit.eps", format = 'eps', bbox_inches = 'tight')
-    fig.savefig("../report/figures/plots/PDF/plot-data20-gain30-01-rubidium-fit.pdf", format = 'pdf', bbox_inches = 'tight')
-    #plt.show()
-    #tikplotlib.save("../report/figures/tikz/plot-data20-gain30-01-rubidium-fit.tex")
+    fig.savefig("../report/figures/plots/PNG/plot-data20-gain30-01-rubidium.png", format = 'png', bbox_inches = 'tight', dpi = 400)
+    #fig_i.savefig("../report/figures/plots/EPS/plot-data20-gain30-01-rubidium.eps", format = 'eps', bbox_inches = 'tight')
+    fig.savefig("../report/figures/plots/PDF/plot-data20-gain30-01-rubidium.pdf", format = 'pdf', bbox_inches = 'tight')
+    #tikplotlib.save("../report/figures/tikz/plot-data20-gain30-01-rubidium.tex")
 
     
 
@@ -462,7 +458,7 @@ def main():
     
     #ax.set_xlabel(r'Frequenz $\nu$ in MHz')
     ax.set_xlabel(r'Zeit $t$ in s')
-    #ax.set_ylabel(r'Spannungsverhältnis $U/U_{\text{fit}}$')
+    ax.set_ylabel(r'Spannungsverhältnis $U/U_{\text{fit}}$')
     
     xmin = 0.01122
     xmax = 0.01165
@@ -480,11 +476,10 @@ def main():
     #   save figure with normalized data and peak fits around dip #1
     #   ============================================================
     
-    fig.savefig("../report/figures/plots/PNG/plot-data20-gain30-01-dip-1-rubidium-fit.png", format = 'png', bbox_inches = 'tight', dpi = 400)
-    #fig_i.savefig("../report/figures/plots/EPS/plot-data20-gain30-dip-1-rubidium-fit.eps", format = 'eps', bbox_inches = 'tight')
-    fig.savefig("../report/figures/plots/PDF/plot-data20-gain30-01-dip-1-rubidium-fit.pdf", format = 'pdf', bbox_inches = 'tight')
-    #plt.show()
-    #tikzplotlib.save("../report/figures/tikz/plot-data20-gain30-01-dip-1-rubidium-fit.tex")
+    fig.savefig("../report/figures/plots/PNG/plot-data20-gain30-01-dip-1-rubidium-normalized-fit.png", format = 'png', bbox_inches = 'tight', dpi = 400)
+    #fig_i.savefig("../report/figures/plots/EPS/plot-data20-gain30-dip-1-rubidium-normalized-fit.eps", format = 'eps', bbox_inches = 'tight')
+    fig.savefig("../report/figures/plots/PDF/plot-data20-gain30-01-dip-1-rubidium-normalized-fit.pdf", format = 'pdf', bbox_inches = 'tight')
+    #tikzplotlib.save("../report/figures/tikz/plot-data20-gain30-01-dip-1-rubidium-normalized-fit.tex")
     
 
 
@@ -556,10 +551,10 @@ def main():
     #   save figure with normalized data and peak fits around dip #2
     #   ============================================================
     
-    fig.savefig("../report/figures/plots/PNG/plot-data20-gain30-01-dip-2-rubidium-fit.png", format = 'png', bbox_inches = 'tight', dpi = 400)
-    #fig_i.savefig("../report/figures/plots/EPS/plot-data20-gain30-dip-2-rubidium-fit.eps", format = 'eps', bbox_inches = 'tight')
-    fig.savefig("../report/figures/plots/PDF/plot-data20-gain30-01-dip-2-rubidium-fit.pdf", format = 'pdf', bbox_inches = 'tight')
-    #plt.show()
+    fig.savefig("../report/figures/plots/PNG/plot-data20-gain30-01-dip-2-rubidium-normalized-fit.png", format = 'png', bbox_inches = 'tight', dpi = 400)
+    #fig_i.savefig("../report/figures/plots/EPS/plot-data20-gain30-dip-2-rubidium-normalized-fit.eps", format = 'eps', bbox_inches = 'tight')
+    fig.savefig("../report/figures/plots/PDF/plot-data20-gain30-01-dip-2-rubidium-normalized-fit.pdf", format = 'pdf', bbox_inches = 'tight')
+    #tikzplotlib.save("../report/figures/tikz/plot-data20-gain30-01-dip-2-rubidium-normalized-fit.tex")
 
 
 
