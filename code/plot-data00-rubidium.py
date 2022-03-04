@@ -14,6 +14,7 @@ from scipy import special as sp         #   for special mathematical functions -
 ## for 'Latin Modern' and other serif fonts use:
 rc('font',**{'family':'serif','serif':['Latin Modern'], 'size':'16'})
 rc('text', usetex=True)
+plt.rcParams['text.latex.preamble']=[r"\usepackage{amsmath}"]
 
 def find_local_maxima(thresh: float, time: np.ndarray, voltage: np.ndarray) -> np.ndarray:
     local_maxima = []
@@ -54,6 +55,7 @@ def main():
 
     time = np.array(data[:,0])
     voltage_1 = np.array(data[:,1])
+    #voltage_2 = np.array(data[:,2])
     voltage_3 = np.array(data[:,3])
 
     local_maxima = find_local_maxima(3e-2, time, voltage_1)
@@ -81,31 +83,31 @@ def main():
     ### INITIAL GUESSES ###
     ### =============== ###
     
-    #   initial guess and mask for peak 1
+    #   initial guess and mask for dip #1
     #   =================================
     p0_1 = [-0.1, 0.0121, 0.0003, 1.65]             #   I_0, omega_0, delta_omega, I_y
-    t_init_1 = 0.0118 
+    t_init_1 = 0.01177 
     t_end_1 = 0.0125
     mask_1 = (time > t_init_1) & (time < t_end_1)
     
-    #   initial guess and mask for peak 2
+    #   initial guess and mask for dip #2
     #   =================================
-    p0_2 = [-0.1, 0.0132, 0.0004, 1.60]             #   I_0, omega_0, delta_omega, I_y
+    p0_2 = [-0.1, 0.0133, 0.0004, 1.60]             #   I_0, omega_0, delta_omega, I_y
     t_init_2 = 0.0126
     t_end_2 = 0.0136
     mask_2 = (time > t_init_2 ) & (time < t_end_2)
 
-    #   initial guess and mask for peak 3
+    #   initial guess and mask for dip #3
     #   =================================
     p0_3 = [-0.1, 0.01495, 0.0008, 1.54]            #   I_0, omega_0, delta_omega, I_y
     t_init_3 = 0.0148
-    t_end_3 = 0.0156
+    t_end_3 = 0.0157
     mask_3 = (time > t_init_3) & (time < t_end_3)
     
-    #   initial guess and mask for peak 4
+    #   initial guess and mask for dip #4
     #   =================================
     p0_4 = [-0.1, 0.0171, 0.0008, 1.48]             #   I_0, omega_0, delta_omega, I_y
-    t_init_4 = 0.0168
+    t_init_4 = 0.0166
     t_end_4 = 0.0174
     mask_4 = (time > t_init_4) & (time < t_end_4)
     
@@ -126,73 +128,77 @@ def main():
 
     ### ==== ###
     ### FITS ###
-    ############
+    ### ==== ###
 
-    #   fit for peak 1
+    #   linear fit
+    #   ==========
+    popt, pcov = opt.curve_fit(lin_fit_func, time[mask_all], voltage_3[mask_all], p0)
+    a, U0 = popt
+                                
+    print("\n=== PARAMETERS FOR LINEAR FIT ===")
+    print("================================")
+    print("a, U0 = ", popt)
+    voltage_3_lin_fit = lin_fit_func(time, *popt)
+
+    voltage_3_normalized = voltage_3/voltage_3_lin_fit
+    
+    #   fit for dip #1
     #   ==============
-    popt_1, pcov_1 = opt.curve_fit(gauss_fit_func, time[mask_1], voltage_3[mask_1], p0_1)
+    popt_1, pcov_1 = opt.curve_fit(gauss_fit_func, time[mask_1], voltage_3_normalized[mask_1], p0_1)
     I_0, omega_0, delta_omega, I_y = popt_1
 
-    print("\n=== PARAMETERS ===")
-    print("==================")
+    print("\n=== PARAMETERS FOR DIP #1 ===")
+    print("===========================")
     print("I_0, omega_0, delta_omega, I_y = ", popt_1)
     LIST_omega_0.append(popt_1[1])
     LIST_delta_omega.append(popt_1[2])
     
     time_new_1 = np.linspace(t_init_1, t_end_1, 1000)
-    voltage_3_fit_peak_1 = gauss_fit_func(time_new_1, *popt_1)
+    voltage_3_normalized_fit_dip_1 = gauss_fit_func(time_new_1, *popt_1)
      
-    #   fit for peak 2
+    #   fit for dip #2
     #   ==============
-    popt_2, pcov_2 = opt.curve_fit(gauss_fit_func, time[mask_2], voltage_3[mask_2], p0_2)
+    popt_2, pcov_2 = opt.curve_fit(gauss_fit_func, time[mask_2], voltage_3_normalized[mask_2], p0_2)
     I_0, omega_0, delta_omega, I_y = popt_2
-    
-    print("\n=== PARAMETERS ===")
-    print("==================")
+                            
+    print("\n=== PARAMETERS FOR DIP #2 ===")
+    print("===========================")
     print("I_0, omega_0, delta_omega, I_y = ", popt_2)
     LIST_omega_0.append(popt_2[1])
     LIST_delta_omega.append(popt_2[2])
     
     time_new_2 = np.linspace(t_init_2, t_end_2, 1000)
-    voltage_3_fit_peak_2 = gauss_fit_func(time_new_2, *popt_2)
+    voltage_3_normalized_fit_dip_2 = gauss_fit_func(time_new_2, *popt_2)
 
-    #   fit for peak 3
+    #   fit for dip #3
     #   ==============
-    popt_3, pcov_3 = opt.curve_fit(gauss_fit_func, time[mask_3], voltage_3[mask_3], p0_3)
+    popt_3, pcov_3 = opt.curve_fit(gauss_fit_func, time[mask_3], voltage_3_normalized[mask_3], p0_3)
     I_0, omega_0, delta_omega, I_y = popt_3
 
-    print("\n=== PARAMETERS ===")
-    print("==================")
+    print("\n=== PARAMETERS FOR DIP #3 ===")
+    print("===========================")
     print("I_0, omega_0, delta_omega, I_y = ", popt_3)
     LIST_omega_0.append(popt_3[1])
     LIST_delta_omega.append(popt_3[2])
 
     time_new_3 = np.linspace(t_init_3, t_end_3, 1000)
-    voltage_3_fit_peak_3 = gauss_fit_func(time_new_3, *popt_3)
+    voltage_3_normalized_fit_dip_3 = gauss_fit_func(time_new_3, *popt_3)
     
-    #   fit for peak 4
+    #   fit for dip #4
     #   ==============
-    popt_4, pcov_4 = opt.curve_fit(gauss_fit_func, time[mask_4], voltage_3[mask_4], p0_4)
+    popt_4, pcov_4 = opt.curve_fit(gauss_fit_func, time[mask_4], voltage_3_normalized[mask_4], p0_4)
     I_0, omega_0, delta_omega, I_y = popt_4
     
-    print("\n=== PARAMETERS ===")
-    print("==================")
+    print("\n=== PARAMETERS FOR DIP #4 ===")
+    print("===========================")
     print("I_0, omega_0, delta_omega, I_y = ", popt_4)
     LIST_omega_0.append(popt_4[1])
     LIST_delta_omega.append(popt_4[2])
 
     time_new_4 = np.linspace(t_init_4, t_end_4, 1000)
-    voltage_3_fit_peak_4 = gauss_fit_func(time_new_4, *popt_4)
-    
-    #   linear fit
-    #   ==========
-    popt, pcov = opt.curve_fit(lin_fit_func, time[mask_all], voltage_3[mask_all], p0)
-    a, U0 = popt
-    
-    print("\n=== PARAMETERS ===")
-    print("===================")
-    print("a, U0 = ", popt)
-    voltage_3_lin_fit = lin_fit_func(time, *popt)
+    voltage_3_normalized_fit_dip_4 = gauss_fit_func(time_new_4, *popt_4)
+   
+
     
 
 
@@ -205,85 +211,98 @@ def main():
      
     #   plot raw data
     #   =============
-    ax.plot(time, voltage_3, color = 'tab:blue')
-    #ax.plot(time_to_freq(time, c, d, mean_delta_t)*10**(-9), voltage_3, color = 'tab:blue')                         #   multiply time_to_freq with 10**(-9) to plot in GHz
+    #ax.plot(time_to_freq(time, c, d, mean_delta_t)*10**(-9), voltage_3, color = 'tab:blue', label = 'Rohdaten')                #   multiply time_to_freq with 10**(-9) to plot in GHz
+    ax.plot(time, voltage_3, color = 'tab:blue', label = 'Rohdaten')
     
-    ax.set_xlabel(r'Zeit $t$ in s')
+    #   plot linear fit
+    #   ===============
+    #ax.plot(time_to_freq(time, c, d, mean_delta_t)*10**(-9), voltage_3_lin_fit, color = 'tab:grey', label = 'Linearer Fit')    #   multiply time_to_freq with 10**(-9) to plot in GHz
+    ax.plot(time, voltage_3_lin_fit, color = 'tab:orange', label = 'Linearer Fit')
+
     #ax.set_xlabel(r'Frequenz $\nu$ in GHz')
-    ax.set_ylabel('Spannung $U$ in mV')
-    ax.set_ylim(1.405, 1.74)
+    ax.set_xlabel(r'Zeit $t$ in s')
+    ax.set_ylabel(r'Spannung $U$ in mV')
+    
+    ymin = 1.405
+    ymax = 1.748
+    ax.set_ylim(ymin, ymax)
+
+    ax.legend(loc = 'upper right')
 
     ax.grid(True) 
+    #plt.show()
 
+    #   save figure with raw data and linear fit
+    #   ========================================
     fig.savefig("../report/figures/plots/PNG/plot-data00-rubidium.png", format = 'png', bbox_inches = 'tight', dpi = 400)
     #fig_i.savefig("../report/figures/plots/EPS/plot-data00-rubidium.eps", format = 'eps', bbox_inches = 'tight')
     fig.savefig("../report/figures/plots/PDF/plot-data00-rubidium.pdf", format = 'pdf', bbox_inches = 'tight')
     #plt.show()
     #tikplotlib.save("../report/figures/tikz/plot-data00-rubidium.tex")
     
-
-    #   plot linear fit
-    #   ===============
-    ax.plot(time_to_freq(time, c, d, mean_delta_t), voltage_3_lin_fit, color = 'tab:grey')
-    #ax.plot(time, voltage_3_lin_fit, color = 'tab:grey')
     
-    #   plot fit for peak 1
-    #   ===================
-    #ax.plot(time_to_freq(time_new_1, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_1, color = 'tab:red')         #   multiply time_to_freq with 10**(-9) to plot in GHz
-    #ax.vlines(time_to_freq(LIST_omega_0[0], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:red', linestyles = 'dashed', linewidth = 1)
-    ax.plot(time_new_1, voltage_3_fit_peak_1, color = 'tab:red')         #   multiply time_to_freq with 10**(-9) to plot in GHz
-    ax.vlines(LIST_omega_0[0], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:red', linestyles = 'dashed', linewidth = 1)
-    
-    #   plot fit for peak 2
-    #   ===================
-    #ax.plot(time_to_freq(time_new_2, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_2, color = 'tab:green')       #   multiply time_to_freq with 10**(-9) to plot in GHz
-    #ax.vlines(time_to_freq(LIST_omega_0[1], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
-    ax.plot(time_new_2, voltage_3_fit_peak_2, color = 'tab:green')       #   multiply time_to_freq with 10**(-9) to plot in GHz
-    ax.vlines(LIST_omega_0[1], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
 
-    #   plot fit for peak 3
-    #   ===================
-    #ax.plot(time_to_freq(time_new_3, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_3, color = 'tab:pink')        #   multiply time_to_freq with 10**(-9) to plot in GHz
-    #ax.vlines(time_to_freq(LIST_omega_0[2], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:pink', linestyles = 'dashed', linewidth = 1)
-    ax.plot(time_new_3, voltage_3_fit_peak_3, color = 'tab:pink')        #   multiply time_to_freq with 10**(-9) to plot in GHz
-    ax.vlines(LIST_omega_0[2], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:pink', linestyles = 'dashed', linewidth = 1)
-
-    #   plot fit for peak 4
-    #   ===================
-    #ax.plot(time_to_freq(time_new_4, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_4, color = 'tab:orange')      #   multiply time_to_freq with 10**(-9) to plot in GHz
-    #ax.vlines(time_to_freq(LIST_omega_0[3], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:orange', linestyles = 'dashed', linewidth = 1)
-    ax.plot(time_new_4, voltage_3_fit_peak_4, color = 'tab:orange')      #   multiply time_to_freq with 10**(-9) to plot in GHz
-    ax.vlines(LIST_omega_0[3], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:orange', linestyles = 'dashed', linewidth = 1)
-
-
-    fig.savefig("../report/figures/plots/PNG/plot-data00-rubidium-fit.png", format = 'png', bbox_inches = 'tight', dpi = 400)
-    #fig_i.savefig("../report/figures/plots/EPS/plot-data00-rubidium-fit.eps", format = 'eps', bbox_inches = 'tight')
-    fig.savefig("../report/figures/plots/PDF/plot-data00-rubidium-fit.pdf", format = 'pdf', bbox_inches = 'tight')
-    #plt.show()
-    #tikzplotlib.save("../report/figures/tikz/plot-data00-rubidium-fit.tex")
-    
-    
     fig, ax = plt.subplots()
 
-    #   plot data without linear fit
-    #   ============================
-    ax.plot(time, voltage_3 - voltage_3_lin_fit, color = 'tab:green')
+    #   plot normalized data
+    #   ====================
+    #ax.plot(time_to_freq(time, c, d, mean_delta_t)*10**(-9), voltage_3_normalized, color = 'tab:purple')            #   multiply time_to_freq with 10**(-9) to plot in GHz
+    ax.plot(time, voltage_3_normalized, color = 'blue')
 
-    #ax.set_xlim(0.0123, 0.018)
-    #ax.set_ylim(-0.18,0.015)
     
-    ax.set_xlabel(r'Zeit $t$ in s')
+    #   plot fit for dip #1
+    #   ===================
+    #ax.plot(time_to_freq(time_new_1, c, d, mean_delta_t)*10**(-9), voltage_3_fit_normalized_dip_1, color = 'tab:red')         #   multiply time_to_freq with 10**(-9) to plot in GHz
+    #ax.vlines(time_to_freq(LIST_omega_0[0], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:red', linestyles = 'dashed', linewidth = 1)
+    ax.plot(time_new_1, voltage_3_normalized_fit_dip_1, color = 'tab:red')         #   multiply time_to_freq with 10**(-9) to plot in GHz
+    ax.vlines(LIST_omega_0[0], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:red', linestyles = 'dashed', linewidth = 1)
+    
+    #   plot fit for dip #2
+    #   ===================
+    #ax.plot(time_to_freq(time_new_2, c, d, mean_delta_t)*10**(-9), voltage_3_normalized_fit_dip_2, color = 'tab:green')       #   multiply time_to_freq with 10**(-9) to plot in GHz
+    #ax.vlines(time_to_freq(LIST_omega_0[1], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    ax.plot(time_new_2, voltage_3_normalized_fit_dip_2, color = 'tab:green')       #   multiply time_to_freq with 10**(-9) to plot in GHz
+    ax.vlines(LIST_omega_0[1], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+
+    #   plot fit for dip #3
+    #   ===================
+    #ax.plot(time_to_freq(time_new_3, c, d, mean_delta_t)*10**(-9), voltage_3_normalized_fit_dip_3, color = 'tab:pink')        #   multiply time_to_freq with 10**(-9) to plot in GHz
+    #ax.vlines(time_to_freq(LIST_omega_0[2], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:pink', linestyles = 'dashed', linewidth = 1)
+    ax.plot(time_new_3, voltage_3_normalized_fit_dip_3, color = 'tab:pink')        #   multiply time_to_freq with 10**(-9) to plot in GHz
+    ax.vlines(LIST_omega_0[2], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:pink', linestyles = 'dashed', linewidth = 1)
+
+    #   plot fit for dip #4
+    #   ===================
+    #ax.plot(time_to_freq(time_new_4, c, d, mean_delta_t)*10**(-9), voltage_3_normalized_fit_dip_4, color = 'tab:orange')      #   multiply time_to_freq with 10**(-9) to plot in GHz
+    #ax.vlines(time_to_freq(LIST_omega_0[3], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:orange', linestyles = 'dashed', linewidth = 1)
+    ax.plot(time_new_4, voltage_3_normalized_fit_dip_4, color = 'tab:orange')      #   multiply time_to_freq with 10**(-9) to plot in GHz
+    ax.vlines(LIST_omega_0[3], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:orange', linestyles = 'dashed', linewidth = 1)
+
     #ax.set_xlabel(r'Frequenz $\nu$ in GHz')
-    ax.set_ylabel('Spannung $U$ in mV')
+    ax.set_xlabel(r'Zeit $t$ in s')
+    ax.set_ylabel(r'Spannungsverhältnis $U/U_{\text{lin.fit.}}$')
+    
+    xmin = 0.0115
+    ymax = 0.0178
+    #ax.set_xlim(time_to_freq(xmin, c, d, mean_dekta_t), time_to_freq(xmax, c, d, mean_delta_t))
+    ax.set_xlim(0.0115, 0.0178)
+    
+    ymin = 0.87
+    ymax = 1.02
+    ax.set_ylim(ymin, ymax)    
+    
     ax.grid(True)
-    
-    fig.savefig("../report/figures/plots/PNG/plot-data00-rubidium-without-lin-fit.png", format = 'png', bbox_inches = 'tight', dpi = 400)
-    #fig_i.savefig("../report/figures/plots/EPS/plot-data00-rubidium-without-lin-fit.eps", format = 'eps', bbox_inches = 'tight')
-    fig.savefig("../report/figures/plots/PDF/plot-data00-rubidium-without-lin-fit.pdf", format = 'pdf', bbox_inches = 'tight')
     #plt.show()
-    #tikzplotlib.save("../report/figures/tikz/plot-data00-rubidium-wihtout-lin-fit.tex")
-    
 
+
+    #   save figure with normalized data and fits
+    #   =========================================
+    fig.savefig("../report/figures/plots/PNG/plot-data00-rubidium-normalized-fit.png", format = 'png', bbox_inches = 'tight', dpi = 400)
+    #fig_i.savefig("../report/figures/plots/EPS/plot-data00-rubidium-normalized-fit.eps", format = 'eps', bbox_inches = 'tight')
+    fig.savefig("../report/figures/plots/PDF/plot-data00-rubidium-normalized-fit.pdf", format = 'pdf', bbox_inches = 'tight')
+    #plt.show()
+    #tikzplotlib.save("../report/figures/tikz/plot-data00-rubidium-normalized-fit.tex")
+    
 
 
 
@@ -291,20 +310,20 @@ def main():
     ### CALCULATE FREQUENCY DISTANCES ### 
     ### ============================= ###
 
-    print("\n=== PEAK 3, 4 ===")
-    print("=================")
-    print("freq_dist in GHz = ", time_to_freq((LIST_omega_0[3] - LIST_omega_0[2]), c, d, mean_delta_t)*10**(-9))
-    
-    print("\n=== PEAK 2, 3 ===")
-    print("=================")
-    print("freq_dist in GHz = ", time_to_freq((LIST_omega_0[2] - LIST_omega_0[1]), c, d, mean_delta_t)*10**(-9))
-    
-    print("\n=== PEAK 1, 2 ===")
-    print("=================")
+    print("\n=== DIP #1, #2 ===")
+    print("===================")
     print("freq_dist in GHz = ", time_to_freq((LIST_omega_0[1] - LIST_omega_0[0]), c, d, mean_delta_t)*10**(-9))
     
-    print("\n=== PEAK 1, 4 ===")
-    print("=================")
+    print("\n=== DIP #2, #3 ===")
+    print("===================")
+    print("freq_dist in GHz = ", time_to_freq((LIST_omega_0[2] - LIST_omega_0[1]), c, d, mean_delta_t)*10**(-9))
+    
+    print("\n=== DIP #3, #4 ===")
+    print("===================")
+    print("freq_dist in GHz = ", time_to_freq((LIST_omega_0[3] - LIST_omega_0[2]), c, d, mean_delta_t)*10**(-9))
+    
+    print("\n=== DIP #1, #4 ===")
+    print("===================")
     print("freq_dist in GHz = ", time_to_freq((LIST_omega_0[3] - LIST_omega_0[0]), c, d, mean_delta_t)*10**(-9))
     
     '''
@@ -312,7 +331,7 @@ def main():
     ### CALCULATE TEMPERATURE ###
     ### ===================== ###
     
-    print("\n=== TEMP PEAK 1 ===")
+    print("\n=== TEMP DIP #1 ===")
     print("===================")
     
     print("LIST_omega_0[0] - t_init_1 = ", LIST_omega_0[0] - t_init_1)
@@ -327,7 +346,7 @@ def main():
     print("kB = ", kB)
     print("temp((LIST_omega_0[0] - t_init_1), LIST_delta_omega[0], mass_Rb_85, c, kB) = ", temp((LIST_omega_0[0] - t_init_1), LIST_delta_omega[0], mass_Rb_85, c, kB))
     
-    print("\n=== TEMP PEAK 2 ===")
+    print("\n=== TEMP DIP #2 ===")
     print("===================")
     print("omega_0 = ", LIST_omega_0[1])
     print("delta_omega = ", LIST_delta_omega[1])
@@ -337,7 +356,7 @@ def main():
     print("kB = ", kB)
     print("temp in K = ", temp(LIST_omega_0[1], LIST_delta_omega[1], mass_Rb_85, c, kB))
     
-    print("\n=== TEMP PEAK 3 ===")
+    print("\n=== TEMP DIP #3 ===")
     print("===================")
     print("omega_0 = ", LIST_omega_0[2])
     print("delta_omega = ", LIST_delta_omega[2])
@@ -347,7 +366,7 @@ def main():
     print("kB = ", kB)
     print("temp in K = ", temp(LIST_omega_0[2], LIST_delta_omega[2], mass_Rb_85, c, kB))
 
-    print("\n=== TEMP PEAK 4 ===")
+    print("\n=== TEMP DIP #4 ===")
     print("====================")
     print("omega_0 = ", LIST_omega_0[3])
     print("delta_omega = ", LIST_delta_omega[3])
