@@ -372,28 +372,42 @@ def main():
 
     #   plot gauss fit for dip #1
     #   =========================
-    ax.plot(time_to_freq(time, c, d, mean_delta_t)*10**(-9)[mask_dip_1], voltage_3_dip_1_gauss_fit[mask_dip_1], color = 'tab:orange', label = 'Gauß-Fit')
+    ax.plot(time_to_freq(time, c, d, mean_delta_t)[mask_dip_1]*10**(-9), voltage_3_dip_1_gauss_fit[mask_dip_1], color = 'tab:orange', label = 'Gauß-Fit')
     #ax.plot(time[mask_dip_1], voltage_3_dip_1_gauss_fit[mask_dip_1], color = 'tab:orange', label = 'Gauß-Fit')
 
     #   plot gauss fit for dip #2
     #   =========================
-    ax.plot(time_to_freq(time, c, d, mean_delta_t)*10**(-9)[mask_dip_2], voltage_3_dip_2_gauss_fit[mask_dip_2], color = 'tab:orange')
+    ax.plot(time_to_freq(time, c, d, mean_delta_t)[mask_dip_2]*10**(-9), voltage_3_dip_2_gauss_fit[mask_dip_2], color = 'tab:orange')
     #ax.plot(time[mask_dip_2], voltage_3_dip_2_gauss_fit[mask_dip_2], color = 'tab:orange')
 
     
     #   draw rectangles around peaks in dips
     #   ====================================
-    ax.add_patch(Rectangle((0.01122, 0.065), 0.00043, 0.025, edgecolor = 'tab:red', facecolor = 'none', linestyle = '--'))
-    ax.add_patch(Rectangle((0.01244, 0.032), 0.00017, 0.013, edgecolor = 'tab:green', facecolor = 'none', linestyle = '--'))
+    x_rectangle_dip_1 = 0.01122
+    y_rectangle_dip_1 = 0.065
 
-    ax.set_xlabel('Zeit $t$ in s')
-    ax.set_ylabel('Spannung $U$ in mV')
+    x_rectangle_to_dip_1 = 0.00043
+    y_rectangle_to_dip_1 = 0.025
+
+    x_rectangle_dip_2 = 0.01244
+    y_rectangle_dip_2 = 0.032
+
+    x_rectangle_to_dip_2 = 0.00017
+    y_rectangle_to_dip_2 = 0.013
+
+    ax.add_patch(Rectangle((time_to_freq(x_rectangle_dip_1, c, d, mean_delta_t)*10**(-9), y_rectangle_dip_1), time_to_freq(x_rectangle_to_dip_1, c, d, mean_delta_t)*10**(-9), y_rectangle_to_dip_1, edgecolor = 'tab:red', facecolor = 'none', linestyle = '--'))
+    #ax.add_patch(Rectangle((x_rectangle_dip_1, y_rectangle_dip_1), x_rectangle_to_dip_1, y_rectangle_to_dip_1, edgecolor = 'tab:red', facecolor = 'none', linestyle = '--'))
+    ax.add_patch(Rectangle((time_to_freq(x_rectangle_dip_2, c, d, mean_delta_t)*10**(-9), y_rectangle_dip_2), time_to_freq(x_rectangle_to_dip_2, c, d, mean_delta_t)*10**(-9), y_rectangle_to_dip_2, edgecolor = 'tab:green', facecolor = 'none', linestyle = '--'))
+    #ax.add_patch(Rectangle((x_rectangle_dip_2, y_rectangle_dip_2), x_rectangle_to_dip_2, y_rectangle_to_dip_2, edgecolor = 'tab:green', facecolor = 'none', linestyle = '--'))
+
+    ax.set_xlabel(r'Frequenz $\nu$ in GHz')
+    #ax.set_xlabel(r'Zeit $t$ in s')
+    ax.set_ylabel(r'Spannung $U$ in mV')
     ax.set_title('Gain30 in dB (01)')
    
     ymin = 0.025
     ymax = 0.11
-    ax.set_ylim(time_to_freq(ymin, c, d, mean_delta_t)*10**(-9), time_to_freq(ymax, c, d, mean_delta_t)*10**(-9))
-    #ax.set_ylim(ymin, ymax)
+    ax.set_ylim(ymin, ymax)
 
     ax.legend(loc = 'lower left')
     
@@ -417,7 +431,7 @@ def main():
 
     #   plot normalized data for peaks around dip #1
     #   ============================================
-    ax.scatter(time_to_freq(time, c, d, mean_delta_t)*10**(-9), voltage_3_dip_1_normalized, color = 'blue')  
+    ax.scatter(time_to_freq(time, c, d, mean_delta_t)*10**(-9), voltage_3_dip_1_normalized, color = 'blue', s = 0.1)  
     #ax.scatter(time, voltage_3_dip_1_normalized, color = 'blue', s = 0.1) 
     
     

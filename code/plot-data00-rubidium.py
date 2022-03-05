@@ -153,7 +153,7 @@ def main():
     LIST_delta_omega.append(popt_1[2])
     
     time_new_1 = np.linspace(t_init_1, t_end_1, 1000)
-    voltage_3_normalized_fit_dip_1 = gauss_fit_func(time_new_1, *popt_1)
+    voltage_3_normalized_dip_1 = gauss_fit_func(time_new_1, *popt_1)
      
     #   fit for dip #2
     #   ==============
@@ -167,7 +167,7 @@ def main():
     LIST_delta_omega.append(popt_2[2])
     
     time_new_2 = np.linspace(t_init_2, t_end_2, 1000)
-    voltage_3_normalized_fit_dip_2 = gauss_fit_func(time_new_2, *popt_2)
+    voltage_3_normalized_dip_2 = gauss_fit_func(time_new_2, *popt_2)
 
     #   fit for dip #3
     #   ==============
@@ -181,7 +181,7 @@ def main():
     LIST_delta_omega.append(popt_3[2])
 
     time_new_3 = np.linspace(t_init_3, t_end_3, 1000)
-    voltage_3_normalized_fit_dip_3 = gauss_fit_func(time_new_3, *popt_3)
+    voltage_3_normalized_dip_3 = gauss_fit_func(time_new_3, *popt_3)
     
     #   fit for dip #4
     #   ==============
@@ -195,7 +195,7 @@ def main():
     LIST_delta_omega.append(popt_4[2])
 
     time_new_4 = np.linspace(t_init_4, t_end_4, 1000)
-    voltage_3_normalized_fit_dip_4 = gauss_fit_func(time_new_4, *popt_4)
+    voltage_3_normalized_dip_4 = gauss_fit_func(time_new_4, *popt_4)
    
 
 
@@ -207,16 +207,16 @@ def main():
      
     #   plot raw data
     #   =============
-    #ax.plot(time_to_freq(time, c, d, mean_delta_t)*10**(-9), voltage_3, color = 'tab:blue', label = 'Rohdaten')                #   multiply time_to_freq with 10**(-9) to plot in GHz
-    ax.plot(time, voltage_3, color = 'tab:blue', label = 'Rohdaten')
+    ax.plot(time_to_freq(time, c, d, mean_delta_t)*10**(-9), voltage_3, color = 'tab:blue', label = 'Rohdaten')                #   multiply time_to_freq with 10**(-9) to plot in GHz
+    #ax.plot(time, voltage_3, color = 'tab:blue', label = 'Rohdaten')
     
     #   plot linear fit
     #   ===============
-    #ax.plot(time_to_freq(time, c, d, mean_delta_t)*10**(-9), voltage_3_lin_fit, color = 'tab:grey', label = 'Linearer Fit')    #   multiply time_to_freq with 10**(-9) to plot in GHz
-    ax.plot(time, voltage_3_lin_fit, color = 'tab:orange', label = 'Linearer Fit')
+    ax.plot(time_to_freq(time, c, d, mean_delta_t)*10**(-9), voltage_3_lin_fit, color = 'tab:orange', label = 'Linearer Fit')    #   multiply time_to_freq with 10**(-9) to plot in GHz
+    #ax.plot(time, voltage_3_lin_fit, color = 'tab:orange', label = 'Linearer Fit')
 
-    #ax.set_xlabel(r'Frequenz $\nu$ in GHz')
-    ax.set_xlabel(r'Zeit $t$ in s')
+    ax.set_xlabel(r'Frequenz $\nu$ in GHz')
+    #ax.set_xlabel(r'Zeit $t$ in s')
     ax.set_ylabel(r'Spannung $U$ in mV')
     
     ymin = 1.405
@@ -242,46 +242,46 @@ def main():
 
     #   plot normalized data
     #   ====================
-    #ax.plot(time_to_freq(time, c, d, mean_delta_t)*10**(-9), voltage_3_normalized, color = 'blue')            #   multiply time_to_freq with 10**(-9) to plot in GHz
-    ax.plot(time, voltage_3_normalized, color = 'blue')
+    ax.plot(time_to_freq(time, c, d, mean_delta_t)*10**(-9), voltage_3_normalized, color = 'blue')            #   multiply time_to_freq with 10**(-9) to plot in GHz
+    #ax.plot(time, voltage_3_normalized, color = 'blue')
 
     
     #   plot fit for dip #1
     #   ===================
-    #ax.plot(time_to_freq(time_new_1, c, d, mean_delta_t)*10**(-9), voltage_3_fit_normalized_dip_1, color = 'tab:red')         #   multiply time_to_freq with 10**(-9) to plot in GHz
-    #ax.vlines(time_to_freq(LIST_omega_0[0], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:red', linestyles = 'dashed', linewidth = 1)
-    ax.plot(time_new_1, voltage_3_normalized_fit_dip_1, color = 'tab:red')         #   multiply time_to_freq with 10**(-9) to plot in GHz
-    ax.vlines(LIST_omega_0[0], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:red', linestyles = 'dashed', linewidth = 1)
+    ax.plot(time_to_freq(time_new_1, c, d, mean_delta_t)*10**(-9), voltage_3_normalized_dip_1, color = 'tab:red')         #   multiply time_to_freq with 10**(-9) to plot in GHz
+    ax.vlines(time_to_freq(LIST_omega_0[0], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:red', linestyles = 'dashed', linewidth = 1)
+    #ax.plot(time_new_1, voltage_3_normalized_dip_1, color = 'tab:red')         #   multiply time_to_freq with 10**(-9) to plot in GHz
+    #ax.vlines(LIST_omega_0[0], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:red', linestyles = 'dashed', linewidth = 1)
     
     #   plot fit for dip #2
     #   ===================
-    #ax.plot(time_to_freq(time_new_2, c, d, mean_delta_t)*10**(-9), voltage_3_normalized_fit_dip_2, color = 'tab:green')       #   multiply time_to_freq with 10**(-9) to plot in GHz
-    #ax.vlines(time_to_freq(LIST_omega_0[1], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
-    ax.plot(time_new_2, voltage_3_normalized_fit_dip_2, color = 'tab:green')       #   multiply time_to_freq with 10**(-9) to plot in GHz
-    ax.vlines(LIST_omega_0[1], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    ax.plot(time_to_freq(time_new_2, c, d, mean_delta_t)*10**(-9), voltage_3_normalized_dip_2, color = 'tab:green')       #   multiply time_to_freq with 10**(-9) to plot in GHz
+    ax.vlines(time_to_freq(LIST_omega_0[1], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    #ax.plot(time_new_2, voltage_3_normalized_dip_2, color = 'tab:green')       #   multiply time_to_freq with 10**(-9) to plot in GHz
+    #ax.vlines(LIST_omega_0[1], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
 
     #   plot fit for dip #3
     #   ===================
-    #ax.plot(time_to_freq(time_new_3, c, d, mean_delta_t)*10**(-9), voltage_3_normalized_fit_dip_3, color = 'tab:pink')        #   multiply time_to_freq with 10**(-9) to plot in GHz
-    #ax.vlines(time_to_freq(LIST_omega_0[2], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:pink', linestyles = 'dashed', linewidth = 1)
-    ax.plot(time_new_3, voltage_3_normalized_fit_dip_3, color = 'tab:pink')        #   multiply time_to_freq with 10**(-9) to plot in GHz
-    ax.vlines(LIST_omega_0[2], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:pink', linestyles = 'dashed', linewidth = 1)
+    ax.plot(time_to_freq(time_new_3, c, d, mean_delta_t)*10**(-9), voltage_3_normalized_dip_3, color = 'tab:pink')        #   multiply time_to_freq with 10**(-9) to plot in GHz
+    ax.vlines(time_to_freq(LIST_omega_0[2], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:pink', linestyles = 'dashed', linewidth = 1)
+    #ax.plot(time_new_3, voltage_3_normalized_dip_3, color = 'tab:pink')        #   multiply time_to_freq with 10**(-9) to plot in GHz
+    #ax.vlines(LIST_omega_0[2], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:pink', linestyles = 'dashed', linewidth = 1)
 
     #   plot fit for dip #4
     #   ===================
-    #ax.plot(time_to_freq(time_new_4, c, d, mean_delta_t)*10**(-9), voltage_3_normalized_fit_dip_4, color = 'tab:cyan')      #   multiply time_to_freq with 10**(-9) to plot in GHz
-    #ax.vlines(time_to_freq(LIST_omega_0[3], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:cyan', linestyles = 'dashed', linewidth = 1)
-    ax.plot(time_new_4, voltage_3_normalized_fit_dip_4, color = 'tab:cyan')      #   multiply time_to_freq with 10**(-9) to plot in GHz
-    ax.vlines(LIST_omega_0[3], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:cyan', linestyles = 'dashed', linewidth = 1)
+    ax.plot(time_to_freq(time_new_4, c, d, mean_delta_t)*10**(-9), voltage_3_normalized_dip_4, color = 'tab:cyan')      #   multiply time_to_freq with 10**(-9) to plot in GHz
+    ax.vlines(time_to_freq(LIST_omega_0[3], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:cyan', linestyles = 'dashed', linewidth = 1)
+    #ax.plot(time_new_4, voltage_3_normalized_dip_4, color = 'tab:cyan')      #   multiply time_to_freq with 10**(-9) to plot in GHz
+    #ax.vlines(LIST_omega_0[3], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:cyan', linestyles = 'dashed', linewidth = 1)
 
-    #ax.set_xlabel(r'Frequenz $\nu$ in GHz')
-    ax.set_xlabel(r'Zeit $t$ in s')
+    ax.set_xlabel(r'Frequenz $\nu$ in GHz')
+    #ax.set_xlabel(r'Zeit $t$ in s')
     ax.set_ylabel(r'Spannungsverhältnis $U/U_{\text{fit}}$')
     
     xmin = 0.0115
-    ymax = 0.0178
-    #ax.set_xlim(time_to_freq(xmin, c, d, mean_dekta_t), time_to_freq(xmax, c, d, mean_delta_t))
-    ax.set_xlim(0.0115, 0.0178)
+    xmax = 0.0178
+    ax.set_xlim(time_to_freq(xmin, c, d, mean_delta_t)*10**(-9), time_to_freq(xmax, c, d, mean_delta_t)*10**(-9))
+    #ax.set_xlim(0.0115, 0.0178)
     
     ymin = 0.87
     ymax = 1.02
@@ -321,7 +321,7 @@ def main():
     print("==================")
     print("freq_dist in GHz = ", time_to_freq((LIST_omega_0[3] - LIST_omega_0[0]), c, d, mean_delta_t)*10**(-9))
     
-    '''
+    
     ### ===================== ###
     ### CALCULATE TEMPERATURE ###
     ### ===================== ###
@@ -370,7 +370,7 @@ def main():
     print("c = ", c)
     print("kB = ", kB)
     print("temp in K = ", temp(LIST_omega_0[3], LIST_delta_omega[3], mass_Rb_85, c, kB))
-    '''
+    
 
 if __name__ == "__main__":
     main()

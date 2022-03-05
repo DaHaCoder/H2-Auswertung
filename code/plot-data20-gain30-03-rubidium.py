@@ -226,17 +226,23 @@ def main():
     
     #   plot gauss fit
     #   ==============
-    ax.plot(time_to_freq(time, c, d, mean_delta_t))*10**(-9)[mask], voltage_3_gauss_fit[mask], color = 'tab:orange', label = 'Gauß-Fit')
+    ax.plot(time_to_freq(time, c, d, mean_delta_t)[mask]*10**(-9), voltage_3_gauss_fit[mask], color = 'tab:orange', label = 'Gauß-Fit')
     #ax.plot(time[mask], voltage_3_gauss_fit[mask], color = 'tab:orange', label = 'Gauß-Fit')
 
     #   draw rectangle around peaks in dip
     #   ==================================
-    ax.add_patch(Rectangle((0.01518, 0.055), 0.00012, 0.015, edgecolor = 'tab:pink', facecolor = 'none', linestyle = '--'))
+    x_rectangle = 0.01518
+    y_rectangle = 0.055
 
+    x_rectangle_to = 0.00012
+    y_rectangle_to = 0.015
+
+    ax.add_patch(Rectangle((time_to_freq(x_rectangle, c, d, mean_delta_t)*10**(-9), y_rectangle), time_to_freq(x_rectangle_to, c, d, mean_delta_t)*10**(-9), y_rectangle_to, edgecolor = 'tab:pink', facecolor = 'none', linestyle = '--'))
+    #ax.add_patch(Rectangle((x_rectangle, y_rectangle), x_rectangle_to, y_rectangle_to, edgecolor = 'tab:pink', facecolor = 'none', linestyle = '--'))
 
     ax.set_xlabel(r'Frequenz $\nu$ in GHz')
     #ax.set_xlabel(r'Zeit $t$ in s')
-    ax.set_ylabel('Spannung $U$ in mV')
+    ax.set_ylabel(r'Spannung $U$ in mV')
     ax.set_title('Gain30 in dB (03)')
 
     ax.legend(loc = 'lower left')
@@ -256,7 +262,7 @@ def main():
 
     #   plot normalized data for peaks
     #   ==============================
-    ax.scatter(time_to_freq(time, c, d, mean_delta_t)*10**(-9), voltage_3_normalized, color = 'blue'), s = 0.1)
+    ax.scatter(time_to_freq(time, c, d, mean_delta_t)*10**(-9), voltage_3_normalized, color = 'blue', s = 0.1)
     #ax.scatter(time, voltage_3_normalized, color = 'blue', s = 0.1) 
 
     #   plot fit for peak #1
