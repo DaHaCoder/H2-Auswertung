@@ -91,7 +91,7 @@ def main():
     
     #   initial guess and mask for peak #2
     #   ==================================
-    p0_2 = [1e-8, 0.016975, 1e-5, 1.0]                           #   I_0, omega_0, gamma, I_y
+    p0_2 = [1e-8, 0.016975, 1e-5, 1.0]                             #   I_0, omega_0, gamma, I_y
     t_init_2 = 0.016968
     t_end_2 = 0.01699
     mask_2 = (time > t_init_2) & (time < t_end_2)
@@ -119,7 +119,7 @@ def main():
     
     #   initial guess and mask for gauss fit
     #   ====================================
-    p0 = [-1.0, 0.0170, 1e-6, 0.88]                                 #   I_0, omega_0, delta_omega, I_y
+    p0 = [-1.0, 0.0170, 1e-6, 0.88]                                #   I_0, omega_0, delta_omega, I_y
     t_init = 0.01665
     t_end = 0.01735
     mask = (time > t_init) & (time < t_end)
@@ -148,7 +148,7 @@ def main():
     I_0, omega_0, gamma, I_y = popt_1
 
     print("\n=== PARAMETERS FOR PEAK #1 ===")
-    print("=============================")
+    print("==============================")
     print("I_0, omega_0, gamma, I_y = ", popt_1)
     LIST_omega_0.append(popt_1[1])
     LIST_gamma.append(popt_1[2])
@@ -162,7 +162,7 @@ def main():
     I_0, omega_0, gamma, I_y = popt_2
 
     print("\n=== PARAMETERS FOR PEAK #2 ===")
-    print("=============================")
+    print("==============================")
     print("I_0, omega_0, gamma, I_y = ", popt_2)
     LIST_omega_0.append(popt_2[1])
     LIST_gamma.append(popt_2[2])
@@ -176,7 +176,7 @@ def main():
     I_0, omega_0, gamma, I_y = popt_3
 
     print("\n=== PARAMETERS FOR PEAK #3 ===")
-    print("=============================")
+    print("==============================")
     print("I_0, omega_0, gamma, I_y = ", popt_3)
     LIST_omega_0.append(popt_3[1])
     LIST_gamma.append(popt_3[2])
@@ -190,7 +190,7 @@ def main():
     I_0, omega_0, gamma, I_y = popt_4
 
     print("\n=== PARAMETERS FOR PEAK #4 ===")
-    print("=============================")
+    print("==============================")
     print("I_0, omega_0, gamma, I_y = ", popt_4)
     LIST_omega_0.append(popt_4[1])
     LIST_gamma.append(popt_4[2])
@@ -204,6 +204,7 @@ def main():
     I_0, omega_0, gamma, I_y = popt_5
 
     print("\n=== PARAMETERS FOR PEAK #5 ===")
+    print("==============================")
     print("I_0, omega_0, gamma, I_y = ", popt_5)
     LIST_omega_0.append(popt_5[1])
     LIST_gamma.append(popt_5[2])
@@ -294,13 +295,6 @@ def main():
     ax.plot(time_new_5, voltage_3_fit_peak_5, color = 'tab:orange')
     ax.vlines(LIST_omega_0[4], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
     
-    '''
-    #   plot vertical lines at position of peaks (omega_0)
-    #   ==================================================  
-    ax.vlines(time_to_freq(np.array(LIST_omega_0), c, d, mean_delta_t), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
-    #ax.vlines(time, 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
-    '''
-    
     
     #ax.set_xlabel(r'Frequenz $\nu$ in GHz')
     ax.set_xlabel(r'Zeit $t$ in s')
@@ -311,8 +305,8 @@ def main():
     #ax.set_xlim(time_to_freq(xmin, c, d, mean_delta_t)*10**(-9), time_to_freq(xmax, c, d, mean_delta_t)*10**(-9))
     ax.set_xlim(xmin, xmax)
     
-    ymin = 0.98
-    ymax = 1.02
+    ymin = 0.97
+    ymax = 1.05
     ax.set_ylim(ymin, ymax)
 
     ax.grid(True)

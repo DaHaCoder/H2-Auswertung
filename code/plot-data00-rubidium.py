@@ -33,11 +33,10 @@ def find_local_maxima(thresh: float, time: np.ndarray, voltage: np.ndarray) -> n
 
     return local_maxima
 
-def lin_fit_func(t, a, U0):
-    return a*t + U0
-
 def gauss_fit_func(omega, I_0, omega_0, delta_omega, I_y):
     return I_0*np.exp(-((omega - omega_0)/(delta_omega/(2.0*np.sqrt(np.log(2.0)))))**2.0) + I_y
+def lin_fit_func(t, a, U0):
+    return a*t + U0
 
 def time_to_freq(t, c, d, mean_delta_t):
     return c/(4.0*d)*1/mean_delta_t*t
@@ -148,7 +147,7 @@ def main():
     I_0, omega_0, delta_omega, I_y = popt_1
 
     print("\n=== PARAMETERS FOR DIP #1 ===")
-    print("===========================")
+    print("=============================")
     print("I_0, omega_0, delta_omega, I_y = ", popt_1)
     LIST_omega_0.append(popt_1[1])
     LIST_delta_omega.append(popt_1[2])
@@ -162,7 +161,7 @@ def main():
     I_0, omega_0, delta_omega, I_y = popt_2
                             
     print("\n=== PARAMETERS FOR DIP #2 ===")
-    print("===========================")
+    print("=============================")
     print("I_0, omega_0, delta_omega, I_y = ", popt_2)
     LIST_omega_0.append(popt_2[1])
     LIST_delta_omega.append(popt_2[2])
@@ -176,7 +175,7 @@ def main():
     I_0, omega_0, delta_omega, I_y = popt_3
 
     print("\n=== PARAMETERS FOR DIP #3 ===")
-    print("===========================")
+    print("=============================")
     print("I_0, omega_0, delta_omega, I_y = ", popt_3)
     LIST_omega_0.append(popt_3[1])
     LIST_delta_omega.append(popt_3[2])
@@ -190,7 +189,7 @@ def main():
     I_0, omega_0, delta_omega, I_y = popt_4
     
     print("\n=== PARAMETERS FOR DIP #4 ===")
-    print("===========================")
+    print("=============================")
     print("I_0, omega_0, delta_omega, I_y = ", popt_4)
     LIST_omega_0.append(popt_4[1])
     LIST_delta_omega.append(popt_4[2])
@@ -198,9 +197,6 @@ def main():
     time_new_4 = np.linspace(t_init_4, t_end_4, 1000)
     voltage_3_normalized_fit_dip_4 = gauss_fit_func(time_new_4, *popt_4)
    
-
-    
-
 
 
     ### ===== ### 
@@ -273,14 +269,14 @@ def main():
 
     #   plot fit for dip #4
     #   ===================
-    #ax.plot(time_to_freq(time_new_4, c, d, mean_delta_t)*10**(-9), voltage_3_normalized_fit_dip_4, color = 'tab:orange')      #   multiply time_to_freq with 10**(-9) to plot in GHz
-    #ax.vlines(time_to_freq(LIST_omega_0[3], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:orange', linestyles = 'dashed', linewidth = 1)
-    ax.plot(time_new_4, voltage_3_normalized_fit_dip_4, color = 'tab:orange')      #   multiply time_to_freq with 10**(-9) to plot in GHz
-    ax.vlines(LIST_omega_0[3], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:orange', linestyles = 'dashed', linewidth = 1)
+    #ax.plot(time_to_freq(time_new_4, c, d, mean_delta_t)*10**(-9), voltage_3_normalized_fit_dip_4, color = 'tab:cyan')      #   multiply time_to_freq with 10**(-9) to plot in GHz
+    #ax.vlines(time_to_freq(LIST_omega_0[3], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:cyan', linestyles = 'dashed', linewidth = 1)
+    ax.plot(time_new_4, voltage_3_normalized_fit_dip_4, color = 'tab:cyan')      #   multiply time_to_freq with 10**(-9) to plot in GHz
+    ax.vlines(LIST_omega_0[3], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:cyan', linestyles = 'dashed', linewidth = 1)
 
     #ax.set_xlabel(r'Frequenz $\nu$ in GHz')
     ax.set_xlabel(r'Zeit $t$ in s')
-    ax.set_ylabel(r'Spannungsverhältnis $U/U_{\text{lin.fit.}}$')
+    ax.set_ylabel(r'Spannungsverhältnis $U/U_{\text{fit}}$')
     
     xmin = 0.0115
     ymax = 0.0178
@@ -310,19 +306,19 @@ def main():
     ### ============================= ###
 
     print("\n=== DIP #1, #2 ===")
-    print("===================")
+    print("==================")
     print("freq_dist in GHz = ", time_to_freq((LIST_omega_0[1] - LIST_omega_0[0]), c, d, mean_delta_t)*10**(-9))
     
     print("\n=== DIP #2, #3 ===")
-    print("===================")
+    print("==================")
     print("freq_dist in GHz = ", time_to_freq((LIST_omega_0[2] - LIST_omega_0[1]), c, d, mean_delta_t)*10**(-9))
     
     print("\n=== DIP #3, #4 ===")
-    print("===================")
+    print("==================")
     print("freq_dist in GHz = ", time_to_freq((LIST_omega_0[3] - LIST_omega_0[2]), c, d, mean_delta_t)*10**(-9))
     
     print("\n=== DIP #1, #4 ===")
-    print("===================")
+    print("==================")
     print("freq_dist in GHz = ", time_to_freq((LIST_omega_0[3] - LIST_omega_0[0]), c, d, mean_delta_t)*10**(-9))
     
     '''

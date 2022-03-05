@@ -193,7 +193,7 @@ def main():
     I_0, omega_0, delta_omega, I_y = popt
 
     print("\n=== PARAMETERS FOR GAUSS FIT - DIP #1 ===")
-    print("===================================")
+    print("=========================================")
     print("I_0, omega_0, delta_omega, I_y = ", popt)
     voltage_3_dip_1_gauss_fit = gauss_fit_func(time, *popt)
 
@@ -205,7 +205,7 @@ def main():
     I_0, omega_0, gamma, I_y = popt_1
 
     print("\n=== PARAMETERS FOR PEAK #1 ===")
-    print("=============================")
+    print("==============================")
     print("I_0, omega_0, gamma, I_y = ", popt_1)
     LIST_omega_0_dip_1.append(popt_1[1])
     LIST_gamma_dip_1.append(popt_1[2])
@@ -219,7 +219,7 @@ def main():
     I_0, omega_0, gamma, I_y = popt_2
 
     print("\n=== PARAMETERS FOR PEAK #2 ===")
-    print("=============================")
+    print("==============================")
     print("I_0, omega_0, gamma, I_y = ", popt_2)
     LIST_omega_0_dip_1.append(popt_2[1])
     LIST_gamma_dip_1.append(popt_2[2])
@@ -233,7 +233,7 @@ def main():
     I_0, omega_0, gamma, I_y = popt_3
 
     print("\n=== PARAMETERS FOR PEAK #3 ===")
-    print("=============================")
+    print("==============================")
     print("I_0, omega_0, gamma, I_y = ", popt_3)
     LIST_omega_0_dip_1.append(popt_3[1])
     LIST_gamma_dip_1.append(popt_3[2])
@@ -247,7 +247,7 @@ def main():
     I_0, omega_0, gamma, I_y = popt_4
 
     print("\n=== PARAMETERS FOR PEAK #4 ===")
-    print("=============================")
+    print("==============================")
     print("I_0, omega_0, gamma, I_y = ", popt_4)
     LIST_omega_0_dip_1.append(popt_4[1])
     LIST_gamma_dip_1.append(popt_4[2])
@@ -261,6 +261,7 @@ def main():
     I_0, omega_0, gamma, I_y = popt_5
 
     print("\n=== PARAMETERS FOR PEAK #5 ===")
+    print("==============================")
     print("I_0, omega_0, gamma, I_y = ", popt_5)
     LIST_omega_0_dip_1.append(popt_5[1])
     LIST_gamma_dip_1.append(popt_5[2])
@@ -280,7 +281,7 @@ def main():
     I_0, omega_0, delta_omega, I_y = popt
 
     print("\n=== PARAMETERS FOR GAUSS FIT - DIP #2 ===")
-    print("=====================================")
+    print("=========================================")
     print("I_0, omega_0, delta_omega, I_y = ", popt)
     voltage_3_dip_2_gauss_fit = gauss_fit_func(time, *popt)
 
@@ -292,7 +293,7 @@ def main():
     I_0, omega_0, gamma, I_y = popt_1
 
     print("\n=== PARAMETERS FOR PEAK #1 ===")
-    print("=============================")
+    print("==============================")
     print("I_0, omega_0, gamma, I_y = ", popt_1)
     LIST_omega_0_dip_2.append(popt_1[1])
     LIST_gamma_dip_2.append(popt_1[2])
@@ -306,7 +307,7 @@ def main():
     I_0, omega_0, gamma, I_y = popt_2
 
     print("\n=== PARAMETERS FOR PEAK #2 ===")
-    print("=============================")
+    print("==============================")
     print("I_0, omega_0, gamma, I_y = ", popt_2)
     LIST_omega_0_dip_2.append(popt_2[1])
     LIST_gamma_dip_2.append(popt_2[2])
@@ -320,7 +321,7 @@ def main():
     I_0, omega_0, gamma, I_y = popt_3
 
     print("\n=== PARAMETERS FOR PEAK #3 ===")
-    print("=============================")
+    print("==============================")
     print("I_0, omega_0, gamma, I_y = ", popt_3)
     LIST_omega_0_dip_2.append(popt_3[1])
     LIST_gamma_dip_2.append(popt_3[2])
@@ -334,7 +335,7 @@ def main():
     I_0, omega_0, gamma, I_y = popt_4
 
     print("\n=== PARAMETERS FOR PEAK #4 ===")
-    print("=============================")
+    print("==============================")
     print("I_0, omega_0, gamma, I_y = ", popt_4)
     LIST_omega_0_dip_2.append(popt_4[1])
     LIST_gamma_dip_2.append(popt_4[2])
@@ -348,6 +349,7 @@ def main():
     I_0, omega_0, gamma, I_y = popt_5
 
     print("\n=== PARAMETERS FOR PEAK #5 ===")
+    print("==============================")
     print("I_0, omega_0, gamma, I_y = ", popt_5)
     LIST_omega_0_dip_2.append(popt_5[1])
     LIST_gamma_dip_2.append(popt_5[2])
@@ -415,7 +417,7 @@ def main():
 
     #   plot normalized data for peaks around dip #1
     #   ============================================
-    #ax.plot(time_to_freq(time, c, d, mean_delta_t)*10**(-9), voltage_3_dip_1_normalized, color = 'blue')  
+    #ax.scatter(time_to_freq(time, c, d, mean_delta_t)*10**(-9), voltage_3_dip_1_normalized, color = 'blue')  
     ax.scatter(time, voltage_3_dip_1_normalized, color = 'blue', s = 0.1) 
     
     
@@ -475,7 +477,7 @@ def main():
     #   ============================================================
     
     fig.savefig("../report/figures/plots/PNG/plot-data20-gain30-01-dip-1-rubidium-normalized-fit.png", format = 'png', bbox_inches = 'tight', dpi = 400)
-    #fig_i.savefig("../report/figures/plots/EPS/plot-data20-gain30-dip-1-rubidium-normalized-fit.eps", format = 'eps', bbox_inches = 'tight')
+    #fig.savefig("../report/figures/plots/EPS/plot-data20-gain30-dip-1-rubidium-normalized-fit.eps", format = 'eps', bbox_inches = 'tight')
     fig.savefig("../report/figures/plots/PDF/plot-data20-gain30-01-dip-1-rubidium-normalized-fit.pdf", format = 'pdf', bbox_inches = 'tight')
     #tikzplotlib.save("../report/figures/tikz/plot-data20-gain30-01-dip-1-rubidium-normalized-fit.tex")
     
@@ -489,7 +491,7 @@ def main():
     #   plot normalized data for peaks around dip #2
     #   ============================================
     
-    #ax.plot(time_to_freq(time, c, d, mean_delta_t)*10**(-9), voltage_3_dip_2_normalized, color = 'blue')  
+    #ax.scatter(time_to_freq(time, c, d, mean_delta_t)*10**(-9), voltage_3_dip_2_normalized, color = 'blue', s = 0.1)  
     ax.scatter(time, voltage_3_dip_2_normalized, color = 'blue', s = 0.1) 
     
     
@@ -531,7 +533,7 @@ def main():
     
     #ax.set_xlabel(r'Frequenz $\nu$ in MHz')
     ax.set_xlabel(r'Zeit $t$ in s')
-    #ax.set_ylabel(r'Spannungsverhältnis $U/U_{\text{fit}}$')
+    ax.set_ylabel(r'Spannungsverhältnis $U/U_{\text{fit}}$')
     
     xmin = 0.01244
     xmax = 0.01260
@@ -550,7 +552,7 @@ def main():
     #   ============================================================
     
     fig.savefig("../report/figures/plots/PNG/plot-data20-gain30-01-dip-2-rubidium-normalized-fit.png", format = 'png', bbox_inches = 'tight', dpi = 400)
-    #fig_i.savefig("../report/figures/plots/EPS/plot-data20-gain30-dip-2-rubidium-normalized-fit.eps", format = 'eps', bbox_inches = 'tight')
+    #fig.savefig("../report/figures/plots/EPS/plot-data20-gain30-dip-2-rubidium-normalized-fit.eps", format = 'eps', bbox_inches = 'tight')
     fig.savefig("../report/figures/plots/PDF/plot-data20-gain30-01-dip-2-rubidium-normalized-fit.pdf", format = 'pdf', bbox_inches = 'tight')
     #tikzplotlib.save("../report/figures/tikz/plot-data20-gain30-01-dip-2-rubidium-normalized-fit.tex")
 
