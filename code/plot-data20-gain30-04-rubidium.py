@@ -221,27 +221,26 @@ def main():
 
     #   plot raw data
     #   =============
-    #ax.plot(time_to_freq(time, c, d, mean_delta_t)*10**(-9), voltage_3, color = 'tab:blue', label = 'Rohdaten') 
-    ax.plot(time, voltage_3, color = 'tab:blue', label = 'Rohdaten') 
+    ax.plot(time_to_freq(time, c, d, mean_delta_t)*10**(-9), voltage_3, color = 'tab:blue', label = 'Rohdaten') 
+    #ax.plot(time, voltage_3, color = 'tab:blue', label = 'Rohdaten') 
     
     #   plot gauss fit
     #   ==============
-    #ax.plot(time_to_freq(time, c, d, mean_delta_t))*10**(-9)[mask], voltage_3_gauss_fit[mask], color = 'tab:orange', label = 'Gauß-Fit')
-    ax.plot(time[mask], voltage_3_gauss_fit[mask], color = 'tab:orange', label = 'Gauß-Fit')
+    ax.plot(time_to_freq(time, c, d, mean_delta_t))*10**(-9)[mask], voltage_3_gauss_fit[mask], color = 'tab:orange', label = 'Gauß-Fit')
+    #ax.plot(time[mask], voltage_3_gauss_fit[mask], color = 'tab:orange', label = 'Gauß-Fit')
 
     #   draw rectangle around peaks in dip
     #   ==================================
     ax.add_patch(Rectangle((0.0169, 0.0758), 0.00022, 0.0057, edgecolor = 'tab:red', facecolor = 'none', linestyle = '--'))
 
-    #ax.set_xlabel(r'Frequenz $\nu$ in Hz')
-    ax.set_xlabel(r'Zeit $t$ in s')
+    ax.set_xlabel(r'Frequenz $\nu$ in GHz')
+    #ax.set_xlabel(r'Zeit $t$ in s')
     ax.set_ylabel('Spannung $U$ in mV')
     ax.set_title('Gain30 in dB (04)')
 
     ax.legend(loc = 'lower left')
 
     ax.grid(True)
-
     #plt.show()
 
     #   save figure with raw data and gauss fit
@@ -256,54 +255,54 @@ def main():
 
     #   plot normalized data for peaks
     #   ==============================
-    #ax.scatter(time_to_freq(time, c, d, mean_delta_t)*10**(-9), voltage_3_normalized, color = 'blue'), s = 0.1)
-    ax.scatter(time, voltage_3_normalized, color = 'blue', s = 0.1) 
+    ax.scatter(time_to_freq(time, c, d, mean_delta_t)*10**(-9), voltage_3_normalized, color = 'blue'), s = 0.1)
+    #ax.scatter(time, voltage_3_normalized, color = 'blue', s = 0.1) 
 
     #   plot fit for peak #1
     #   ====================
-    #ax.plot(time_to_freq(time_new_1, c, d, mean_delta_t), voltage_3_fit_peak_1, color = 'tab:orange')
-    #ax.vlines(time_to_freq(LIST_omega_0[0], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
-    ax.plot(time_new_1, voltage_3_fit_peak_1, color = 'tab:orange')
-    ax.vlines(LIST_omega_0[0], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    ax.plot(time_to_freq(time_new_1, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_1, color = 'tab:orange')
+    ax.vlines(time_to_freq(LIST_omega_0[0], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    #ax.plot(time_new_1, voltage_3_fit_peak_1, color = 'tab:orange')
+    #ax.vlines(LIST_omega_0[0], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
 
 
     #   plot fit for peak #2
     #   ====================
-    #ax.plot(time_to_freq(time_new_2, c, d, mean_delta_t), voltage_3_fit_peak_2, color = 'tab:orange')
-    #ax.vlines(time_to_freq(LIST_omega_0[1], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
-    ax.plot(time_new_2, voltage_3_fit_peak_2, color = 'tab:orange')
-    ax.vlines(LIST_omega_0[1], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    ax.plot(time_to_freq(time_new_2, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_2, color = 'tab:orange')
+    ax.vlines(time_to_freq(LIST_omega_0[1], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    #ax.plot(time_new_2, voltage_3_fit_peak_2, color = 'tab:orange')
+    #ax.vlines(LIST_omega_0[1], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
     
     #   plot fit for peak #3
     #   ====================
-    #ax.plot(time_to_freq(time_new_3, c, d, mean_delta_t), voltage_3_fit_peak_3, color = 'tab:orange')
-    #ax.vlines(time_to_freq(LIST_omega_0[2], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
-    ax.plot(time_new_3, voltage_3_fit_peak_3, color = 'tab:orange')
-    ax.vlines(LIST_omega_0[2], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    ax.plot(time_to_freq(time_new_3, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_3, color = 'tab:orange')
+    ax.vlines(time_to_freq(LIST_omega_0[2], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    #ax.plot(time_new_3, voltage_3_fit_peak_3, color = 'tab:orange')
+    #ax.vlines(LIST_omega_0[2], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
     
     #   plot fit for peak #4
     #   ====================
-    #ax.plot(time_to_freq(time_new_4, c, d, mean_delta_t), voltage_3_fit_peak_4, color = 'tab:orange')
-    #ax.vlines(time_to_freq(LIST_omega_0[3], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
-    ax.plot(time_new_4, voltage_3_fit_peak_4, color = 'tab:orange')
-    ax.vlines(LIST_omega_0[3], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    ax.plot(time_to_freq(time_new_4, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_4, color = 'tab:orange')
+    ax.vlines(time_to_freq(LIST_omega_0[3], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    #ax.plot(time_new_4, voltage_3_fit_peak_4, color = 'tab:orange')
+    #ax.vlines(LIST_omega_0[3], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
 
     #   plot fit for peak #5
     #   ====================
-    #ax.plot(time_to_freq(time_new_5, c, d, mean_delta_t), voltage_3_fit_peak_5, color = 'tab:orange')
-    #ax.vlines(time_to_freq(LIST_omega_0[4], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
-    ax.plot(time_new_5, voltage_3_fit_peak_5, color = 'tab:orange')
-    ax.vlines(LIST_omega_0[4], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    ax.plot(time_to_freq(time_new_5, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_5, color = 'tab:orange')
+    ax.vlines(time_to_freq(LIST_omega_0[4], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    #ax.plot(time_new_5, voltage_3_fit_peak_5, color = 'tab:orange')
+    #ax.vlines(LIST_omega_0[4], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
     
-    
-    #ax.set_xlabel(r'Frequenz $\nu$ in GHz')
-    ax.set_xlabel(r'Zeit $t$ in s')
+
+    ax.set_xlabel(r'Frequenz $\nu$ in GHz')
+    #ax.set_xlabel(r'Zeit $t$ in s')
     ax.set_ylabel(r'Spannungsverhältnis $U/U_{\text{fit}}$')
 
     xmin = 0.0169
     xmax = 0.01712
-    #ax.set_xlim(time_to_freq(xmin, c, d, mean_delta_t)*10**(-9), time_to_freq(xmax, c, d, mean_delta_t)*10**(-9))
-    ax.set_xlim(xmin, xmax)
+    ax.set_xlim(time_to_freq(xmin, c, d, mean_delta_t)*10**(-9), time_to_freq(xmax, c, d, mean_delta_t)*10**(-9))
+    #ax.set_xlim(xmin, xmax)
     
     ymin = 0.97
     ymax = 1.05
@@ -319,7 +318,6 @@ def main():
     #fig_i.savefig("../report/figures/plots/EPS/plot-data20-gain30-04-rubidium-normalized-fit.eps", format = 'eps', bbox_inches = 'tight')
     fig.savefig("../report/figures/plots/PDF/plot-data20-gain30-04-rubidium-normalized-fit.pdf", format = 'pdf', bbox_inches = 'tight')
     #tikzplotlib.save("../report/figures/tikz/plot-data20-gain30-04-rubidium-normalized-fit.tex")
-
 
 
     

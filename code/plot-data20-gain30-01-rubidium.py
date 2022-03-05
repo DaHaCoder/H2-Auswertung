@@ -367,18 +367,18 @@ def main():
 
     #   plot raw data
     #   =============
-    #ax.plot(time_to_freq(time, c, d, mean_delta_t)*10**(-9), voltage_3, color = 'tab:blue', label = 'Rohdaten')
-    ax.plot(time, voltage_3, color = 'tab:blue', label = 'Rohdaten')
+    ax.plot(time_to_freq(time, c, d, mean_delta_t)*10**(-9), voltage_3, color = 'tab:blue', label = 'Rohdaten')
+    #ax.plot(time, voltage_3, color = 'tab:blue', label = 'Rohdaten')
 
     #   plot gauss fit for dip #1
     #   =========================
-    #ax.plot(time_to_freq(time, c, d, mean_delta_t)*10**(-9)[mask_dip_1], voltage_3_dip_1_gauss_fit[mask_dip_1], color = 'tab:orange', label = 'Gauß-Fit')
-    ax.plot(time[mask_dip_1], voltage_3_dip_1_gauss_fit[mask_dip_1], color = 'tab:orange', label = 'Gauß-Fit')
+    ax.plot(time_to_freq(time, c, d, mean_delta_t)*10**(-9)[mask_dip_1], voltage_3_dip_1_gauss_fit[mask_dip_1], color = 'tab:orange', label = 'Gauß-Fit')
+    #ax.plot(time[mask_dip_1], voltage_3_dip_1_gauss_fit[mask_dip_1], color = 'tab:orange', label = 'Gauß-Fit')
 
     #   plot gauss fit for dip #2
     #   =========================
-    #ax.plot(time_to_freq(time, c, d, mean_delta_t)*10**(-9)[mask_dip_2], voltage_3_dip_2_gauss_fit[mask_dip_2], color = 'tab:orange')
-    ax.plot(time[mask_dip_2], voltage_3_dip_2_gauss_fit[mask_dip_2], color = 'tab:orange')
+    ax.plot(time_to_freq(time, c, d, mean_delta_t)*10**(-9)[mask_dip_2], voltage_3_dip_2_gauss_fit[mask_dip_2], color = 'tab:orange')
+    #ax.plot(time[mask_dip_2], voltage_3_dip_2_gauss_fit[mask_dip_2], color = 'tab:orange')
 
     
     #   draw rectangles around peaks in dips
@@ -392,8 +392,8 @@ def main():
    
     ymin = 0.025
     ymax = 0.11
-    #ax.set_ylim(time_to_freq(ymin, c, d, mean_delta_t)*10**(-9), time_to_freq(ymax, c, d, mean_delta_t)*10**(-9))
-    ax.set_ylim(ymin, ymax)
+    ax.set_ylim(time_to_freq(ymin, c, d, mean_delta_t)*10**(-9), time_to_freq(ymax, c, d, mean_delta_t)*10**(-9))
+    #ax.set_ylim(ymin, ymax)
 
     ax.legend(loc = 'lower left')
     
@@ -404,7 +404,7 @@ def main():
     #   save figure with raw data and gauss fit
     #   =======================================
     fig.savefig("../report/figures/plots/PNG/plot-data20-gain30-01-rubidium.png", format = 'png', bbox_inches = 'tight', dpi = 400)
-    #fig_i.savefig("../report/figures/plots/EPS/plot-data20-gain30-01-rubidium.eps", format = 'eps', bbox_inches = 'tight')
+    #fig.savefig("../report/figures/plots/EPS/plot-data20-gain30-01-rubidium.eps", format = 'eps', bbox_inches = 'tight')
     fig.savefig("../report/figures/plots/PDF/plot-data20-gain30-01-rubidium.pdf", format = 'pdf', bbox_inches = 'tight')
     #tikplotlib.save("../report/figures/tikz/plot-data20-gain30-01-rubidium.tex")
 
@@ -417,53 +417,54 @@ def main():
 
     #   plot normalized data for peaks around dip #1
     #   ============================================
-    #ax.scatter(time_to_freq(time, c, d, mean_delta_t)*10**(-9), voltage_3_dip_1_normalized, color = 'blue')  
-    ax.scatter(time, voltage_3_dip_1_normalized, color = 'blue', s = 0.1) 
+    ax.scatter(time_to_freq(time, c, d, mean_delta_t)*10**(-9), voltage_3_dip_1_normalized, color = 'blue')  
+    #ax.scatter(time, voltage_3_dip_1_normalized, color = 'blue', s = 0.1) 
     
     
     #   plot fit for peak #1
     #   ====================
-    #ax.plot(time_to_freq(time_new_1_dip_1, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_1_dip_1, color = 'tab:orange')
-    #ax.vlines(time_to_freq(LIST_omega_0_dip_1[0], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
-    ax.plot(time_new_1_dip_1, voltage_3_fit_peak_1_dip_1, color = 'tab:orange')
-    ax.vlines(LIST_omega_0_dip_1[0], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    ax.plot(time_to_freq(time_new_1_dip_1, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_1_dip_1, color = 'tab:orange')
+    ax.vlines(time_to_freq(LIST_omega_0_dip_1[0], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    #ax.plot(time_new_1_dip_1, voltage_3_fit_peak_1_dip_1, color = 'tab:orange')
+    #ax.vlines(LIST_omega_0_dip_1[0], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
 
     #   plot fit for peak #2
     #   ====================
-    #ax.plot(time_to_freq(time_new_2_dip_1, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_2_dip_1, color = 'tab:orange')
-    #ax.vlines(time_to_freq(LIST_omega_0_dip_1[1], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
-    ax.plot(time_new_2_dip_1, voltage_3_fit_peak_2_dip_1, color = 'tab:orange')
-    ax.vlines(LIST_omega_0_dip_1[1], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    ax.plot(time_to_freq(time_new_2_dip_1, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_2_dip_1, color = 'tab:orange')
+    ax.vlines(time_to_freq(LIST_omega_0_dip_1[1], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    #ax.plot(time_new_2_dip_1, voltage_3_fit_peak_2_dip_1, color = 'tab:orange')
+    #ax.vlines(LIST_omega_0_dip_1[1], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
 
     #   plot fit for peak #3
     #   ====================
-    #ax.plot(time_to_freq(time_new_3_dip_1, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_3_dip_1, color = 'tab:orange')
-    #ax.vlines(time_to_freq(LIST_omega_0_dip_1[2], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
-    ax.plot(time_new_3_dip_1, voltage_3_fit_peak_3_dip_1, color = 'tab:orange')
-    ax.vlines(LIST_omega_0_dip_1[2], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    ax.plot(time_to_freq(time_new_3_dip_1, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_3_dip_1, color = 'tab:orange')
+    ax.vlines(time_to_freq(LIST_omega_0_dip_1[2], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    #ax.plot(time_new_3_dip_1, voltage_3_fit_peak_3_dip_1, color = 'tab:orange')
+    #ax.vlines(LIST_omega_0_dip_1[2], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
     
     #   plot fit for peak #4
     #   ====================
-    #ax.plot(time_to_freq(time_new_4_dip_1, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_4_dip_1, color = 'tab:orange')
-    #ax.vlines(time_to_freq(LIST_omega_0_dip_1[3], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
-    ax.plot(time_new_4_dip_1, voltage_3_fit_peak_4_dip_1, color = 'tab:orange')
-    ax.vlines(LIST_omega_0_dip_1[3], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    ax.plot(time_to_freq(time_new_4_dip_1, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_4_dip_1, color = 'tab:orange')
+    ax.vlines(time_to_freq(LIST_omega_0_dip_1[3], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    #ax.plot(time_new_4_dip_1, voltage_3_fit_peak_4_dip_1, color = 'tab:orange')
+    #ax.vlines(LIST_omega_0_dip_1[3], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
     
-    #   plot fitted peak #5
-    #   ===================
-    #ax.plot(time_to_freq(time_new_5_dip_1, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_5_dip_1, color = 'tab:orange')
-    #ax.vlines(time_to_freq(LIST_omega_0_dip_1[4], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
-    ax.plot(time_new_5_dip_1, voltage_3_fit_peak_5_dip_1, color = 'tab:orange')
+    #   plot fit for peak #5
+    #   ====================
+    ax.plot(time_to_freq(time_new_5_dip_1, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_5_dip_1, color = 'tab:orange')
+    ax.vlines(time_to_freq(LIST_omega_0_dip_1[4], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    #ax.plot(time_new_5_dip_1, voltage_3_fit_peak_5_dip_1, color = 'tab:orange')
+    #ax.vlines(LIST_omega_0_dip_1[4], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
     
     
-    #ax.set_xlabel(r'Frequenz $\nu$ in MHz')
-    ax.set_xlabel(r'Zeit $t$ in s')
+    ax.set_xlabel(r'Frequenz $\nu$ in GHz')
+    #ax.set_xlabel(r'Zeit $t$ in s')
     ax.set_ylabel(r'Spannungsverhältnis $U/U_{\text{fit}}$')
     
     xmin = 0.01122
     xmax = 0.01165
-    #ax.set_xlim(time_to_freq(xmin, c, d, mean_delta_t)*10**(-9), time_to_freq(xmax, c, d, mean_delta_t)*10**(-9))
-    ax.set_xlim(xmin, xmax)
+    ax.set_xlim(time_to_freq(xmin, c, d, mean_delta_t)*10**(-9), time_to_freq(xmax, c, d, mean_delta_t)*10**(-9))
+    #ax.set_xlim(xmin, xmax)
     
     ymin = 0.96
     ymax = 1.14
@@ -491,54 +492,54 @@ def main():
     #   plot normalized data for peaks around dip #2
     #   ============================================
     
-    #ax.scatter(time_to_freq(time, c, d, mean_delta_t)*10**(-9), voltage_3_dip_2_normalized, color = 'blue', s = 0.1)  
-    ax.scatter(time, voltage_3_dip_2_normalized, color = 'blue', s = 0.1) 
+    ax.scatter(time_to_freq(time, c, d, mean_delta_t)*10**(-9), voltage_3_dip_2_normalized, color = 'blue', s = 0.1)  
+    #ax.scatter(time, voltage_3_dip_2_normalized, color = 'blue', s = 0.1) 
     
     
     #   plot fit for peak #1
     #   ====================
-    #ax.plot(time_to_freq(time_new_1_dip_2, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_1_dip_2, color = 'tab:orange')
-    #ax.vlines(time_to_freq(LIST_omega_0_dip_2[0], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
-    ax.plot(time_new_1_dip_2, voltage_3_fit_peak_1_dip_2, color = 'tab:orange')
-    ax.vlines(LIST_omega_0_dip_2[0], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    ax.plot(time_to_freq(time_new_1_dip_2, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_1_dip_2, color = 'tab:orange')
+    ax.vlines(time_to_freq(LIST_omega_0_dip_2[0], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    #ax.plot(time_new_1_dip_2, voltage_3_fit_peak_1_dip_2, color = 'tab:orange')
+    #ax.vlines(LIST_omega_0_dip_2[0], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
 
     #   plot fit for peak #2
     #   ====================
-    #ax.plot(time_to_freq(time_new_2_dip_2, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_2_dip_2, color = 'tab:orange')
-    #ax.vlines(time_to_freq(LIST_omega_0_dip_2[1], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
-    ax.plot(time_new_2_dip_2, voltage_3_fit_peak_2_dip_2, color = 'tab:orange')
-    ax.vlines(LIST_omega_0_dip_2[1], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    ax.plot(time_to_freq(time_new_2_dip_2, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_2_dip_2, color = 'tab:orange')
+    ax.vlines(time_to_freq(LIST_omega_0_dip_2[1], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    #ax.plot(time_new_2_dip_2, voltage_3_fit_peak_2_dip_2, color = 'tab:orange')
+    #ax.vlines(LIST_omega_0_dip_2[1], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
 
     #   plot fit for peak #3
     #   ====================
-    #ax.plot(time_to_freq(time_new_3_dip_2, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_3_dip_2, color = 'tab:orange')
-    #ax.vlines(time_to_freq(LIST_omega_0_dip_2[2], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
-    ax.plot(time_new_3_dip_2, voltage_3_fit_peak_3_dip_2, color = 'tab:orange')
-    ax.vlines(LIST_omega_0_dip_2[2], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    ax.plot(time_to_freq(time_new_3_dip_2, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_3_dip_2, color = 'tab:orange')
+    ax.vlines(time_to_freq(LIST_omega_0_dip_2[2], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    #ax.plot(time_new_3_dip_2, voltage_3_fit_peak_3_dip_2, color = 'tab:orange')
+    #ax.vlines(LIST_omega_0_dip_2[2], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
     
     #   plot fit for peak #4
     #   ====================
-    #ax.plot(time_to_freq(time_new_4_dip_2, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_4_dip_2, color = 'tab:orange')
-    #ax.vlines(time_to_freq(LIST_omega_0_dip_2[3], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
-    ax.plot(time_new_4_dip_2, voltage_3_fit_peak_4_dip_2, color = 'tab:orange')
-    ax.vlines(LIST_omega_0_dip_2[3], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    ax.plot(time_to_freq(time_new_4_dip_2, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_4_dip_2, color = 'tab:orange')
+    ax.vlines(time_to_freq(LIST_omega_0_dip_2[3], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    #ax.plot(time_new_4_dip_2, voltage_3_fit_peak_4_dip_2, color = 'tab:orange')
+    #ax.vlines(LIST_omega_0_dip_2[3], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
     
-    #   plot fitted peak #5
-    #   ===================
-    #ax.plot(time_to_freq(time_new_5_dip_2, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_5_dip_2, color = 'tab:orange')
-    #ax.vlines(time_to_freq(LIST_omega_0_dip_2[4], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
-    ax.plot(time_new_5_dip_2, voltage_3_fit_peak_5_dip_2, color = 'tab:orange')
-    ax.vlines(LIST_omega_0_dip_2[4], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    #   plot fit for peak #5
+    #   ====================
+    ax.plot(time_to_freq(time_new_5_dip_2, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_5_dip_2, color = 'tab:orange')
+    ax.vlines(time_to_freq(LIST_omega_0_dip_2[4], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    #ax.plot(time_new_5_dip_2, voltage_3_fit_peak_5_dip_2, color = 'tab:orange')
+    #ax.vlines(LIST_omega_0_dip_2[4], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
     
     
-    #ax.set_xlabel(r'Frequenz $\nu$ in MHz')
-    ax.set_xlabel(r'Zeit $t$ in s')
+    ax.set_xlabel(r'Frequenz $\nu$ in GHz')
+    #ax.set_xlabel(r'Zeit $t$ in s')
     ax.set_ylabel(r'Spannungsverhältnis $U/U_{\text{fit}}$')
     
     xmin = 0.01244
     xmax = 0.01260
-    #ax.set_xlim(time_to_freq(xmin, c, d, mean_delta_t)*10**(-9), time_to_freq(xmax, c, d, mean_delta_t)*10**(-9))
-    ax.set_xlim(xmin, xmax)
+    ax.set_xlim(time_to_freq(xmin, c, d, mean_delta_t)*10**(-9), time_to_freq(xmax, c, d, mean_delta_t)*10**(-9))
+    #ax.set_xlim(xmin, xmax)
     
     ymin = 0.96
     ymax = 1.3
@@ -555,10 +556,6 @@ def main():
     #fig.savefig("../report/figures/plots/EPS/plot-data20-gain30-dip-2-rubidium-normalized-fit.eps", format = 'eps', bbox_inches = 'tight')
     fig.savefig("../report/figures/plots/PDF/plot-data20-gain30-01-dip-2-rubidium-normalized-fit.pdf", format = 'pdf', bbox_inches = 'tight')
     #tikzplotlib.save("../report/figures/tikz/plot-data20-gain30-01-dip-2-rubidium-normalized-fit.tex")
-
-
-
-
 
 
     ### ============================= ###
@@ -688,9 +685,6 @@ def main():
     print("\n=== PEAK 4, 5 ===")
     print("=================")
     print("freq_dist in MHz = ", time_to_freq((LIST_omega_0_dip_2[4] - LIST_omega_0_dip_2[3]), c, d, mean_delta_t)*10**(-6))
-
-
-
 
 
 if __name__ == "__main__":
