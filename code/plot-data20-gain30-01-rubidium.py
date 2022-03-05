@@ -401,7 +401,6 @@ def main():
 
     #   save figure with raw data and gauss fit
     #   =======================================
-
     fig.savefig("../report/figures/plots/PNG/plot-data20-gain30-01-rubidium.png", format = 'png', bbox_inches = 'tight', dpi = 400)
     #fig_i.savefig("../report/figures/plots/EPS/plot-data20-gain30-01-rubidium.eps", format = 'eps', bbox_inches = 'tight')
     fig.savefig("../report/figures/plots/PDF/plot-data20-gain30-01-rubidium.pdf", format = 'pdf', bbox_inches = 'tight')
@@ -416,7 +415,6 @@ def main():
 
     #   plot normalized data for peaks around dip #1
     #   ============================================
-    
     #ax.plot(time_to_freq(time, c, d, mean_delta_t)*10**(-9), voltage_3_dip_1_normalized, color = 'blue')  
     ax.scatter(time, voltage_3_dip_1_normalized, color = 'blue', s = 0.1) 
     

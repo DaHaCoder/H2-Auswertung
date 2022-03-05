@@ -16,6 +16,7 @@ rc('font',**{'family':'serif','serif':['Latin Modern'], 'size':'16'})
 rc('text', usetex=True)
 plt.rcParams['text.latex.preamble']=[r"\usepackage{amsmath}"]
 
+
 def find_local_maxima(thresh: float, time: np.ndarray, voltage: np.ndarray) -> np.ndarray:
     local_maxima = []
     new_maximum = True
@@ -31,7 +32,6 @@ def find_local_maxima(thresh: float, time: np.ndarray, voltage: np.ndarray) -> n
                 new_maximum = True
 
     return local_maxima
-
 
 def lin_fit_func(t, a, U0):
     return a*t + U0
@@ -246,7 +246,7 @@ def main():
 
     #   plot normalized data
     #   ====================
-    #ax.plot(time_to_freq(time, c, d, mean_delta_t)*10**(-9), voltage_3_normalized, color = 'tab:purple')            #   multiply time_to_freq with 10**(-9) to plot in GHz
+    #ax.plot(time_to_freq(time, c, d, mean_delta_t)*10**(-9), voltage_3_normalized, color = 'blue')            #   multiply time_to_freq with 10**(-9) to plot in GHz
     ax.plot(time, voltage_3_normalized, color = 'blue')
 
     
@@ -300,7 +300,6 @@ def main():
     fig.savefig("../report/figures/plots/PNG/plot-data00-rubidium-normalized-fit.png", format = 'png', bbox_inches = 'tight', dpi = 400)
     #fig_i.savefig("../report/figures/plots/EPS/plot-data00-rubidium-normalized-fit.eps", format = 'eps', bbox_inches = 'tight')
     fig.savefig("../report/figures/plots/PDF/plot-data00-rubidium-normalized-fit.pdf", format = 'pdf', bbox_inches = 'tight')
-    #plt.show()
     #tikzplotlib.save("../report/figures/tikz/plot-data00-rubidium-normalized-fit.tex")
     
 
