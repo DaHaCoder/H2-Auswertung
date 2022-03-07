@@ -96,10 +96,11 @@ def main():
     ax.set_ylim(0,0.07)
     ax.grid(True)
 
-    fig.savefig("../report/figures/plots/PNG/plot-data00-resonator.png", format = 'png', bbox_inches = 'tight', dpi = 400)
-    #fig_i.savefig("../report/figures/plots/EPS/plot-data00-resonator.eps", format = 'eps', bbox_inches = 'tight')
-    fig.savefig("../report/figures/plots/PDF/plot-data00-resonator.pdf", format = 'pdf', bbox_inches = 'tight')
     #plt.show()
+
+    fig.savefig("../report/figures/plots/PNG/plot-data00-resonator.png", format = 'png', bbox_inches = 'tight', dpi = 400)
+    #fig.savefig("../report/figures/plots/EPS/plot-data00-resonator.eps", format = 'eps', bbox_inches = 'tight')
+    fig.savefig("../report/figures/plots/PDF/plot-data00-resonator.pdf", format = 'pdf', bbox_inches = 'tight')
     #tikplotlib.save("../report/figures/tikz/plot-data00-resonator.tex")
     
 

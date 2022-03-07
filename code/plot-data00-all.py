@@ -38,10 +38,11 @@ def main():
 
     ax.grid(True)
 
-    fig.savefig("../report/figures/plots/PNG/plot-data00-all.png", format = 'png', bbox_inches = 'tight', dpi = 400)
-    #fig_i.savefig("../report/figures/plots/EPS/plot-data00-all.eps", format = 'eps', bbox_inches = 'tight')
-    fig.savefig("../report/figures/plots/PDF/plot-data00-all.pdf", format = 'pdf', bbox_inches = 'tight')
     #plt.show()
+
+    fig.savefig("../report/figures/plots/PNG/plot-data00-all.png", format = 'png', bbox_inches = 'tight', dpi = 400)
+    #fig.savefig("../report/figures/plots/EPS/plot-data00-all.eps", format = 'eps', bbox_inches = 'tight')
+    fig.savefig("../report/figures/plots/PDF/plot-data00-all.pdf", format = 'pdf', bbox_inches = 'tight')
     #tikplotlib.save("../report/figures/tikz/plot-data00-all.tex")
     
 

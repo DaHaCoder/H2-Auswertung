@@ -131,7 +131,6 @@ def main():
     mask_dip_1 = (time > t_init_dip_1) & (time < t_end_dip_1)
 
 
-
     #   FOR DIP #2
     #   ==========
 
@@ -177,7 +176,6 @@ def main():
     t_init_dip_2 = 0.01215
     t_end_dip_2 = 0.01298 
     mask_dip_2 = (time > t_init_dip_2) & (time < t_end_dip_2)
-
 
 
     ### ==== ###
@@ -269,8 +267,6 @@ def main():
     time_new_5_dip_1 = np.linspace(t_init_5_dip_1, t_end_5_dip_1, 1000)
     voltage_3_fit_peak_5_dip_1 = lorentz_fit_func(time_new_5_dip_1, *popt_5)
 
-
-
     
     #   FOR DIP #2
     #   ==========
@@ -356,7 +352,37 @@ def main():
 
     time_new_5_dip_2 = np.linspace(t_init_5_dip_2, t_end_5_dip_2, 1000)
     voltage_3_fit_peak_5_dip_2 = lorentz_fit_func(time_new_5_dip_2, *popt_5)
+
+
+    ### =============== ###
+    ### ESTIMATED ERROR ###
+    ### =============== ###
+
+    print("\n=================================")
+    print("=== ESTIMATED ERROR FOR GAMMA ===")
+    print("=================================")
     
+    #   FOR DIP #1
+    #   ==========
+    
+    mean_gamma_dip_1 = 1/len(LIST_gamma_dip_1)*np.sum(np.array(LIST_gamma_dip_1))
+    standard_dev_gamma_dip_1 = np.sqrt(1/len(LIST_gamma_dip_1)*np.sum((np.array(LIST_gamma_dip_1) - mean_gamma_dip_1)**2.0))
+
+    print("\n=== FOR DIP #1 ===")
+    print("===================")
+    print("mean_gamma in MHz = ", time_to_freq(mean_gamma_dip_1, c, d, mean_delta_t)*10**(-6))
+    print("standard_dev_gamma in MHz = ", time_to_freq(standard_dev_gamma_dip_1, c, d, mean_delta_t)*10**(-6))
+
+    #   FOR DIP #2
+    #   ==========
+    
+    mean_gamma_dip_2 = 1/len(LIST_gamma_dip_2)*np.sum(np.array(LIST_gamma_dip_2))
+    standard_dev_gamma_dip_2 = np.sqrt(1/len(LIST_gamma_dip_2)*np.sum((np.array(LIST_gamma_dip_2) - mean_gamma_dip_2)**2.0))
+
+    print("\n=== FOR DIP #2 ===")
+    print("===================")
+    print("mean_gamma in MHz = ", time_to_freq(mean_gamma_dip_2, c, d, mean_delta_t)*10**(-6))
+    print("standard_dev_gamma in MHz = ", time_to_freq(standard_dev_gamma_dip_2, c, d, mean_delta_t)*10**(-6))
 
 
     ### ===== ###

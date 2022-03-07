@@ -123,8 +123,6 @@ def main():
     mask_all = np.logical_not(mask_1 | mask_2 | mask_3 | mask_4)
     
 
-
-
     ### ==== ###
     ### FITS ###
     ### ==== ###
@@ -197,6 +195,20 @@ def main():
     time_new_4 = np.linspace(t_init_4, t_end_4, 1000)
     voltage_3_normalized_dip_4 = gauss_fit_func(time_new_4, *popt_4)
    
+    
+    ### =============== ###
+    ### ESTIMATED ERROR ###
+    ### =============== ###
+     
+    print("\n=======================================")
+    print("=== ESTIMATED ERROR FOR DELTA_OMEGA ===")
+    print("=======================================")
+
+    mean_delta_omega = 1/len(LIST_delta_omega)*np.sum(np.array(LIST_delta_omega))
+    standard_dev_delta_omega = np.sqrt(1/len(LIST_delta_omega)*np.sum((np.array(LIST_delta_omega) - mean_delta_omega)**2.0))
+
+    print("mean_delta_omega in GHz = ", time_to_freq(mean_delta_omega, c, d, mean_delta_t)*10**(-9))
+    print("standard_dev_delta_omega in GHz = ", time_to_freq(standard_dev_delta_omega, c, d, mean_delta_t)*10**(-9))
 
 
     ### ===== ### 
@@ -297,8 +309,6 @@ def main():
     #fig_i.savefig("../report/figures/plots/EPS/plot-data00-rubidium-normalized-fit.eps", format = 'eps', bbox_inches = 'tight')
     fig.savefig("../report/figures/plots/PDF/plot-data00-rubidium-normalized-fit.pdf", format = 'pdf', bbox_inches = 'tight')
     #tikzplotlib.save("../report/figures/tikz/plot-data00-rubidium-normalized-fit.tex")
-    
-
 
 
     ### ============================= ###
@@ -331,7 +341,7 @@ def main():
     
     print("LIST_omega_0[0] - t_init_1 = ", LIST_omega_0[0] - t_init_1)
     print("LIST_delta_omega[0] = ", LIST_delta_omega[0])
-    print("(LIST_omega_0[0] - t_init_1)/LIST_delta_omega[0] = ", (LIST_omega_0[0] - t_init_1)/LIST_delta_omega[0])
+    print("(LIST_omega_0[0] - t_init_1)/LIST_delta_omega[0] = ", (LIST_omega_0[0] - t_init_1)/LIST_delta_omega[0]) 
 
     #print("time_to_freq(LIST_omega_0[0], c, d, mean_delta_t) = ", time_to_freq(LIST_omega_0[0], c, d, mean_delta_t))
     #print("time_to_freq(LIST_delta_omega[0], c, d, mean_delta_t) = ", time_to_freq(LIST_delta_omega[0], c, d, mean_delta_t))
@@ -340,7 +350,7 @@ def main():
     print("c = ", c)
     print("kB = ", kB)
     print("temp((LIST_omega_0[0] - t_init_1), LIST_delta_omega[0], mass_Rb_85, c, kB) = ", temp((LIST_omega_0[0] - t_init_1), LIST_delta_omega[0], mass_Rb_85, c, kB))
-    
+    '''
     print("\n=== TEMP DIP #2 ===")
     print("===================")
     print("omega_0 = ", LIST_omega_0[1])
@@ -370,7 +380,7 @@ def main():
     print("c = ", c)
     print("kB = ", kB)
     print("temp in K = ", temp(LIST_omega_0[3], LIST_delta_omega[3], mass_Rb_85, c, kB))
-    
+    '''
 
 if __name__ == "__main__":
     main()

@@ -124,8 +124,7 @@ def main():
     t_end = 0.0157
     mask = (time > t_init) & (time < t_end)
 
-
-    
+ 
     ### ==== ###
     ### FITS ###
     ### ==== ###   
@@ -211,6 +210,20 @@ def main():
 
     time_new_5 = np.linspace(t_init_5, t_end_5, 1000)
     voltage_3_fit_peak_5 = lorentz_fit_func(time_new_5, *popt_5)
+    
+    ### =============== ###
+    ### ESTIMATED ERROR ###
+    ### =============== ###
+
+    print("\n=================================")
+    print("=== ESTIMATED ERROR FOR GAMMA ===")
+    print("=================================")
+    
+    mean_gamma = 1/len(LIST_gamma)*np.sum(np.array(LIST_gamma))
+    standard_dev_gamma = np.sqrt(1/len(LIST_gamma)*np.sum((np.array(LIST_gamma) - mean_gamma)**2.0))
+
+    print("mean_gamma in MHz = ", time_to_freq(mean_gamma, c, d, mean_delta_t)*10**(-6))
+    print("standard_dev_gamma in MHz = ", time_to_freq(standard_dev_gamma, c, d, mean_delta_t)*10**(-6))
     
     
     ### ===== ###
