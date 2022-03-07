@@ -200,13 +200,13 @@ def main():
     ### ESTIMATED ERROR ###
     ### =============== ###
      
-    print("\n=======================================")
-    print("=== ESTIMATED ERROR FOR DELTA_OMEGA ===")
+    print("\n=== ESTIMATED ERROR FOR DELTA_OMEGA ===")
     print("=======================================")
 
     mean_delta_omega = 1/len(LIST_delta_omega)*np.sum(np.array(LIST_delta_omega))
     standard_dev_delta_omega = np.sqrt(1/len(LIST_delta_omega)*np.sum((np.array(LIST_delta_omega) - mean_delta_omega)**2.0))
 
+    print("time_to_freq(np.array(LIST_delta_omega), c, d, mean_delta_t) in GHz = ", time_to_freq(np.array(LIST_delta_omega), c, d, mean_delta_t)*10**(-9))
     print("mean_delta_omega in GHz = ", time_to_freq(mean_delta_omega, c, d, mean_delta_t)*10**(-9))
     print("standard_dev_delta_omega in GHz = ", time_to_freq(standard_dev_delta_omega, c, d, mean_delta_t)*10**(-9))
 

@@ -222,6 +222,7 @@ def main():
     mean_gamma = 1/len(LIST_gamma)*np.sum(np.array(LIST_gamma))
     standard_dev_gamma = np.sqrt(1/len(LIST_gamma)*np.sum((np.array(LIST_gamma) - mean_gamma)**2.0))
 
+    print("time_to_freq(np.array(LIST_gamma), c, d, mean_delta_t) in GHz = ", time_to_freq(np.array(LIST_gamma), c, d, mean_delta_t)*10**(-9))
     print("mean_gamma in MHz = ", time_to_freq(mean_gamma, c, d, mean_delta_t)*10**(-6))
     print("standard_dev_gamma in MHz = ", time_to_freq(standard_dev_gamma, c, d, mean_delta_t)*10**(-6))
     
