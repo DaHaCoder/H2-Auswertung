@@ -33,11 +33,11 @@ def find_local_maxima(thresh: float, time: np.ndarray, voltage: np.ndarray) -> n
 
     return local_maxima
 
-def gauss_fit_func(omega, I_0, omega_0, delta_omega, I_y):
-    return I_0*np.exp(-((omega - omega_0)/(delta_omega/(2.0*np.sqrt(np.log(2.0)))))**2.0) + I_y
+def gauss_fit_func(nu, I_0, nu_0, delta_nu, I_y):
+    return I_0*np.exp(-((nu - nu_0)/(delta_nu/(2.0*np.sqrt(np.log(2.0)))))**2.0) + I_y
 
-def lorentz_fit_func(omega, I_0, omega_0, gamma, I_y):
-    return I_0/np.pi*(gamma/2.0)*1.0/((omega - omega_0)**2.0 + (gamma/2.0)**2.0) + I_y
+def lorentz_fit_func(nu, I_0, nu_0, gamma, I_y):
+    return I_0/np.pi*(gamma/2.0)*1.0/((nu - nu_0)**2.0 + (gamma/2.0)**2.0) + I_y
 
 def time_to_freq(t, c, d, mean_delta_t):
     return c/(4.0*d)*1.0/mean_delta_t*t
@@ -71,12 +71,12 @@ def main():
     mass_Rb_85 = 1.409993199*10**(-25)              #   atomic mass of Rb85 in kg -- https://www.steck.us/alkalidata/rubidium85numbers.pdf
     mass_Rb_87 = 1.443160648*10**(-25)              #   atomic mass of Rb87 in kg -- https://www.steck.us/alkalidata/rubidium87numbers.pdf
 
-    LIST_omega_0_dip_1 = []
-    LIST_delta_omega_dip_1 = []
+    LIST_nu_0_dip_1 = []
+    LIST_delta_nu_dip_1 = []
     LIST_gamma_dip_1 = []
 
-    LIST_omega_0_dip_2 = []
-    LIST_delta_omega_dip_2 = []
+    LIST_nu_0_dip_2 = []
+    LIST_delta_nu_dip_2 = []
     LIST_gamma_dip_2 = []
 
 
@@ -89,35 +89,35 @@ def main():
 
     #   initial guess and mask for peak #1
     #   ==================================
-    p0_1_dip_1 = [1.0, 0.011275, 1e-6, 0.98]             #   I_0, omega_0, gamma, I_y
+    p0_1_dip_1 = [1.0, 0.011275, 1e-6, 0.98]             #   I_0, nu_0, gamma, I_y
     t_init_1_dip_1 = 0.01125
     t_end_1_dip_1 = 0.01129
     mask_1_dip_1 = (time > t_init_1_dip_1) & (time < t_end_1_dip_1)
 
     #   initial guess and mask for peak #2
     #   ==================================
-    p0_2_dip_1 = [1.0, 0.011355, 1e-6, 1.0]              #   I_0, omega_0, gamma, I_y
+    p0_2_dip_1 = [1.0, 0.011355, 1e-6, 1.0]              #   I_0, nu_0, gamma, I_y
     t_init_2_dip_1 = 0.01134
     t_end_2_dip_1 = 0.011367
     mask_2_dip_1 = (time > t_init_2_dip_1) & (time < t_end_2_dip_1)
 
     #   initial guess and mask for peak #3
     #   ==================================
-    p0_3_dip_1 = [1.0, 0.0114, 1e-6, 1.0]                #   I_0, omega_0, gamma, I_y
+    p0_3_dip_1 = [1.0, 0.0114, 1e-6, 1.0]                #   I_0, nu_0, gamma, I_y
     t_init_3_dip_1 = 0.011395
     t_end_3_dip_1 = 0.01141
     mask_3_dip_1 = (time > t_init_3_dip_1) & (time < t_end_3_dip_1)
 
     #   initial guess and mask for peak #4
     #   ==================================
-    p0_4_dip_1 = [1.0, 0.01147, 1e-6, 1.0]               #   I_0, omega_0, gamma, I_y
+    p0_4_dip_1 = [1.0, 0.01147, 1e-6, 1.0]               #   I_0, nu_0, gamma, I_y
     t_init_4_dip_1 = 0.01145
     t_end_4_dip_1 = 0.01149
     mask_4_dip_1 = (time > t_init_4_dip_1) & (time < t_end_4_dip_1)
 
     #   initial guess and mask for peak #5
     #   ==================================
-    p0_5_dip_1 = [1.0, 0.011615, 1e-6, 1.0]              #   I_0, omega_0, gamma, I_y
+    p0_5_dip_1 = [1.0, 0.011615, 1e-6, 1.0]              #   I_0, nu_0, gamma, I_y
     t_init_5_dip_1 = 0.011605
     t_end_5_dip_1 = 0.01162
     mask_5_dip_1 = (time > t_init_5_dip_1) & (time < t_end_5_dip_1)
@@ -125,7 +125,7 @@ def main():
 
     #   initial guess and mask for dip #1
     #   =================================
-    p0_dip_1 = [-1.0, 0.0115, 0.00001, 0.06]             #   I_0, omega_0, delta_omega, I_y 
+    p0_dip_1 = [-1.0, 0.0115, 0.00001, 0.06]             #   I_0, nu_0, delta_nu, I_y 
     t_init_dip_1 = 0.0111
     t_end_dip_1 = 0.0120 
     mask_dip_1 = (time > t_init_dip_1) & (time < t_end_dip_1)
@@ -136,35 +136,35 @@ def main():
 
     #   initial guess and mask for peak #1
     #   ==================================
-    p0_1_dip_2 = [1.0, 0.012462, 1e-6, 1.0]         #   I_0, omega_0, gamma, I_y
+    p0_1_dip_2 = [1.0, 0.012462, 1e-6, 1.0]         #   I_0, nu_0, gamma, I_y
     t_init_1_dip_2 = 0.012455
     t_end_1_dip_2 = 0.01247
     mask_1_dip_2 = (time > t_init_1_dip_2) & (time < t_end_1_dip_2)
 
     #   initial guess and mask for peak #2
     #   ==================================
-    p0_2_dip_2 = [1.0, 0.012495, 1e-6, 1.0]         #   I_0, omega_0, gamma, I_y
+    p0_2_dip_2 = [1.0, 0.012495, 1e-6, 1.0]         #   I_0, nu_0, gamma, I_y
     t_init_2_dip_2 = 0.01248
     t_end_2_dip_2 = 0.01250
     mask_2_dip_2 = (time > t_init_2_dip_2) & (time < t_end_2_dip_2)
 
     #   initial guess and mask for peak #3
     #   ==================================
-    p0_3_dip_2 = [1.0, 0.012518, 1e-6, 1.0]         #   I_0, omega_0, gamma, I_y
+    p0_3_dip_2 = [1.0, 0.012518, 1e-6, 1.0]         #   I_0, nu_0, gamma, I_y
     t_init_3_dip_2 = 0.012505
     t_end_3_dip_2 = 0.01253
     mask_3_dip_2 = (time > t_init_3_dip_2) & (time < t_end_3_dip_2)
 
     #   initial guess and mask for peak #4
     #   ==================================
-    p0_4_dip_2 = [1.0, 0.012543, 1e-5, 1.0]         #   I_0, omega_0, gamma, I_y
+    p0_4_dip_2 = [1.0, 0.012543, 1e-5, 1.0]         #   I_0, nu_0, gamma, I_y
     t_init_4_dip_2 = 0.012535
     t_end_4_dip_2 = 0.012555
     mask_4_dip_2 = (time > t_init_4_dip_2) & (time < t_end_4_dip_2)
 
     #   initial guess and mask for peak #5
     #   ==================================
-    p0_5_dip_2 = [1.0, 0.01259, 1e-6, 1.0]          #   I_0, omega_0, gamma, I_y
+    p0_5_dip_2 = [1.0, 0.01259, 1e-6, 1.0]          #   I_0, nu_0, gamma, I_y
     t_init_5_dip_2 = 0.012585
     t_end_5_dip_2 = 0.012595
     mask_5_dip_2 = (time > t_init_5_dip_2) & (time < t_end_5_dip_2)
@@ -172,7 +172,7 @@ def main():
 
     #   initial guess and mask for dip #2
     #   =================================
-    p0_dip_2 = [-1.0, 0.0126, 0.00001, 0.03]             #   I_0, omega_0, delta_omega, I_y 
+    p0_dip_2 = [-1.0, 0.0126, 0.00001, 0.03]             #   I_0, nu_0, delta_nu, I_y 
     t_init_dip_2 = 0.01215
     t_end_dip_2 = 0.01298 
     mask_dip_2 = (time > t_init_dip_2) & (time < t_end_dip_2)
@@ -188,11 +188,11 @@ def main():
     #   gauss fit for dip #1
     #   ====================
     popt, pcov = opt.curve_fit(gauss_fit_func, time[mask_dip_1], voltage_3[mask_dip_1], p0_dip_1)
-    I_0, omega_0, delta_omega, I_y = popt
+    I_0, nu_0, delta_nu, I_y = popt
 
     print("\n=== PARAMETERS FOR GAUSS FIT - DIP #1 ===")
     print("=========================================")
-    print("I_0, omega_0, delta_omega, I_y = ", popt)
+    print("I_0, nu_0, delta_nu, I_y = ", popt)
     voltage_3_dip_1_gauss_fit = gauss_fit_func(time, *popt)
 
     voltage_3_dip_1_normalized = voltage_3/voltage_3_dip_1_gauss_fit
@@ -200,12 +200,12 @@ def main():
     #   fit for peak #1
     #   ================
     popt_1, pcov_1 = opt.curve_fit(lorentz_fit_func, time[mask_1_dip_1], voltage_3_dip_1_normalized[mask_1_dip_1], p0_1_dip_1)
-    I_0, omega_0, gamma, I_y = popt_1
+    I_0, nu_0, gamma, I_y = popt_1
 
     print("\n=== PARAMETERS FOR PEAK #1 ===")
     print("==============================")
-    print("I_0, omega_0, gamma, I_y = ", popt_1)
-    LIST_omega_0_dip_1.append(popt_1[1])
+    print("I_0, nu_0, gamma, I_y = ", popt_1)
+    LIST_nu_0_dip_1.append(popt_1[1])
     LIST_gamma_dip_1.append(popt_1[2])
     
     time_new_1_dip_1 = np.linspace(t_init_1_dip_1, t_end_1_dip_1, 1000)
@@ -214,12 +214,12 @@ def main():
     #   fit for peak #2
     #   ================
     popt_2, pcov_2 = opt.curve_fit(lorentz_fit_func, time[mask_2_dip_1], voltage_3_dip_1_normalized[mask_2_dip_1], p0_2_dip_1)
-    I_0, omega_0, gamma, I_y = popt_2
+    I_0, nu_0, gamma, I_y = popt_2
 
     print("\n=== PARAMETERS FOR PEAK #2 ===")
     print("==============================")
-    print("I_0, omega_0, gamma, I_y = ", popt_2)
-    LIST_omega_0_dip_1.append(popt_2[1])
+    print("I_0, nu_0, gamma, I_y = ", popt_2)
+    LIST_nu_0_dip_1.append(popt_2[1])
     LIST_gamma_dip_1.append(popt_2[2])
 
     time_new_2_dip_1 = np.linspace(t_init_2_dip_1, t_end_2_dip_1, 1000)
@@ -228,12 +228,12 @@ def main():
     #   fit for peak #3
     #   ================
     popt_3, pcov_3 = opt.curve_fit(lorentz_fit_func, time[mask_3_dip_1], voltage_3_dip_1_normalized[mask_3_dip_1], p0_3_dip_1)
-    I_0, omega_0, gamma, I_y = popt_3
+    I_0, nu_0, gamma, I_y = popt_3
 
     print("\n=== PARAMETERS FOR PEAK #3 ===")
     print("==============================")
-    print("I_0, omega_0, gamma, I_y = ", popt_3)
-    LIST_omega_0_dip_1.append(popt_3[1])
+    print("I_0, nu_0, gamma, I_y = ", popt_3)
+    LIST_nu_0_dip_1.append(popt_3[1])
     LIST_gamma_dip_1.append(popt_3[2])
 
     time_new_3_dip_1 = np.linspace(t_init_3_dip_1, t_end_3_dip_1, 1000)
@@ -242,12 +242,12 @@ def main():
     #   fit for peak #4
     #   ================
     popt_4, pcov_4 = opt.curve_fit(lorentz_fit_func, time[mask_4_dip_1], voltage_3_dip_1_normalized[mask_4_dip_1], p0_4_dip_1)
-    I_0, omega_0, gamma, I_y = popt_4
+    I_0, nu_0, gamma, I_y = popt_4
 
     print("\n=== PARAMETERS FOR PEAK #4 ===")
     print("==============================")
-    print("I_0, omega_0, gamma, I_y = ", popt_4)
-    LIST_omega_0_dip_1.append(popt_4[1])
+    print("I_0, nu_0, gamma, I_y = ", popt_4)
+    LIST_nu_0_dip_1.append(popt_4[1])
     LIST_gamma_dip_1.append(popt_4[2])
 
     time_new_4_dip_1 = np.linspace(t_init_4_dip_1, t_end_4_dip_1, 1000)
@@ -256,12 +256,12 @@ def main():
     #   fit for peak #5
     #   ================
     popt_5, pcov_5 = opt.curve_fit(lorentz_fit_func, time[mask_5_dip_1], voltage_3_dip_1_normalized[mask_5_dip_1], p0_5_dip_1)
-    I_0, omega_0, gamma, I_y = popt_5
+    I_0, nu_0, gamma, I_y = popt_5
 
     print("\n=== PARAMETERS FOR PEAK #5 ===")
     print("==============================")
-    print("I_0, omega_0, gamma, I_y = ", popt_5)
-    LIST_omega_0_dip_1.append(popt_5[1])
+    print("I_0, nu_0, gamma, I_y = ", popt_5)
+    LIST_nu_0_dip_1.append(popt_5[1])
     LIST_gamma_dip_1.append(popt_5[2])
 
     time_new_5_dip_1 = np.linspace(t_init_5_dip_1, t_end_5_dip_1, 1000)
@@ -274,11 +274,11 @@ def main():
     #   gauss fit for dip #2
     #   ====================
     popt, pcov = opt.curve_fit(gauss_fit_func, time[mask_dip_2], voltage_3[mask_dip_2], p0_dip_2)
-    I_0, omega_0, delta_omega, I_y = popt
+    I_0, nu_0, delta_nu, I_y = popt
 
     print("\n=== PARAMETERS FOR GAUSS FIT - DIP #2 ===")
     print("=========================================")
-    print("I_0, omega_0, delta_omega, I_y = ", popt)
+    print("I_0, nu_0, delta_nu, I_y = ", popt)
     voltage_3_dip_2_gauss_fit = gauss_fit_func(time, *popt)
 
     voltage_3_dip_2_normalized = voltage_3/voltage_3_dip_2_gauss_fit
@@ -286,12 +286,12 @@ def main():
     #   fit for peak #1
     #   ================
     popt_1, pcov_1 = opt.curve_fit(lorentz_fit_func, time[mask_1_dip_2], voltage_3_dip_2_normalized[mask_1_dip_2], p0_1_dip_2)
-    I_0, omega_0, gamma, I_y = popt_1
+    I_0, nu_0, gamma, I_y = popt_1
 
     print("\n=== PARAMETERS FOR PEAK #1 ===")
     print("==============================")
-    print("I_0, omega_0, gamma, I_y = ", popt_1)
-    LIST_omega_0_dip_2.append(popt_1[1])
+    print("I_0, nu_0, gamma, I_y = ", popt_1)
+    LIST_nu_0_dip_2.append(popt_1[1])
     LIST_gamma_dip_2.append(popt_1[2])
     
     time_new_1_dip_2 = np.linspace(t_init_1_dip_2, t_end_1_dip_2, 1000)
@@ -300,12 +300,12 @@ def main():
     #   fit for peak #2
     #   ================
     popt_2, pcov_2 = opt.curve_fit(lorentz_fit_func, time[mask_2_dip_2], voltage_3_dip_2_normalized[mask_2_dip_2], p0_2_dip_2)
-    I_0, omega_0, gamma, I_y = popt_2
+    I_0, nu_0, gamma, I_y = popt_2
 
     print("\n=== PARAMETERS FOR PEAK #2 ===")
     print("==============================")
-    print("I_0, omega_0, gamma, I_y = ", popt_2)
-    LIST_omega_0_dip_2.append(popt_2[1])
+    print("I_0, nu_0, gamma, I_y = ", popt_2)
+    LIST_nu_0_dip_2.append(popt_2[1])
     LIST_gamma_dip_2.append(popt_2[2])
 
     time_new_2_dip_2 = np.linspace(t_init_2_dip_2, t_end_2_dip_2, 1000)
@@ -314,12 +314,12 @@ def main():
     #   fit for peak #3
     #   ================
     popt_3, pcov_3 = opt.curve_fit(lorentz_fit_func, time[mask_3_dip_2], voltage_3_dip_2_normalized[mask_3_dip_2], p0_3_dip_2)
-    I_0, omega_0, gamma, I_y = popt_3
+    I_0, nu_0, gamma, I_y = popt_3
 
     print("\n=== PARAMETERS FOR PEAK #3 ===")
     print("==============================")
-    print("I_0, omega_0, gamma, I_y = ", popt_3)
-    LIST_omega_0_dip_2.append(popt_3[1])
+    print("I_0, nu_0, gamma, I_y = ", popt_3)
+    LIST_nu_0_dip_2.append(popt_3[1])
     LIST_gamma_dip_2.append(popt_3[2])
 
     time_new_3_dip_2 = np.linspace(t_init_3_dip_2, t_end_3_dip_2, 1000)
@@ -328,12 +328,12 @@ def main():
     #   fit for peak #4
     #   ================
     popt_4, pcov_4 = opt.curve_fit(lorentz_fit_func, time[mask_4_dip_2], voltage_3_dip_2_normalized[mask_4_dip_2], p0_4_dip_2)
-    I_0, omega_0, gamma, I_y = popt_4
+    I_0, nu_0, gamma, I_y = popt_4
 
     print("\n=== PARAMETERS FOR PEAK #4 ===")
     print("==============================")
-    print("I_0, omega_0, gamma, I_y = ", popt_4)
-    LIST_omega_0_dip_2.append(popt_4[1])
+    print("I_0, nu_0, gamma, I_y = ", popt_4)
+    LIST_nu_0_dip_2.append(popt_4[1])
     LIST_gamma_dip_2.append(popt_4[2])
 
     time_new_4_dip_2 = np.linspace(t_init_4_dip_2, t_end_4_dip_2, 1000)
@@ -342,12 +342,12 @@ def main():
     #   fit for peak #5
     #   ================
     popt_5, pcov_5 = opt.curve_fit(lorentz_fit_func, time[mask_5_dip_2], voltage_3_dip_2_normalized[mask_5_dip_2], p0_5_dip_2)
-    I_0, omega_0, gamma, I_y = popt_5
+    I_0, nu_0, gamma, I_y = popt_5
 
     print("\n=== PARAMETERS FOR PEAK #5 ===")
     print("==============================")
-    print("I_0, omega_0, gamma, I_y = ", popt_5)
-    LIST_omega_0_dip_2.append(popt_5[1])
+    print("I_0, nu_0, gamma, I_y = ", popt_5)
+    LIST_nu_0_dip_2.append(popt_5[1])
     LIST_gamma_dip_2.append(popt_5[2])
 
     time_new_5_dip_2 = np.linspace(t_init_5_dip_2, t_end_5_dip_2, 1000)
@@ -466,37 +466,37 @@ def main():
     #   plot fit for peak #1
     #   ====================
     ax.plot(time_to_freq(time_new_1_dip_1, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_1_dip_1, color = 'tab:orange')
-    ax.vlines(time_to_freq(LIST_omega_0_dip_1[0], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    ax.vlines(time_to_freq(LIST_nu_0_dip_1[0], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
     #ax.plot(time_new_1_dip_1, voltage_3_fit_peak_1_dip_1, color = 'tab:orange')
-    #ax.vlines(LIST_omega_0_dip_1[0], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    #ax.vlines(LIST_nu_0_dip_1[0], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
 
     #   plot fit for peak #2
     #   ====================
     ax.plot(time_to_freq(time_new_2_dip_1, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_2_dip_1, color = 'tab:orange')
-    ax.vlines(time_to_freq(LIST_omega_0_dip_1[1], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    ax.vlines(time_to_freq(LIST_nu_0_dip_1[1], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
     #ax.plot(time_new_2_dip_1, voltage_3_fit_peak_2_dip_1, color = 'tab:orange')
-    #ax.vlines(LIST_omega_0_dip_1[1], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    #ax.vlines(LIST_nu_0_dip_1[1], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
 
     #   plot fit for peak #3
     #   ====================
     ax.plot(time_to_freq(time_new_3_dip_1, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_3_dip_1, color = 'tab:orange')
-    ax.vlines(time_to_freq(LIST_omega_0_dip_1[2], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    ax.vlines(time_to_freq(LIST_nu_0_dip_1[2], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
     #ax.plot(time_new_3_dip_1, voltage_3_fit_peak_3_dip_1, color = 'tab:orange')
-    #ax.vlines(LIST_omega_0_dip_1[2], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    #ax.vlines(LIST_nu_0_dip_1[2], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
     
     #   plot fit for peak #4
     #   ====================
     ax.plot(time_to_freq(time_new_4_dip_1, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_4_dip_1, color = 'tab:orange')
-    ax.vlines(time_to_freq(LIST_omega_0_dip_1[3], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    ax.vlines(time_to_freq(LIST_nu_0_dip_1[3], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
     #ax.plot(time_new_4_dip_1, voltage_3_fit_peak_4_dip_1, color = 'tab:orange')
-    #ax.vlines(LIST_omega_0_dip_1[3], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    #ax.vlines(LIST_nu_0_dip_1[3], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
     
     #   plot fit for peak #5
     #   ====================
     ax.plot(time_to_freq(time_new_5_dip_1, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_5_dip_1, color = 'tab:orange')
-    ax.vlines(time_to_freq(LIST_omega_0_dip_1[4], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    ax.vlines(time_to_freq(LIST_nu_0_dip_1[4], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
     #ax.plot(time_new_5_dip_1, voltage_3_fit_peak_5_dip_1, color = 'tab:orange')
-    #ax.vlines(LIST_omega_0_dip_1[4], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    #ax.vlines(LIST_nu_0_dip_1[4], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
     
     
     ax.set_xlabel(r'Frequenz $\nu$ in GHz')
@@ -541,37 +541,37 @@ def main():
     #   plot fit for peak #1
     #   ====================
     ax.plot(time_to_freq(time_new_1_dip_2, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_1_dip_2, color = 'tab:orange')
-    ax.vlines(time_to_freq(LIST_omega_0_dip_2[0], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    ax.vlines(time_to_freq(LIST_nu_0_dip_2[0], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
     #ax.plot(time_new_1_dip_2, voltage_3_fit_peak_1_dip_2, color = 'tab:orange')
-    #ax.vlines(LIST_omega_0_dip_2[0], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    #ax.vlines(LIST_nu_0_dip_2[0], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
 
     #   plot fit for peak #2
     #   ====================
     ax.plot(time_to_freq(time_new_2_dip_2, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_2_dip_2, color = 'tab:orange')
-    ax.vlines(time_to_freq(LIST_omega_0_dip_2[1], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    ax.vlines(time_to_freq(LIST_nu_0_dip_2[1], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
     #ax.plot(time_new_2_dip_2, voltage_3_fit_peak_2_dip_2, color = 'tab:orange')
-    #ax.vlines(LIST_omega_0_dip_2[1], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    #ax.vlines(LIST_nu_0_dip_2[1], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
 
     #   plot fit for peak #3
     #   ====================
     ax.plot(time_to_freq(time_new_3_dip_2, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_3_dip_2, color = 'tab:orange')
-    ax.vlines(time_to_freq(LIST_omega_0_dip_2[2], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    ax.vlines(time_to_freq(LIST_nu_0_dip_2[2], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
     #ax.plot(time_new_3_dip_2, voltage_3_fit_peak_3_dip_2, color = 'tab:orange')
-    #ax.vlines(LIST_omega_0_dip_2[2], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    #ax.vlines(LIST_nu_0_dip_2[2], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
     
     #   plot fit for peak #4
     #   ====================
     ax.plot(time_to_freq(time_new_4_dip_2, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_4_dip_2, color = 'tab:orange')
-    ax.vlines(time_to_freq(LIST_omega_0_dip_2[3], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    ax.vlines(time_to_freq(LIST_nu_0_dip_2[3], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
     #ax.plot(time_new_4_dip_2, voltage_3_fit_peak_4_dip_2, color = 'tab:orange')
-    #ax.vlines(LIST_omega_0_dip_2[3], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    #ax.vlines(LIST_nu_0_dip_2[3], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
     
     #   plot fit for peak #5
     #   ====================
     ax.plot(time_to_freq(time_new_5_dip_2, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_5_dip_2, color = 'tab:orange')
-    ax.vlines(time_to_freq(LIST_omega_0_dip_2[4], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    ax.vlines(time_to_freq(LIST_nu_0_dip_2[4], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
     #ax.plot(time_new_5_dip_2, voltage_3_fit_peak_5_dip_2, color = 'tab:orange')
-    #ax.vlines(LIST_omega_0_dip_2[4], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    #ax.vlines(LIST_nu_0_dip_2[4], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
     
     
     ax.set_xlabel(r'Frequenz $\nu$ in GHz')
@@ -620,52 +620,52 @@ def main():
 
     print("\n=== PEAK 1, 2 ===")
     print("=================")
-    print("freq_dist in MHz = ", time_to_freq((LIST_omega_0_dip_1[1] - LIST_omega_0_dip_1[0]), c, d, mean_delta_t)*10**(-6))
+    print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_1[1] - LIST_nu_0_dip_1[0]), c, d, mean_delta_t)*10**(-6))
     
     print("\n=== PEAK 1, 3 ===")
     print("=================")
-    print("freq_dist in MHz = ", time_to_freq((LIST_omega_0_dip_1[2] - LIST_omega_0_dip_1[0]), c, d, mean_delta_t)*10**(-6))
+    print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_1[2] - LIST_nu_0_dip_1[0]), c, d, mean_delta_t)*10**(-6))
     
     print("\n=== PEAK 1, 4 ===")
     print("=================")
-    print("freq_dist in MHz = ", time_to_freq((LIST_omega_0_dip_1[3] - LIST_omega_0_dip_1[0]), c, d, mean_delta_t)*10**(-6))
+    print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_1[3] - LIST_nu_0_dip_1[0]), c, d, mean_delta_t)*10**(-6))
     
     print("\n=== PEAK 1, 5 ===")
     print("=================")
-    print("freq_dist in MHz = ", time_to_freq((LIST_omega_0_dip_1[4] - LIST_omega_0_dip_1[0]), c, d, mean_delta_t)*10**(-6))
+    print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_1[4] - LIST_nu_0_dip_1[0]), c, d, mean_delta_t)*10**(-6))
     
     #   distance to peak #2
     #   ===================
     
     print("\n=== PEAK 2, 3 ===")
     print("=================")
-    print("freq_dist in MHz = ", time_to_freq((LIST_omega_0_dip_1[2] - LIST_omega_0_dip_1[1]), c, d, mean_delta_t)*10**(-6))
+    print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_1[2] - LIST_nu_0_dip_1[1]), c, d, mean_delta_t)*10**(-6))
     
     print("\n=== PEAK 2, 4 ===")
     print("=================")
-    print("freq_dist in MHz = ", time_to_freq((LIST_omega_0_dip_1[3] - LIST_omega_0_dip_1[1]), c, d, mean_delta_t)*10**(-6))
+    print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_1[3] - LIST_nu_0_dip_1[1]), c, d, mean_delta_t)*10**(-6))
     
     print("\n=== PEAK 2, 5 ===")
     print("=================")
-    print("freq_dist in MHz = ", time_to_freq((LIST_omega_0_dip_1[4] - LIST_omega_0_dip_1[1]), c, d, mean_delta_t)*10**(-6))
+    print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_1[4] - LIST_nu_0_dip_1[1]), c, d, mean_delta_t)*10**(-6))
 
     #   distance to peak #3
     #   ===================
     
     print("\n=== PEAK 3, 4 ===")
     print("=================")
-    print("freq_dist in MHz = ", time_to_freq((LIST_omega_0_dip_1[3] - LIST_omega_0_dip_1[2]), c, d, mean_delta_t)*10**(-6))
+    print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_1[3] - LIST_nu_0_dip_1[2]), c, d, mean_delta_t)*10**(-6))
     
     print("\n=== PEAK 3, 5 ===")
     print("=================")
-    print("freq_dist in MHz = ", time_to_freq((LIST_omega_0_dip_1[4] - LIST_omega_0_dip_1[2]), c, d, mean_delta_t)*10**(-6))
+    print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_1[4] - LIST_nu_0_dip_1[2]), c, d, mean_delta_t)*10**(-6))
     
     #   distance to peak #4
     #   ===================
 
     print("\n=== PEAK 4, 5 ===")
     print("=================")
-    print("freq_dist in MHz = ", time_to_freq((LIST_omega_0_dip_1[4] - LIST_omega_0_dip_1[3]), c, d, mean_delta_t)*10**(-6))
+    print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_1[4] - LIST_nu_0_dip_1[3]), c, d, mean_delta_t)*10**(-6))
    
 
 
@@ -681,52 +681,52 @@ def main():
 
     print("\n=== PEAK 1, 2 ===")
     print("=================")
-    print("freq_dist in MHz = ", time_to_freq((LIST_omega_0_dip_2[1] - LIST_omega_0_dip_2[0]), c, d, mean_delta_t)*10**(-6))
+    print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_2[1] - LIST_nu_0_dip_2[0]), c, d, mean_delta_t)*10**(-6))
     
     print("\n=== PEAK 1, 3 ===")
     print("=================")
-    print("freq_dist in MHz = ", time_to_freq((LIST_omega_0_dip_2[2] - LIST_omega_0_dip_2[0]), c, d, mean_delta_t)*10**(-6))
+    print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_2[2] - LIST_nu_0_dip_2[0]), c, d, mean_delta_t)*10**(-6))
     
     print("\n=== PEAK 1, 4 ===")
     print("=================")
-    print("freq_dist in MHz = ", time_to_freq((LIST_omega_0_dip_2[3] - LIST_omega_0_dip_2[0]), c, d, mean_delta_t)*10**(-6))
+    print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_2[3] - LIST_nu_0_dip_2[0]), c, d, mean_delta_t)*10**(-6))
     
     print("\n=== PEAK 1, 5 ===")
     print("=================")
-    print("freq_dist in MHz = ", time_to_freq((LIST_omega_0_dip_2[4] - LIST_omega_0_dip_2[0]), c, d, mean_delta_t)*10**(-6))
+    print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_2[4] - LIST_nu_0_dip_2[0]), c, d, mean_delta_t)*10**(-6))
     
     #   distance to peak #2
     #   ===================
     
     print("\n=== PEAK 2, 3 ===")
     print("=================")
-    print("freq_dist in MHz = ", time_to_freq((LIST_omega_0_dip_2[2] - LIST_omega_0_dip_2[1]), c, d, mean_delta_t)*10**(-6))
+    print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_2[2] - LIST_nu_0_dip_2[1]), c, d, mean_delta_t)*10**(-6))
     
     print("\n=== PEAK 2, 4 ===")
     print("=================")
-    print("freq_dist in MHz = ", time_to_freq((LIST_omega_0_dip_2[3] - LIST_omega_0_dip_2[1]), c, d, mean_delta_t)*10**(-6))
+    print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_2[3] - LIST_nu_0_dip_2[1]), c, d, mean_delta_t)*10**(-6))
     
     print("\n=== PEAK 2, 5 ===")
     print("=================")
-    print("freq_dist in MHz = ", time_to_freq((LIST_omega_0_dip_2[4] - LIST_omega_0_dip_2[1]), c, d, mean_delta_t)*10**(-6))
+    print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_2[4] - LIST_nu_0_dip_2[1]), c, d, mean_delta_t)*10**(-6))
 
     #   distance to peak #3
     #   ===================
     
     print("\n=== PEAK 3, 4 ===")
     print("=================")
-    print("freq_dist in MHz = ", time_to_freq((LIST_omega_0_dip_2[3] - LIST_omega_0_dip_2[2]), c, d, mean_delta_t)*10**(-6))
+    print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_2[3] - LIST_nu_0_dip_2[2]), c, d, mean_delta_t)*10**(-6))
     
     print("\n=== PEAK 3, 5 ===")
     print("=================")
-    print("freq_dist in MHz = ", time_to_freq((LIST_omega_0_dip_2[4] - LIST_omega_0_dip_2[2]), c, d, mean_delta_t)*10**(-6))
+    print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_2[4] - LIST_nu_0_dip_2[2]), c, d, mean_delta_t)*10**(-6))
     
     #   distance to peak #4
     #   ===================
 
     print("\n=== PEAK 4, 5 ===")
     print("=================")
-    print("freq_dist in MHz = ", time_to_freq((LIST_omega_0_dip_2[4] - LIST_omega_0_dip_2[3]), c, d, mean_delta_t)*10**(-6))
+    print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_2[4] - LIST_nu_0_dip_2[3]), c, d, mean_delta_t)*10**(-6))
 
 
 if __name__ == "__main__":
