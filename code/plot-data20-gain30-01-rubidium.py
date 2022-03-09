@@ -1,15 +1,15 @@
 ### matplotlib package -- https://matplotlib.org/4.5.0/index.html ###
-from matplotlib import pyplot as plt    #   for plots -- https://matplotlib.org/3.5.0/api/pyplot_summary.html
-from matplotlib import rc               #   for rcParams -- https://matplotlib.org/3.5.0/api/_as_gen/matplotlib.pyplot.rc.html 
+from matplotlib import pyplot as plt        #   for plots -- https://matplotlib.org/3.5.0/api/pyplot_summary.html
+from matplotlib import rc                   #   for rcParams -- https://matplotlib.org/3.5.0/api/_as_gen/matplotlib.pyplot.rc.html 
 from matplotlib.patches import Rectangle    #   for plotting a rectangle -- https://matplotlib.org/stable/api/_as_gen/matplotlib.patches.Rectangle.html
 
 ### numpy package -- https://numpy.org/doc/stable/ ###
-import numpy as np                      #   for general scientific computing
+import numpy as np                          #   for general scientific computing
  
 ### scipy package -- https://docs.scipy.org/doc/scipy/reference/index.html ###
-from scipy import constants as const    #   for physical constants -- https://docs.scipy.org/doc/scipy/reference/constants.html 
-from scipy import optimize as opt       #   for optimization and fit -- https://docs.scipy.org/doc/scipy/reference/tutorial/optimize.html
-from scipy import special as sp         #   for special mathematical functions -- https://docs.scipy.org/doc/scipy/reference/tutorial/special.html
+from scipy import constants as const        #   for physical constants -- https://docs.scipy.org/doc/scipy/reference/constants.html 
+from scipy import optimize as opt           #   for optimization and fit -- https://docs.scipy.org/doc/scipy/reference/tutorial/optimize.html
+from scipy import special as sp             #   for special mathematical functions -- https://docs.scipy.org/doc/scipy/reference/tutorial/special.html
 
 #rc('font',**{'family':'sans-serif','sans-serif':['Helvetica'],'size':'20'})
 ## for 'Latin Modern' and other serif fonts use:
@@ -89,38 +89,45 @@ def main():
 
     #   initial guess and mask for peak #1
     #   ==================================
-    p0_1_dip_1 = [1.0, 0.011275, 1e-6, 0.98]             #   I_0, nu_0, gamma, I_y
-    t_init_1_dip_1 = 0.01125
-    t_end_1_dip_1 = 0.01129
+    p0_1_dip_1 = [1.0, 0.01121, 1e-6, 0.98]             #   I_0, nu_0, gamma, I_y
+    t_init_1_dip_1 = 0.01118
+    t_end_1_dip_1 = 0.01123
     mask_1_dip_1 = (time > t_init_1_dip_1) & (time < t_end_1_dip_1)
 
     #   initial guess and mask for peak #2
     #   ==================================
-    p0_2_dip_1 = [1.0, 0.011355, 1e-6, 1.0]              #   I_0, nu_0, gamma, I_y
-    t_init_2_dip_1 = 0.01134
-    t_end_2_dip_1 = 0.011367
+    p0_2_dip_1 = [1.0, 0.011275, 1e-6, 0.98]             #   I_0, nu_0, gamma, I_y
+    t_init_2_dip_1 = 0.01125
+    t_end_2_dip_1 = 0.01129
     mask_2_dip_1 = (time > t_init_2_dip_1) & (time < t_end_2_dip_1)
 
     #   initial guess and mask for peak #3
     #   ==================================
-    p0_3_dip_1 = [1.0, 0.0114, 1e-6, 1.0]                #   I_0, nu_0, gamma, I_y
-    t_init_3_dip_1 = 0.011395
-    t_end_3_dip_1 = 0.01141
+    p0_3_dip_1 = [1.0, 0.011355, 1e-6, 1.0]              #   I_0, nu_0, gamma, I_y
+    t_init_3_dip_1 = 0.01134
+    t_end_3_dip_1 = 0.011367
     mask_3_dip_1 = (time > t_init_3_dip_1) & (time < t_end_3_dip_1)
 
     #   initial guess and mask for peak #4
     #   ==================================
-    p0_4_dip_1 = [1.0, 0.01147, 1e-6, 1.0]               #   I_0, nu_0, gamma, I_y
-    t_init_4_dip_1 = 0.01145
-    t_end_4_dip_1 = 0.01149
+    p0_4_dip_1 = [1.0, 0.0114, 1e-6, 1.0]                #   I_0, nu_0, gamma, I_y
+    t_init_4_dip_1 = 0.011395
+    t_end_4_dip_1 = 0.01141
     mask_4_dip_1 = (time > t_init_4_dip_1) & (time < t_end_4_dip_1)
 
     #   initial guess and mask for peak #5
     #   ==================================
-    p0_5_dip_1 = [1.0, 0.011615, 1e-6, 1.0]              #   I_0, nu_0, gamma, I_y
-    t_init_5_dip_1 = 0.011605
-    t_end_5_dip_1 = 0.01162
+    p0_5_dip_1 = [1.0, 0.01147, 1e-6, 1.0]               #   I_0, nu_0, gamma, I_y
+    t_init_5_dip_1 = 0.01145
+    t_end_5_dip_1 = 0.01149
     mask_5_dip_1 = (time > t_init_5_dip_1) & (time < t_end_5_dip_1)
+
+    #   initial guess and mask for peak #6
+    #   ==================================
+    p0_6_dip_1 = [1.0, 0.011615, 1e-6, 1.0]              #   I_0, nu_0, gamma, I_y
+    t_init_6_dip_1 = 0.011605
+    t_end_6_dip_1 = 0.01162
+    mask_6_dip_1 = (time > t_init_6_dip_1) & (time < t_end_6_dip_1)
     
 
     #   initial guess and mask for dip #1
@@ -136,38 +143,45 @@ def main():
 
     #   initial guess and mask for peak #1
     #   ==================================
-    p0_1_dip_2 = [1.0, 0.012462, 1e-6, 1.0]         #   I_0, nu_0, gamma, I_y
-    t_init_1_dip_2 = 0.012455
-    t_end_1_dip_2 = 0.01247
+    p0_1_dip_2 = [1.0, 0.01243, 1e-7, 1.0]               #   I_0, nu_0, gamma, I_y
+    t_init_1_dip_2 = 0.01241
+    t_end_1_dip_2 = 0.01244
     mask_1_dip_2 = (time > t_init_1_dip_2) & (time < t_end_1_dip_2)
 
     #   initial guess and mask for peak #2
     #   ==================================
-    p0_2_dip_2 = [1.0, 0.012495, 1e-6, 1.0]         #   I_0, nu_0, gamma, I_y
-    t_init_2_dip_2 = 0.01248
-    t_end_2_dip_2 = 0.01250
+    p0_2_dip_2 = [1.0, 0.012462, 1e-6, 1.0]              #   I_0, nu_0, gamma, I_y
+    t_init_2_dip_2 = 0.012455
+    t_end_2_dip_2 = 0.01247
     mask_2_dip_2 = (time > t_init_2_dip_2) & (time < t_end_2_dip_2)
 
     #   initial guess and mask for peak #3
     #   ==================================
-    p0_3_dip_2 = [1.0, 0.012518, 1e-6, 1.0]         #   I_0, nu_0, gamma, I_y
-    t_init_3_dip_2 = 0.012505
-    t_end_3_dip_2 = 0.01253
+    p0_3_dip_2 = [1.0, 0.012495, 1e-6, 1.0]              #   I_0, nu_0, gamma, I_y
+    t_init_3_dip_2 = 0.01248
+    t_end_3_dip_2 = 0.01250
     mask_3_dip_2 = (time > t_init_3_dip_2) & (time < t_end_3_dip_2)
 
     #   initial guess and mask for peak #4
     #   ==================================
-    p0_4_dip_2 = [1.0, 0.012543, 1e-5, 1.0]         #   I_0, nu_0, gamma, I_y
-    t_init_4_dip_2 = 0.012535
-    t_end_4_dip_2 = 0.012555
+    p0_4_dip_2 = [1.0, 0.012518, 1e-6, 1.0]              #   I_0, nu_0, gamma, I_y
+    t_init_4_dip_2 = 0.012505
+    t_end_4_dip_2 = 0.01253
     mask_4_dip_2 = (time > t_init_4_dip_2) & (time < t_end_4_dip_2)
 
     #   initial guess and mask for peak #5
     #   ==================================
-    p0_5_dip_2 = [1.0, 0.01259, 1e-6, 1.0]          #   I_0, nu_0, gamma, I_y
-    t_init_5_dip_2 = 0.012585
-    t_end_5_dip_2 = 0.012595
+    p0_5_dip_2 = [1.0, 0.012543, 1e-5, 1.0]              #   I_0, nu_0, gamma, I_y
+    t_init_5_dip_2 = 0.012535
+    t_end_5_dip_2 = 0.012555
     mask_5_dip_2 = (time > t_init_5_dip_2) & (time < t_end_5_dip_2)
+
+    #   initial guess and mask for peak #6
+    #   ==================================
+    p0_6_dip_2 = [1.0, 0.01259, 1e-6, 1.0]               #   I_0, nu_0, gamma, I_y
+    t_init_6_dip_2 = 0.012585
+    t_end_6_dip_2 = 0.012595
+    mask_6_dip_2 = (time > t_init_6_dip_2) & (time < t_end_6_dip_2)
     
 
     #   initial guess and mask for dip #2
@@ -267,6 +281,20 @@ def main():
     time_new_5_dip_1 = np.linspace(t_init_5_dip_1, t_end_5_dip_1, 1000)
     voltage_3_fit_peak_5_dip_1 = lorentz_fit_func(time_new_5_dip_1, *popt_5)
 
+    #   fit for peak #6
+    #   ================
+    popt_6, pcov_6 = opt.curve_fit(lorentz_fit_func, time[mask_6_dip_1], voltage_3_dip_1_normalized[mask_6_dip_1], p0_6_dip_1)
+    I_0, nu_0, gamma, I_y = popt_6
+
+    print("\n=== PARAMETERS FOR PEAK #6 ===")
+    print("==============================")
+    print("I_0, nu_0, gamma, I_y = ", popt_6)
+    LIST_nu_0_dip_1.append(popt_6[1])
+    LIST_gamma_dip_1.append(popt_6[2])
+
+    time_new_6_dip_1 = np.linspace(t_init_6_dip_1, t_end_6_dip_1, 1000)
+    voltage_3_fit_peak_6_dip_1 = lorentz_fit_func(time_new_6_dip_1, *popt_6)
+    
     
     #   FOR DIP #2
     #   ==========
@@ -353,6 +381,20 @@ def main():
     time_new_5_dip_2 = np.linspace(t_init_5_dip_2, t_end_5_dip_2, 1000)
     voltage_3_fit_peak_5_dip_2 = lorentz_fit_func(time_new_5_dip_2, *popt_5)
 
+    #   fit for peak #6
+    #   ================
+    popt_6, pcov_6 = opt.curve_fit(lorentz_fit_func, time[mask_6_dip_2], voltage_3_dip_2_normalized[mask_6_dip_2], p0_6_dip_2)
+    I_0, nu_0, gamma, I_y = popt_6
+
+    print("\n=== PARAMETERS FOR PEAK #6 ===")
+    print("==============================")
+    print("I_0, nu_0, gamma, I_y = ", popt_6)
+    LIST_nu_0_dip_2.append(popt_6[1])
+    LIST_gamma_dip_2.append(popt_6[2])
+
+    time_new_6_dip_2 = np.linspace(t_init_6_dip_2, t_end_6_dip_2, 1000)
+    voltage_3_fit_peak_6_dip_2 = lorentz_fit_func(time_new_6_dip_2, *popt_6)
+
 
     ### =============== ###
     ### ESTIMATED ERROR ###
@@ -411,13 +453,13 @@ def main():
     
     #   draw rectangles around peaks in dips
     #   ====================================
-    x_rectangle_dip_1 = 0.01122
+    x_rectangle_dip_1 = 0.01115
     y_rectangle_dip_1 = 0.065
 
     x_rectangle_to_dip_1 = 0.00043
-    y_rectangle_to_dip_1 = 0.025
+    y_rectangle_to_dip_1 = 0.03
 
-    x_rectangle_dip_2 = 0.01244
+    x_rectangle_dip_2 = 0.0124
     y_rectangle_dip_2 = 0.032
 
     x_rectangle_to_dip_2 = 0.00017
@@ -427,11 +469,11 @@ def main():
     #ax.add_patch(Rectangle((x_rectangle_dip_1, y_rectangle_dip_1), x_rectangle_to_dip_1, y_rectangle_to_dip_1, edgecolor = 'tab:red', facecolor = 'none', linestyle = '--'))
     ax.add_patch(Rectangle((time_to_freq(x_rectangle_dip_2, c, d, mean_delta_t)*10**(-9), y_rectangle_dip_2), time_to_freq(x_rectangle_to_dip_2, c, d, mean_delta_t)*10**(-9), y_rectangle_to_dip_2, edgecolor = 'tab:green', facecolor = 'none', linestyle = '--'))
     #ax.add_patch(Rectangle((x_rectangle_dip_2, y_rectangle_dip_2), x_rectangle_to_dip_2, y_rectangle_to_dip_2, edgecolor = 'tab:green', facecolor = 'none', linestyle = '--'))
-
+    
     ax.set_xlabel(r'Frequenz $\nu$ in GHz')
     #ax.set_xlabel(r'Zeit $t$ in s')
     ax.set_ylabel(r'Spannung $U$ in mV')
-    ax.set_title('Gain30 in dB (01)')
+    #ax.set_title('Gain 30 in dB (01)')
    
     ymin = 0.025
     ymax = 0.11
@@ -498,12 +540,19 @@ def main():
     #ax.plot(time_new_5_dip_1, voltage_3_fit_peak_5_dip_1, color = 'tab:orange')
     #ax.vlines(LIST_nu_0_dip_1[4], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
     
+    #   plot fit for peak #6
+    #   ====================
+    ax.plot(time_to_freq(time_new_6_dip_1, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_6_dip_1, color = 'tab:orange')
+    ax.vlines(time_to_freq(LIST_nu_0_dip_1[5], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    #ax.plot(time_new_6_dip_1, voltage_3_fit_peak_6_dip_1, color = 'tab:orange')
+    #ax.vlines(LIST_nu_0_dip_1[5], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
     
+
     ax.set_xlabel(r'Frequenz $\nu$ in GHz')
     #ax.set_xlabel(r'Zeit $t$ in s')
     ax.set_ylabel(r'Spannungsverhältnis $U/U_{\text{fit}}$')
     
-    xmin = 0.01122
+    xmin = 0.01115
     xmax = 0.01165
     ax.set_xlim(time_to_freq(xmin, c, d, mean_delta_t)*10**(-9), time_to_freq(xmax, c, d, mean_delta_t)*10**(-9))
     #ax.set_xlim(xmin, xmax)
@@ -573,17 +622,24 @@ def main():
     #ax.plot(time_new_5_dip_2, voltage_3_fit_peak_5_dip_2, color = 'tab:orange')
     #ax.vlines(LIST_nu_0_dip_2[4], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
     
+    #   plot fit for peak #6
+    #   ====================
+    ax.plot(time_to_freq(time_new_6_dip_2, c, d, mean_delta_t)*10**(-9), voltage_3_fit_peak_6_dip_2, color = 'tab:orange')
+    ax.vlines(time_to_freq(LIST_nu_0_dip_2[5], c, d, mean_delta_t)*10**(-9), 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
+    #ax.plot(time_new_6_dip_2, voltage_3_fit_peak_6_dip_2, color = 'tab:orange')
+    #ax.vlines(LIST_nu_0_dip_2[5], 0, 1, transform = ax.get_xaxis_transform(), color = 'tab:green', linestyles = 'dashed', linewidth = 1)
     
+
     ax.set_xlabel(r'Frequenz $\nu$ in GHz')
     #ax.set_xlabel(r'Zeit $t$ in s')
     ax.set_ylabel(r'Spannungsverhältnis $U/U_{\text{fit}}$')
-    
-    xmin = 0.01244
-    xmax = 0.01260
+   
+    xmin = 0.0124
+    xmax = 0.01262
     ax.set_xlim(time_to_freq(xmin, c, d, mean_delta_t)*10**(-9), time_to_freq(xmax, c, d, mean_delta_t)*10**(-9))
     #ax.set_xlim(xmin, xmax)
     
-    ymin = 0.96
+    ymin = 0.95
     ymax = 1.3
     ax.set_ylim(ymin, ymax)
     
@@ -634,6 +690,10 @@ def main():
     print("=================")
     print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_1[4] - LIST_nu_0_dip_1[0]), c, d, mean_delta_t)*10**(-6))
     
+    print("\n=== PEAK 1, 6 ===")
+    print("=================")
+    print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_1[5] - LIST_nu_0_dip_1[0]), c, d, mean_delta_t)*10**(-6))
+    
     #   distance to peak #2
     #   ===================
     
@@ -649,6 +709,10 @@ def main():
     print("=================")
     print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_1[4] - LIST_nu_0_dip_1[1]), c, d, mean_delta_t)*10**(-6))
 
+    print("\n=== PEAK 2, 6 ===")
+    print("=================")
+    print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_1[5] - LIST_nu_0_dip_1[1]), c, d, mean_delta_t)*10**(-6))
+    
     #   distance to peak #3
     #   ===================
     
@@ -660,6 +724,10 @@ def main():
     print("=================")
     print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_1[4] - LIST_nu_0_dip_1[2]), c, d, mean_delta_t)*10**(-6))
     
+    print("\n=== PEAK 3, 6 ===")
+    print("=================")
+    print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_1[5] - LIST_nu_0_dip_1[2]), c, d, mean_delta_t)*10**(-6))
+    
     #   distance to peak #4
     #   ===================
 
@@ -667,7 +735,16 @@ def main():
     print("=================")
     print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_1[4] - LIST_nu_0_dip_1[3]), c, d, mean_delta_t)*10**(-6))
    
+    print("\n=== PEAK 4, 6 ===")
+    print("=================")
+    print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_1[5] - LIST_nu_0_dip_1[3]), c, d, mean_delta_t)*10**(-6))
 
+    #   distance to peak #5
+    #   ===================
+
+    print("\n=== PEAK 5, 6 ===")
+    print("=================")
+    print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_1[5] - LIST_nu_0_dip_1[4]), c, d, mean_delta_t)*10**(-6))
 
     #   DIP #2
     #   ======
@@ -695,6 +772,10 @@ def main():
     print("=================")
     print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_2[4] - LIST_nu_0_dip_2[0]), c, d, mean_delta_t)*10**(-6))
     
+    print("\n=== PEAK 1, 6 ===")
+    print("=================")
+    print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_2[5] - LIST_nu_0_dip_2[0]), c, d, mean_delta_t)*10**(-6))
+    
     #   distance to peak #2
     #   ===================
     
@@ -709,6 +790,10 @@ def main():
     print("\n=== PEAK 2, 5 ===")
     print("=================")
     print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_2[4] - LIST_nu_0_dip_2[1]), c, d, mean_delta_t)*10**(-6))
+    
+    print("\n=== PEAK 2, 6 ===")
+    print("=================")
+    print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_2[5] - LIST_nu_0_dip_2[1]), c, d, mean_delta_t)*10**(-6))
 
     #   distance to peak #3
     #   ===================
@@ -721,12 +806,27 @@ def main():
     print("=================")
     print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_2[4] - LIST_nu_0_dip_2[2]), c, d, mean_delta_t)*10**(-6))
     
+    print("\n=== PEAK 3, 6 ===")
+    print("=================")
+    print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_2[5] - LIST_nu_0_dip_2[2]), c, d, mean_delta_t)*10**(-6))
+    
     #   distance to peak #4
     #   ===================
 
     print("\n=== PEAK 4, 5 ===")
     print("=================")
     print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_2[4] - LIST_nu_0_dip_2[3]), c, d, mean_delta_t)*10**(-6))
+
+    print("\n=== PEAK 4, 6 ===")
+    print("=================")
+    print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_2[5] - LIST_nu_0_dip_2[3]), c, d, mean_delta_t)*10**(-6))
+
+    #   distance to peak #5
+    #   ===================
+
+    print("\n=== PEAK 5, 6 ===")
+    print("=================")
+    print("freq_dist in MHz = ", time_to_freq((LIST_nu_0_dip_2[5] - LIST_nu_0_dip_2[4]), c, d, mean_delta_t)*10**(-6))
 
 
 if __name__ == "__main__":
