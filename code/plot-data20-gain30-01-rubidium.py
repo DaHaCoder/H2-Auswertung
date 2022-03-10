@@ -412,7 +412,7 @@ def main():
 
     print("\n=== FOR DIP #1 ===")
     print("===================")
-    print("time_to_freq(np.array(LIST_gamma_dip_1), c, d, mean_delta_t) in GHz = ", time_to_freq(np.array(LIST_gamma_dip_1), c, d, mean_delta_t)*10**(-9))
+    print("time_to_freq(np.array(LIST_gamma_dip_1), c, d, mean_delta_t) in MHz = ", time_to_freq(np.array(LIST_gamma_dip_1), c, d, mean_delta_t)*10**(-6))
     print("mean_gamma in MHz = ", time_to_freq(mean_gamma_dip_1, c, d, mean_delta_t)*10**(-6))
     print("standard_dev_gamma in MHz = ", time_to_freq(standard_dev_gamma_dip_1, c, d, mean_delta_t)*10**(-6))
 
@@ -424,7 +424,7 @@ def main():
 
     print("\n=== FOR DIP #2 ===")
     print("===================")
-    print("time_to_freq(np.array(LIST_gamma_dip_2), c, d, mean_delta_t) in GHz = ", time_to_freq(np.array(LIST_gamma_dip_2), c, d, mean_delta_t)*10**(-9))
+    print("time_to_freq(np.array(LIST_gamma_dip_2), c, d, mean_delta_t) in MHz = ", time_to_freq(np.array(LIST_gamma_dip_2), c, d, mean_delta_t)*10**(-6))
     print("mean_gamma in MHz = ", time_to_freq(mean_gamma_dip_2, c, d, mean_delta_t)*10**(-6))
     print("standard_dev_gamma in MHz = ", time_to_freq(standard_dev_gamma_dip_2, c, d, mean_delta_t)*10**(-6))
 

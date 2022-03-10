@@ -1,5 +1,5 @@
 \documentclass[12pt,a4paper]{scrbook}
-
+\usepackage{multicol}
 %%% PREAMBLE   
 \include{preamble_h2-auswertung}
 \addbibresource{sources/bib_h2-auswertung.bib}
@@ -22,10 +22,10 @@
 \tableofcontents 
 
 %%% LIST OF FIGURES
-\listoffigures
+%\listoffigures
 
 %%% LIST OF TABLES
-\listoftables
+%\listoftables
 
 %%%%%%%%%%%%%%%%%%%%
 %%% MAIN MATTER %%%%
@@ -33,14 +33,17 @@
 
 \mainmatter
 
+%%% INTRODUCTION
+\include{chapters/introduction}
+
 %%% THEORETICAL BASICS
 \include{chapters/theoretical-basics}
 
-%%% EXPERIMENT AND MEASUREMENT
+%%% EXPERIMENT
 \include{chapters/experiment}
 
-%%% DATA, ERROR ANALYSIS AND INTERPRETATION
-\include{chapters/data-error-analysis-and-interpretation}
+%%% DATA, ERROR ANALYSIS AND DISCUSSION
+\include{chapters/data-error-analysis-and-discussion}
 
 %%% CONCLUSION
 \include{chapters/conclusion}

@@ -1,15 +1,15 @@
 ### matplotlib package -- https://matplotlib.org/4.5.0/index.html ###
-from matplotlib import pyplot as plt    #   for plots -- https://matplotlib.org/3.5.0/api/pyplot_summary.html
-from matplotlib import rc               #   for rcParams -- https://matplotlib.org/3.5.0/api/_as_gen/matplotlib.pyplot.rc.html 
+from matplotlib import pyplot as plt        #   for plots -- https://matplotlib.org/3.5.0/api/pyplot_summary.html
+from matplotlib import rc                   #   for rcParams -- https://matplotlib.org/3.5.0/api/_as_gen/matplotlib.pyplot.rc.html 
 from matplotlib.patches import Rectangle    #   for plotting a rectangle -- https://matplotlib.org/stable/api/_as_gen/matplotlib.patches.Rectangle.html
 
 ### numpy package -- https://numpy.org/doc/stable/ ###
-import numpy as np                      #   for general scientific computing
+import numpy as np                          #   for general scientific computing
  
 ### scipy package -- https://docs.scipy.org/doc/scipy/reference/index.html ###
-from scipy import constants as const    #   for physical constants -- https://docs.scipy.org/doc/scipy/reference/constants.html 
-from scipy import optimize as opt       #   for optimization and fit -- https://docs.scipy.org/doc/scipy/reference/tutorial/optimize.html
-from scipy import special as sp         #   for special mathematical functions -- https://docs.scipy.org/doc/scipy/reference/tutorial/special.html
+from scipy import constants as const        #   for physical constants -- https://docs.scipy.org/doc/scipy/reference/constants.html 
+from scipy import optimize as opt           #   for optimization and fit -- https://docs.scipy.org/doc/scipy/reference/tutorial/optimize.html
+from scipy import special as sp             #   for special mathematical functions -- https://docs.scipy.org/doc/scipy/reference/tutorial/special.html
 
 #rc('font',**{'family':'sans-serif','sans-serif':['Helvetica'],'size':'20'})
 ## for 'Latin Modern' and other serif fonts use:
@@ -112,8 +112,8 @@ def main():
     
     #   initial guess and mask for peak #5
     #   ==================================
-    p0_5 = [1e-6, 0.015278, 2e-5, 1.0]                             #   I_0, nu_0, gamma, I_y
-    t_init_5 = 0.015265
+    p0_5 = [1e-6, 0.01528, 2e-5, 1.0]                             #   I_0, nu_0, gamma, I_y
+    t_init_5 = 0.01527
     t_end_5 = 0.015285
     mask_5 = (time > t_init_5) & (time < t_end_5)
     
@@ -222,7 +222,7 @@ def main():
     mean_gamma = 1/len(LIST_gamma)*np.sum(np.array(LIST_gamma))
     standard_dev_gamma = np.sqrt(1/len(LIST_gamma)*np.sum((np.array(LIST_gamma) - mean_gamma)**2.0))
 
-    print("time_to_freq(np.array(LIST_gamma), c, d, mean_delta_t) in GHz = ", time_to_freq(np.array(LIST_gamma), c, d, mean_delta_t)*10**(-9))
+    print("time_to_freq(np.array(LIST_gamma), c, d, mean_delta_t) in MHz = ", time_to_freq(np.array(LIST_gamma), c, d, mean_delta_t)*10**(-6))
     print("mean_gamma in MHz = ", time_to_freq(mean_gamma, c, d, mean_delta_t)*10**(-6))
     print("standard_dev_gamma in MHz = ", time_to_freq(standard_dev_gamma, c, d, mean_delta_t)*10**(-6))
     
@@ -257,7 +257,7 @@ def main():
     ax.set_xlabel(r'Frequenz $\nu$ in GHz')
     #ax.set_xlabel(r'Zeit $t$ in s')
     ax.set_ylabel(r'Spannung $U$ in mV')
-    ax.set_title('Gain30 in dB (03)')
+    #ax.set_title('Gain 30 in dB (03)')
 
     ax.legend(loc = 'lower left')
 

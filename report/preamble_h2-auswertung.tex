@@ -3,17 +3,20 @@
 %%% ============ %%%
 
 %%%%%%%%%%%%%%%%%%%%%%%% GENERAL PACKAGES %%%%%%%%%%%%%%%%%%%%%%%
-\usepackage[utf8]{inputenc}                                     %   for accepting different input encodings [STANDARD PACKAGE] -- https://www.ctan.org/pkg/inputenc
-\usepackage[T1]{fontenc}                                        %   for selecting font encodings [STANDARD PACKAGE] -- https://www.ctan.org/pkg/fontenc
-\usepackage[ngerman]{babel}                                     %   for German language -- https://www.ctan.org/pkg/babel
-\usepackage{datetime}                                           %   for date and time   -- https://www.ctan.org/pkg/datetime
-\usepackage{lmodern}                                            %   for text font as Latin Modern -- https://www.namsu.de/Extra/pakete/Lmodern.html
-\usepackage[left=2cm,right=2cm,top=2cm,bottom=3cm]{geometry}    %   for page/geometry layout -- https://www.ctan.org/pkg/geometry
-\usepackage{fancyhdr}                                           %   for fancy template  -- https://www.ctan.org/pkg/fancyhdr
-\usepackage{import}                                             %   for import of other files, i.e. a .tex file with pgfplots  -- https://www.ctan.org/pkg/import
-\usepackage[backend=biber]{biblatex}                           %   for using bibliography, references and citations -- https://ctan.org/pkg/biblatex
-\usepackage{comment}                                            %   for extra comment features  -- https://www.ctan.org/pkg/comment
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[utf8]{inputenc}                                         %   for accepting different input encodings [STANDARD PACKAGE] -- https://www.ctan.org/pkg/inputenc
+\usepackage[T1]{fontenc}                                            %   for selecting font encodings [STANDARD PACKAGE] -- https://www.ctan.org/pkg/fontenc
+\usepackage[ngerman]{babel}                                         %   for english language -- https://www.ctan.org/pkg/babel
+\usepackage{datetime}                                               %   for date and time   -- https://www.ctan.org/pkg/datetime
+\usepackage{lmodern}                                                %   for text font as Latin Modern -- https://www.namsu.de/Extra/pakete/Lmodern.html
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=3cm]{geometry}        %   for page/geometry layout -- https://www.ctan.org/pkg/geometry
+\usepackage{fancyhdr}                                               %   for fancy template  -- https://www.ctan.org/pkg/fancyhdr
+\usepackage{import}                                                 %   for import of other files, i.e. a .tex file with pgfplots  -- https://www.ctan.org/pkg/import
+\usepackage[backend=biber,style=alphabetic,sorting=ynt]{biblatex}   %   for using bibliography, references and citations -- https://ctan.org/pkg/biblatex
+\usepackage{comment}                                                %   for extra comment features  -- https://www.ctan.org/pkg/comment
+\usepackage{float}                                                  %   for positioning figures and tables -- https://ctan.org/pkg/float
+\usepackage[section]{placeins}                                      %   for controlling float placement -- https://ctan.org/pkg/placeins
+\usepackage{epigraph}                                               %   for quotes at the beginning of a chapter -- https://ctan.org/pkg/epigraph
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%% MATH, SCIENCE AND SPECIAL SYMBOL PACKAGES %%%%%%%%%%%%%%%%%%%%%
 \usepackage{amsmath, amsfonts, amssymb, amsthm, nccmath, bbm, mathdots}         %   for mathematics, i.e. bbm for identity matrix 
@@ -33,7 +36,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%% COLORS AND GRAPHICS PACKAGES %%%
-\usepackage{xcolor}                %   for using colors
+\usepackage[table]{xcolor}         %   for using colors
 \usepackage{empheq}                %   for using emphasizing equations
 \usepackage[most]{tcolorbox}       %   for colored boxes
 \usepackage{realboxes}             %   for more box options
@@ -93,9 +96,9 @@
 
 %%% COMMAND FOR PRETTY CODE HIGHLIGHTING %%%
 % -- have a look at https://tex.stackexchange.com/questions/140166/making-inline-code-printing-pretty?noredirect=1&lq=1 -- %
-% \newcommand\code[3][]{
-%     \tikz[baseline=(s.base)]{
-%         \node(s)[
+%\newcommand\code[3][]{
+%    \tikz[baseline=(s.base)]{
+%        \node(s)[
 %             rounded corners,
 %             fill=blue!5,        % background color
 %             draw=gray,          % border of box
@@ -108,6 +111,25 @@
 %         ]{\mintinline{#2}{#3}};
 %     }
 % }
+ 
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.8,0.8,0.8}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{ %
+  backgroundcolor=\color{mygray},       % choose the background color
+  basicstyle=\ttfamily,                 % size of fonts used for the code
+  breaklines=true,                      % automatic line breaking only at whitespace
+  captionpos=b,                         % sets the caption-position to bottom
+  commentstyle=\color{mygreen},         % comment style
+  escapeinside={\%*}{*)},               % if you want to add LaTeX within your code
+  keywordstyle=\color{blue},            % keyword style
+  numbers=left,                         % alignment of numbers
+  numberstyle={\small \color{black}},    % number style
+  numbersep=9pt,                        % this defines how far the numbers are from the text
+  stepnumber=1,
+  stringstyle=\color{mymauve}           % string literal style
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -115,7 +137,18 @@
 %%% PACKAGE SETUPS %%%%
 %%% ============== %%%% 
 
-%%% FANCYHDR SETUP %%%%   
+%%% GEOMETRY SETUP %%%
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ right=20mm,
+ top=20mm,
+ bottom=30mm
+ }
+%%%%%%%%%%%%%%%%%%%%%%
+
+%%% FANCYHDR AND LAYOUT SETUP %%%%   
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[RE]{\normalfont\bfseries\sffamily\leftmark}
@@ -141,7 +174,8 @@
 
 \renewcommand\sectionmark[1]{\markright{\thesection\enspace #1}}
 %\renewcommand\subsectionmark[1]{\markright{\thesubsection\enspace #1}}
-\makeatother          
+\makeatother 
+\setcounter{secnumdepth}{\subsubsectionnumdepth}
 %%%%%%%%%%%%%%%%%%%%%%
 
 %%% SI SETUPS %%%
@@ -159,8 +193,9 @@
 %%% HYPER SETUP %%% 
 \hypersetup{   
     colorlinks = true,     
-    linkcolor = blue,      
+    linkcolor = blue,
+    citecolor = violet,
     filecolor = magenta,      
     urlcolor = blue       
-}                        
+}                    
 %%%%%%%%%%%%%%%%%%%%%%

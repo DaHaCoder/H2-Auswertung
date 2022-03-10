@@ -1,29 +1,570 @@
-\chapter{Fehleranaylse und Interpretation}
+\chapter{Daten, Fehleranalyse und Diskussion}
+\label{chap:data-error-analysis-and-discussion}
 
-\bt
+Im Folgenden werden die gemessenen Daten betrachtet, mögliche Fehlerquellen analysiert und das Resultat des Experiments diskutiert. Hierbei unterteilen wir das Experiment in die beiden Teilversuche \textit{Absorptionsspektroskopie} und \textit{Sättigungsspektroskopie}.
 
-\section{Section 01}
-\bt
-\subsection{Subsection 01-01}
-\bt
-\subsection{Subsection 01-02}
-\bt 
-\subsection{Subsection 01-03}
+\section{Absorptionsspektroskopie}
+\label{sec:absorption}
 
-\section{Section 02}
-\bt
-\subsection{Subsection 02-01}
-\bt
-\subsection{Subsection 02-02}
-\bt
-\subsection{Subsection 03-03}
-\bt
+\subsection{Daten und Messungen}
 
-\section{Section 03}
-\bt
-\subsection{Subsection 03-01}
-\bt
-\subsection{Subsection 03-02}
-\bt
-\subsection{Subsection 03-03}
-\bt
+Zunächst betrachten wir die Messdaten während der Absorptionsspektroskopie.
+Hierbei wurde die Durchstimmspannung des Lasers (\textit{DS}), die Spannung der Photodiode hinter dem Referenzresonator (\textit{Res}) sowie die Spannung der Photodiode hinter der Rubidiumzelle (\textit{Rb}) gemessen und mittels eines Oszilloskops der zeitliche Verlauf dieser Spannungen visuell dargestellt.
+\begin{figure}[H]
+    \begin{minipage}{8cm}
+        \centering
+        \includegraphics[scale = 0.5]{figures/plots/PDF/plot-data00-all.pdf}
+        \caption{ Rohdaten der Spannungsverläufe}
+        \label{fig:plot-data00-all}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{8cm}
+        \centering
+        \includegraphics[scale = 0.5]{figures/plots/PDF/plot-data00-resonator.pdf}
+        \caption{Resonator-Peaks }
+        \label{fig:plot-data00-resonator}
+\end{minipage}
+\end{figure}
+\noindent Ziel ist es, die Frequenzabstände der lokalen Spannungsminima für die Rubidiumzelle aus diesen Spannungsverläufen zu ermitteln.
+Um die Zeitskala in Frequenzen auszudrücken, betrachten wir zunächst nur den Spannungsverlauf der Photodiode hinter dem Resonator (\textit{Res}).
+
+
+\noindent Die Abstände nebeneinander liegender Peaks entsprechen nämlich genau dem freien Spektralbereich des Resonators, welcher sich mit \eqref{eq:freier Spektral Bereich} berechnen lässt. \\
+Hierbei ist jedoch zu beachten, dass diese Abstände nicht alle exakt die gleichen sind, weswegen hier zunächst der Mittelwert $\langle t_{i, i+1} \rangle$ aller Zeitabstände errechnet wird. 
+Die Peaks sind hier von links nach rechts mit $1$ bis $16$ durchnummeriert und die jeweilige Zeit mit $i$ indiziert (siehe Tabelle \ref{tab:time-distances}).
+Für den Mittelwert der Zeitabstände folgt somit
+\begin{align}
+    \langle t_{i, i+1} \rangle &= \frac{1}{15} \sum_{i = 1}^{15} t_{i+1} - t_{i} = \SI{0.000572128}{\second}. \label{eq:mean_delta_t}
+\end{align}
+Mit dem Abstand der Resonatorspiegel $d = \SI{10}{\centi \meter}$ folgt für den freien Spektralbereich
+\begin{align}
+    \nu_{\text{FSR}} &= \frac{c}{4d} = \SI{749 481 145}{\hertz} \ \hat{=} \ \langle t_{i, i+1} \rangle. \label{eq:fsr-to-mean-delta-t}
+\end{align}
+
+\noindent Damit lässt sich die Zeit $t$ in Frequenz $\nu$ mit
+\begin{align}
+    \nu(t) = \frac{c}{4d} \frac{1}{\langle t_{i,i+1} \rangle} t = \frac{\SI{749 481 145}{\hertz}}{\SI{0.000572128}{\second}} t
+    \label{eq:time-to-freq}
+\end{align}
+umrechnen. \\
+
+\noindent Nun ist es möglich, den Spannungsverlauf der Photodiode hinter der Rubidiumzelle (\textit{Rb}) in Abhängigkeit zur Frequenz zu betrachten, um somit auch die Frequenzabstände zwischen den lokalen Spannungsminima zu bestimmen. Ein genauer Blick auf die Rohdaten des Spannungsverlaufes zeigt einen linear abfallenden Trend, der zunächst mittels einer linearen Funktion approximiert wurde (siehe Abbildung \ref{fig:plot-data00-rubidium}).
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.8]{figures/plots/PDF/plot-data00-rubidium.pdf}
+    \caption{Rohdaten \lstinline{data00.csv} mit linearem Fit}
+    \label{fig:plot-data00-rubidium}
+\end{figure}
+
+\noindent Der Spannungsverlauf der Rohdaten lässt sich dann normieren, indem mit dem linearen Fit dividiert wird. Betrachtet man das Verhältnis $U/U_{\text{fit}}$,
+lassen sich geeignete Gauß-Funktionen der Form (siehe zum Vergleich \eqref{eq:gauss-intensity})
+\begin{align}
+    I(\nu) = - I_{0} \exp \biggl[- \biggl( \frac{\nu - \nu_{0}}{\frac{\Delta \nu}{2 \sqrt{\ln 2}}} \biggr)^2 \biggr] + I_{y}
+    \label{eq:gauss-fit}
+\end{align}
+für die vier Dips im jeweiligen Intervall fitten.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.8]{figures/plots/PDF/plot-data00-rubidium-normalized-fit.pdf}
+    \caption{Gauß-Fits für normierten Spannungsverlauf [Quellcode:]}
+    \label{fig:plot-data00-rubidium-normalized-fit}
+\end{figure}
+\noindent Die vier Spannungsminima werden im Folgenden von links nach rechts von \#1 bis \#4 durchnummeriert. Aus den gefitteten Kurven und deren mittleren Position ergeben sich die Frequenzabstände in Tabelle \ref{tab:plot-data00-rubidium}. 
+\begin{table}[!h]
+\begin{minipage}{7cm}
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        \#$i$, \#$j$       &       $\nu_{i,j}$ in \SI{}{\giga \hertz}      \\ 
+        \hline
+        \hline
+        \textcolor{red!80!black}{\#1},\textcolor{green!50!black}{\#2}       &       1,218        \\  
+        \hline
+        \textcolor{green!50!black}{\#2}, \textcolor{pink!50!purple}{\#3}    &       2,862        \\ 
+        \hline
+        \textcolor{pink!50!purple}{\#3}, \textcolor{cyan}{\#4}              &       2,261        \\ 
+        \hline
+        \textcolor{cyan}{\#4}, \textcolor{red!80!black}{\#1}                &       6,342        \\ 
+        \hline
+    \end{tabular}
+    \caption{Errechnete Frequenzabstände}
+    \label{tab:plot-data00-rubidium}
+\end{minipage}
+\hskip0.5cm
+\begin{minipage}{7cm}
+    \begin{tabular}{|c|c|}
+        \hline
+        \#$i$, \#$j$       &       $\nu_{i,j}$ in \SI{}{\giga \hertz}      \\ 
+        \hline
+        \hline
+        $^{87}$Rb($F = 2$) $\longleftrightarrow$ $^{85}$Rb($F = 3$)         &       1,297           \\  
+        \hline
+        $^{85}$Rb($F = 2$) $\longleftrightarrow$ $^{85}$Rb($F = 3$)         &       3,036           \\ 
+        \hline
+        $^{87}$Rb($F = 1$) $\longleftrightarrow$ $^{85}$Rb($F = 2$)         &       2,501           \\ 
+        \hline
+        $^{87}$Rb($F = 1$) $\longleftrightarrow$ $^{87}$Rb($F = 2$)         &       6,834           \\ 
+        \hline
+    \end{tabular}
+    \caption{Literaturwerte für $5^{2}S_{1/2}$ [Quelle: \cite{H2}, S. 12]}
+    \label{tab:lit-plot-data00-rubidium}
+\end{minipage}
+\end{table}
+
+
+\subsection{Fehleranalyse und Diskussion}
+
+Durch den Vergleich mit den Literaturwerten in Tabelle \ref{tab:lit-freq-distance} ergibt sich eine relativ eindeutige Zuordnung für die $5^{2}S_{1/2}$-Zustände, 
+\begin{align*}
+    \textcolor{red!80!black}{\#1} &\mapsto \ ^{87}\text{Rb}(F = 2), \qquad 1 - \frac{\nu_{1,2}}{\nu_{(87, F = 2),(85, F = 3)}} \approx 6,1 \%,  \\ \textcolor{green!50!black}{\#2} &\mapsto \ ^{85}\text{Rb}(F = 3), \qquad 1 - \frac{\nu_{2,3}}{\nu_{(85, F = 2),(85, F = 3)}} \approx 5,8 \%, \\
+    \textcolor{pink!50!purple}{\#3} &\mapsto \ ^{85}\text{Rb}(F = 2), \qquad 1 - \frac{\nu_{3,2}}{\nu_{(87, F = 1),(85, F = 2)}} \approx 9,6 \%, \\
+    \textcolor{cyan}{\#4} &\mapsto \ ^{87}\text{Rb}(F = 1), \qquad 1 - \frac{\nu_{3,4}}{\nu_{(87, F = 1),(87, F = 2)}} \approx 7,2 \%,
+\end{align*}
+welche unter anderem zeigt, dass der Unterschied zu den errechneten Frequenzabständen jeweils unter 9,6\% liegt. \\
+
+\noindent Für die Fehlerbetrachtung ist es sinnvoll, die Standardabweichung $\sigma_{\Delta \nu}$ der Halbwertsbreiten $\Delta \nu_{i}$ der Dips heranzuziehen. Die Standardabweichung $\sigma_{\Delta \nu}$ ist hierbei ein Maß dafür, wie ähnlich die Halbwertsbreiten $\Delta \nu_{i}$ sind beziehungsweise, wie stark die Verteilung der Halbwertsbreiten $\Delta \nu_{i}$ gestreut ist. Ähneln sich die Werte für $\Delta \nu_{i}$, ergibt sich eine kleine Standardabweichung $\sigma_{\Delta \nu}$. Unterscheiden sich die Werte für $\Delta \nu_{i}$ jedoch stark, so ist $\sigma_{\Delta \nu}$ groß. \\
+Für die Standardabweichung gilt 
+\begin{align}
+    \sigma_{\Delta \nu} = \sqrt{\frac{1}{n} \sum_{i = 1}^{n} (\Delta \nu_{i} - \langle \Delta \nu \rangle)^2} 
+    \label{eq:standard-dev}
+\end{align}
+mit dem Mittelwert 
+\begin{align}
+    \langle \Delta \nu \rangle = \frac{1}{n} \sum_{i = 1}^{n} \Delta \nu_{i},
+    \label{eq:mean}
+\end{align}
+wobei hier $i \in [1,4]$.
+
+\begin{table}[!h]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline 
+        \#$i$ & $\Delta \nu_{i}$ in \SI{}{\giga \hertz} \\
+        \hline
+        \hline 
+         \textcolor{red!80!black}{\#1} & 0,485 \\
+        \hline 
+         \textcolor{green!50!black}{\#2} & 0,658 \\
+        \hline 
+         \textcolor{pink!50!purple}{\#3} & 0,705 \\
+        \hline
+         \textcolor{cyan}{\#4} & 0,646 \\
+        \hline
+    \end{tabular}
+    \caption{Ermittelte Parameter}
+    \label{tab:delta_nu_parameter}
+\end{table}
+
+\noindent Aus den durch das \href{https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.curve_fit.html}{\mintinline{python}{scipy.optimize.curve_fit}} Python-Modul ermittelten Parametern (siehe Tabelle \ref{tab:delta_nu_parameter}) für die jeweiligen Halbwertsbreiten $\Delta \nu_{i}$  ergibt sich $\langle \Delta \nu \rangle = \SI{0,624}{\giga \hertz}$ und $\sigma_{\Delta \nu} = \SI{0.083}{\giga \hertz}$. \\
+Da die Halbwertsbreiten $\Delta \nu_{i}$ den Fit, damit auch die Position der Dips $\nu_{0,i}$ und somit die Frequenzabstände zwischen den Dips beeinflussen, kann der Fehler der Frequenzabstände mit $\pm \sigma_{\Delta \nu}$ abgeschätzt werden.
+Damit würde jedoch einzig der Frequenzabstand $^{87}$Rb($F = 2$) $\longleftrightarrow$ $^{85}$Rb($F = 3$) mit \SI{1,218 \pm 0,083}{\giga \hertz} den Literaturwert \SI{1,297}{\giga \hertz} umfassen. \\ 
+
+\noindent Wird der Fehler mit $\langle \Delta \nu \rangle = \SI{0,624}{\giga \hertz}$ abgeschätzt, so liegen zwar für alle Frequenzabstände der Literaturwerte innerhalb von $\nu_{i,j} \pm \langle \Delta \nu \rangle$, dieser Fehler wäre aber im Vergleich zu den Werten $\nu_{i,j}$ ausgesprochen groß für den Abstand $^{87}$Rb($F = 2$) $\longleftrightarrow$ $^{85}$Rb($F = 3$) mit $\tfrac{\langle \Delta \nu \rangle}{\nu_{1,2}} \approx 51,2\%$, für den Abstand $^{85}$Rb($F = 2$) $\longleftrightarrow$ $^{85}$Rb($F = 3$) mit $\tfrac{\langle \Delta \nu \rangle}{\nu_{2,3}} \approx 21,8 \%$ und für den Abstand $^{87}$Rb($F = 1$) $\longleftrightarrow$ $^{85}$Rb($F = 2$) mit $\tfrac{\langle \Delta \nu \rangle}{\nu_{3,4}} \approx 27,6\%$. \\
+
+\noindent Maßgeblich für eine präzise Bestimmung der Frequenzabstände ist es, einen geeigneten Fit mit Startparametern zu wählen, welcher sich im besten Fall auf entsprechend relevante Intervalle bezieht. Die Peaks in der Region um das lokale Spannungsminimum führen zur Versetzung der Dip Position $\nu_{0}$, was beispielsweise im Falle von \textcolor{green!50!black}{\#2} in Abbildung \ref{fig:plot-data00-rubidium-normalized-fit} deutlich wird.
+
+
+\section{Sättigungsspektroskopie}
+
+\subsection{Daten und Messungen}
+
+\noindent Für die Sättigungsspektroskopie wurde der Transimpendanzverstärker der Photodiode mit einstellbarer Verstärkung zwischen \SI{10}{\decibel} und \SI{50}{\decibel} erhöht. Im Folgenden wird der Spannungsverlauf der Photodiode hinter der Rubidiumzelle bei einer Verstärkung von \SI{30}{\decibel} betrachtet.
+Ziel ist es zunächst, die Frequenzabstände der Peaks in Region der lokalen Spannungsminima des jeweiligen Dips (siehe Abbildung \ref{fig:plot-data00-rubidium-normalized-fit}) zu bestimmen. Gleichwohl muss in der Auswertung berücksichtigt werden, welche dieser Peaks durch atomare Übergänge zustande kommen und welche als Cross-Over Peaks dem Doppler-Effekt geschuldet sind.
+
+\subsubsection{Dip \textcolor{red!80!black}{\#1} und Dip \textcolor{green!50!black}{\#2}}
+
+Da der Datensatz \href{https://github.com/DaHaCoder/H2-Auswertung/blob/main/data/data20-gain30-01.csv}{\lstinline{data20-gain30-01.csv}} sowohl Dip \textcolor{red!80!black}{\#1} als auch Dip \textcolor{green!50!black}{\#2} beinhaltet, werden beide Dips in diesem Abschnitt gemeinsam betrachtet.
+Nachdem analog zur Absorptionsspektroskopie die Umrechnung der Abszissenachse von Zeit $t$ in Frequenz $\nu$ erfolgt (siehe Gleichung \eqref{eq:time-to-freq}), wird zunächst an den Rohdaten für jeden Dip ein Gauß-Fit der Form \eqref{eq:gauss-fit} angelegt. 
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[scale = 0.8]{figures/plots/PDF/plot-data20-gain30-01-rubidium.pdf}
+    \caption{Rohdaten \lstinline{data20-gain30-01.csv} mit Gauß-Fit}
+    \label{fig:plot-data20-gain30-01-rubidium}
+\end{figure}
+
+\noindent Nun werden die normierten Spannungsverläufe $U/U_{\text{fit}}$ in den rechteckig eingezeichneten Intervallen, wo sich jeweils die Peaks befinden, näher betrachtet. Für jeden Peak wird eine Lorentz-Funktion der Form
+\begin{align}
+    I(\nu) = I_{0} \frac{1}{\pi} \frac{\frac{\gamma}{2}}{ (\nu - \nu_{0})^2 + (\frac{\gamma}{2})^2} + I_{y}
+    \label{eq:lorentz-fit}
+\end{align}
+im jeweiligen Intervall gefittet.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.8]{figures/plots/PDF/plot-data20-gain30-01-dip-1-rubidium-normalized-fit.pdf}
+    \caption{Normierter Spannungsverlauf für Peaks in Region von Dip \textcolor{red!80!black}{\#1} mit Lorentz-Fit}
+    \label{fig:plot-data20-gain30-01-dip-1-rubidium-normalized-fit}
+\end{figure}
+
+\noindent Die sechs Peaks werden von links nach rechts von \#1 bis \#6 durchnummeriert. Aus den gefitteten Kurven und deren mittleren Position ergeben sich die Frequenzabstände in Tabelle \ref{tab:plot-data20-gain30-01-dip-1}.
+Hierbei ist zu beachten, dass zur Bestimmung der Peaks, welche aus atomaren Übergängen resultieren, zunächst alle möglichen Frequenzabstände (anstatt ausschließlich Abstände benachbarter Peaks analog zu Tabelle \ref{tab:plot-data00-rubidium}) betrachtet werden. Auf den ersten Blick wird anhand der Amplitude deutlich, dass es sich bei Peak \#5 um einen Cross-Over Peak handeln muss. Ein Vergleich mit den Literaturwerten (Tabelle \ref{tab:lit-5p-87-rb}) zeigt, dass es sich ebenfalls bei Peak \#3 um einen Cross-Over Peak handelt. 
+
+\begin{table}[H]
+    \begin{minipage}{8cm}
+        \centering
+        \begin{tabular}{|c|c|}
+            \hline
+            $\#i, \#j$      &       $\nu_{i,j}$ in \SI{}{\mega \hertz} \\
+            \hline
+            \hline
+            \cellcolor{green!40} \#1, \#2       &   \cellcolor{green!40}     81,837         \\
+            \hline
+            \cellcolor{red!20}   \#1, \#3       &   \cellcolor{red!20}      179,550         \\
+            \hline
+            \cellcolor{gray!20}  \#1, \#4       &   \cellcolor{gray!20}     230,291         \\
+            \hline
+            \cellcolor{red!20}   \#1, \#5       &   \cellcolor{red!20}      306,719         \\
+            \hline
+            \cellcolor{gray!20}  \#1, \#6       &   \cellcolor{gray!20}     477,617         \\
+            \hline
+            \cellcolor{red!20}   \#2, \#3       &   \cellcolor{red!20}       97,713         \\
+            \hline
+            \cellcolor{green!40} \#2, \#4       &   \cellcolor{green!40}    148,454         \\
+            \hline
+            \cellcolor{red!20}   \#2, \#5       &   \cellcolor{red!20}      224,881         \\
+            \hline
+            \cellcolor{gray!20}  \#2, \#6       &   \cellcolor{gray!20}     395,780         \\
+            \hline
+            \cellcolor{red!20}   \#3, \#4       &   \cellcolor{red!20}       50,741         \\
+            \hline
+            \cellcolor{red!20}   \#3, \#5       &   \cellcolor{red!20}      127,168         \\
+            \hline          
+            \cellcolor{red!20}   \#3, \#6       &   \cellcolor{red!20}      298,067         \\
+            \hline
+            \cellcolor{red!20}   \#4, \#5       &   \cellcolor{red!20}       76,427         \\
+            \hline
+            \cellcolor{green!40} \#4, \#6       &   \cellcolor{green!40}    247,326         \\
+            \hline
+            \cellcolor{red!20}   \#5, \#6       &   \cellcolor{red!20}      170,898         \\
+            \hline
+        \end{tabular}
+        \caption{Errechnete Frequenzabstände  der Peaks für Dip \textcolor{red!80!black}{\#1}}
+        \label{tab:plot-data20-gain30-01-dip-1}
+    \end{minipage}
+    \hskip0.5cm
+    \begin{minipage}{8cm}
+        \centering
+        \begin{tabular}{|c|c|}
+            \hline
+            $\#i$, $\#j$    &   $\nu_{i,j}$ in \SI{}{\mega \hertz}  \\
+            \hline
+            \hline
+             $F = 0 \longleftrightarrow F = 1$      &        72,218     \\
+            \hline
+             $F = 1 \longleftrightarrow F = 2$      &       156,947     \\
+            \hline
+             $F = 2 \longleftrightarrow F = 3$      &       266,650     \\
+            \hline
+        \end{tabular}
+        \caption{Literaturwerte für $5^{2}P_{3/2}$, $^{87}\text{Rb}$ [Quelle: \cite{Steck87}, S. 26, Fig. 2]}
+        \label{tab:lit-5p-87-rb}
+    \end{minipage}
+\end{table}
+
+\noindent Für alle weiteren Dips ist die Vorgehensweise zur Bestimmung der Frequenzabstände der Peaks identisch:
+\begin{enumerate}[1.]
+    \item Geeigneten Gauß-Fit (siehe Gleichung \eqref{eq:gauss-fit}) an Rohdaten für relevanten Intervall des Dips anlegen.
+    \item Betrachtung des normierten Spannungsverlaufes $U/U_{\text{fit}}$ in der Region um das lokale Spannungsminimum (Peaks).
+    \item Geeigneten Lorentz-Fit (siehe Gleichung \eqref{eq:lorentz-fit}) für jeden Peak anlegen.
+    \item Peaks werden von links nach rechts entsprechend ihrer Anzahl durchnummeriert ($\#1$, $\#n$).
+    \item Betrachtung aller möglichen Frequenzabstände und Identifikation der Cross-Over Peaks anhand ihrer (im Vergleich zu Lamb Peaks größeren) Amplitude und Abgleich mit Literaturwerten.
+\end{enumerate}
+
+\noindent Wir fahren fort mit der Betrachtung von Dip \textcolor{green!50!black}{\#2}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.8]{figures/plots/PDF/plot-data20-gain30-01-dip-2-rubidium-normalized-fit.pdf}
+    \caption{Normierter Spannungsverlauf für Peaks in Region von Dip \textcolor{green!50!black}{\#2} mit Lorentz-Fit}
+    \label{fig:plot-data20-gain30-01-dip-2-rubidium-normalized-fit}
+\end{figure}
+
+\begin{table}[H]
+    \begin{minipage}{8cm}
+        \centering
+        \begin{tabular}{|c|c|}
+            \hline
+            $\#i, \#j$      &       $\nu_{i,j}$ in \SI{}{\mega \hertz} \\
+            \hline
+            \hline
+            \cellcolor{green!40} \#1, \#2       &   \cellcolor{green!40}     33,869         \\
+            \hline
+            \cellcolor{red!20}   \#1, \#3       &   \cellcolor{red!20}       69,280         \\
+            \hline
+            \cellcolor{gray!20}  \#1, \#4       &   \cellcolor{gray!20}      97,442         \\
+            \hline
+            \cellcolor{red!20}   \#1, \#5       &   \cellcolor{red!20}      127,230         \\
+            \hline
+            \cellcolor{gray!20}  \#1, \#6       &   \cellcolor{gray!20}     180,675         \\
+            \hline
+            \cellcolor{red!20}   \#2, \#3       &   \cellcolor{red!20}       35,411         \\
+            \hline
+            \cellcolor{green!40} \#2, \#4       &   \cellcolor{green!40}     63,573         \\
+            \hline
+            \cellcolor{red!20}   \#2, \#5       &   \cellcolor{red!20}       93,361         \\
+            \hline
+            \cellcolor{gray!20}  \#2, \#6       &   \cellcolor{gray!20}     146,806         \\
+            \hline
+            \cellcolor{red!20}   \#3, \#4       &   \cellcolor{red!20}       28,162         \\
+            \hline
+            \cellcolor{red!20}   \#3, \#5       &   \cellcolor{red!20}       57,950         \\
+            \hline          
+            \cellcolor{red!20}   \#3, \#6       &   \cellcolor{red!20}      111,394         \\
+            \hline
+            \cellcolor{red!20}   \#4, \#5       &   \cellcolor{red!20}       29,788         \\
+            \hline
+            \cellcolor{green!40} \#4, \#6       &   \cellcolor{green!40}     83,232         \\
+            \hline
+            \cellcolor{red!20}   \#5, \#6       &   \cellcolor{red!20}       53,444         \\
+            \hline
+        \end{tabular}
+        \caption{Errechnete Frequenzabstände  der Peaks für Dip \textcolor{green!50!black}{\#2}}
+        \label{tab:plot-data20-gain30-01-dip-2}
+    \end{minipage}
+    \hskip0.5cm
+    \begin{minipage}{8cm}
+        \centering
+        \begin{tabular}{|c|c|}
+            \hline
+            $\#i$, $\#j$    &   $\nu_{i,j}$ in \SI{}{\mega \hertz}  \\
+            \hline
+            \hline
+             $F = 1 \longleftrightarrow F = 2$      &        29,372     \\
+            \hline
+             $F = 2 \longleftrightarrow F = 3$      &        63,401     \\
+            \hline
+             $F = 3 \longleftrightarrow F = 4$      &       120,640     \\
+            \hline
+        \end{tabular}
+        \caption{Literaturwerte für $5^{2}P_{3/2}$, $^{85}\text{Rb}$ [Quelle: \cite{Steck85}, S. 25, Fig. 2]}
+        \label{tab:lit-5p-85-rb}
+    \end{minipage}
+\end{table}
+
+\subsubsection{Dip \textcolor{pink!50!purple}{\#3}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.8]{figures/plots/PDF/plot-data20-gain30-03-rubidium.pdf}
+    \caption{Rohdaten \lstinline{data20-gain30-03.csv} mit Gauß-Fit}
+    \label{fig:plot-data20-gain30-03-rubidium}
+\end{figure}
+
+\begin{minipage}{12cm}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.8]{figures/plots/PDF/plot-data20-gain30-03-rubidium-normalized-fit.pdf}
+    \caption{Normierter Spannungsverlauf für Peaks in Region von Dip \textcolor{pink!50!purple}{\#3} mit Lorentz-Fit}
+    \label{fig:plot-data20-gain30-03-rubidium-normalized-fit}
+\end{figure}
+\end{minipage}
+\hskip0.5cm
+\begin{minipage}{4cm}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+         $\#i, \#j$         &       $\nu_{i,j}$ in \SI{}{\mega \hertz}      \\
+        \hline
+        \hline
+         \#1, \#2           &       13,325      \\
+        \hline
+         \#1, \#3           &       34,210      \\
+        \hline
+         \#1, \#4           &       45,365      \\
+        \hline
+         \#1, \#5           &       78,785      \\
+        \hline
+         \#2, \#3           &       20,884      \\
+        \hline
+         \#2, \#4           &       32,039      \\
+        \hline
+         \#2, \#5           &       65,460      \\
+        \hline
+         \#3, \#4           &       11,155      \\
+        \hline
+         \#3, \#5           &       44,575      \\
+        \hline
+         \#4, \#5           &       33,420      \\
+        \hline 
+    \end{tabular}
+    \caption{Errechnete Frequenzabstände der Peaks für Dip \textcolor{pink!50!purple}{\#3}}
+    \label{tab:plot-data20-gain30-03}
+\end{table}
+\end{minipage}
+
+\subsubsection{Dip \textcolor{cyan}{\#4}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.8]{figures/plots/PDF/plot-data20-gain30-04-rubidium.pdf}
+    \caption{Rohdaten \lstinline{data20-gain30-04.csv} mit Gauß-Fit}
+    \label{fig:plot-data20-gain30-04-rubidium}
+\end{figure}
+
+\begin{minipage}{12cm}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.75]{figures/plots/PDF/plot-data20-gain30-04-rubidium-normalized-fit.pdf}
+    \caption{Normierter Spannungsverlauf für Peaks in Region von Dip \textcolor{cyan}{\#4} mit Lorentz-Fit}
+    \label{fig:plot-data20-gain30-04-rubidium-normalized-fit}
+\end{figure}
+\end{minipage}
+\hskip0.5cm
+\begin{minipage}{4cm}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+         $\#i, \#j$         &       $\nu_{i,j}$ in \SI{}{\mega \hertz}      \\
+        \hline
+        \hline
+         \#1, \#2           &       43,723      \\
+        \hline
+         \#1, \#3           &       84,692      \\
+        \hline
+         \#1, \#4           &      112,668      \\
+        \hline
+         \#1, \#5           &      189,112      \\
+        \hline
+         \#2, \#3           &       40,969      \\
+        \hline
+         \#2, \#4           &       68,944      \\
+        \hline
+         \#2, \#5           &      145,388      \\
+        \hline
+         \#3, \#4           &       27,975      \\
+        \hline
+         \#3, \#5           &      104,419      \\
+        \hline
+         \#4, \#5           &       76,443      \\
+        \hline 
+    \end{tabular}
+    \caption{Errechnete Frequenzabstände der Peaks für Dip \textcolor{cyan}{\#4}}
+    \label{tab:plot-data20-gain30-04}
+\end{table}
+\end{minipage}
+
+\subsection{Fehleranalyse und Diskussion}
+
+\subsubsection{Dip \textcolor{red!80!black}{\#1}}
+
+\noindent Durch den Vergleich der ermittelten Frequenzabstände (Tabelle \ref{tab:plot-data20-gain30-01-dip-1}) mit den Literaturwerten (Tabelle \ref{tab:lit-5p-87-rb}) ergibt sich eine relativ eindeutige Zuordnung für den $5^{2}P_{3/2}$-Zustand (bei $^{87}$Rb), 
+\begin{align*}
+    \#1 &\mapsto \ ^{87}\text{Rb}(F = 0), \qquad 1 - \frac{\nu_{1,2}}{\nu_{(F = 0, F = 1)}} \approx -13,3\%, \\
+    \#2 &\mapsto \ ^{87}\text{Rb}(F = 1), \qquad 1 - \frac{\nu_{2,4}}{\nu_{(F = 1, F = 2)}} \approx 5,4 \%, \\
+    \#3 &\mapsto \text{Cross-Over Peak zwischen $F = 1$ und $F = 2$}, \\
+    \#4 &\mapsto \ ^{87}\text{Rb}(F = 2), \qquad 1 - \frac{\nu_{4,6}}{\nu_{(F = 2, F = 3)}} \approx 7,2 \%, \\
+    \#5 &\mapsto \text{Cross-Over Peak zwischen $F = 2$ und $F = 3$}, \\
+    \#6 &\mapsto \ ^{87}\text{Rb}(F = 3),
+\end{align*}
+welche unter anderem zeigt, dass der Unterschied zu den errechneten Frequenzabständen jeweils unter 13,3\% liegt. \\
+
+\noindent Auch an dieser Stelle ist es für die Fehlerbetrachtung sinnvoll, die Standardabweichung $\sigma_{\gamma}$ und den Mittelwert $\langle \gamma \rangle$ der Halbwertsbreiten $\gamma_{i}$ der Lorentz-förmigen Peaks heranzuziehen.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+         $\#i$      &       $\gamma_{i}$ in \SI{}{\mega \hertz}  \\
+        \hline
+        \hline
+         \#1        &        19,767         \\
+        \hline
+         \#2        &        12,267         \\
+        \hline
+         \#3        &        16,307         \\
+        \hline
+         \#4        &        10,086         \\
+        \hline
+         \#5        &        14,795         \\
+        \hline
+         \#6        &         8,894         \\
+        \hline
+    \end{tabular}
+    \caption{Ermittelte Parameter für $\gamma_{i}$, Dip \textcolor{red!80!black}{\#1}}
+    \label{tab:gamma-parameter-dip-1}
+\end{table}
+
+\noindent Aus den durch das \href{https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.curve_fit.html}{\mintinline{python}{scipy.optimize.curve_fit}} Python-Modul ermittelten Parametern (siehe Tabelle \ref{tab:gamma-parameter-dip-1}) für die jeweiligen Halbwertsbreiten $\gamma_{i}$ ergibt sich $\langle \gamma \rangle = \SI{13,686}{\mega \hertz}$ und $\sigma_{\gamma} = \SI{3,719}{\mega \hertz}$.
+
+\noindent Des Weiteren wird beim Vergleich der ermittelten Frequenzabstände (Tabelle \ref{tab:plot-data20-gain30-01-dip-1}) zu den Literaturwerten (Tabelle \ref{tab:lit-5p-87-rb}) im Kontext der Abweichungen zueinander deutlich, dass der Fehler in etwa auf $\langle \gamma \rangle = \SI{13,686}{\mega \hertz}$ geschätzt werden muss, da 
+\begin{align*}
+    \big \vert \nu_{1,2} - \nu_{(F = 0), (F = 1)} \big \vert &= \big \vert \SI{81,837}{\mega \hertz} - \SI{72,218}{\mega \hertz} \big \vert = \SI{9,619}{\mega \hertz} \approx 0,7 \langle \gamma \rangle, \\
+    \big \vert \nu_{2,4} - \nu_{(F = 1), (F = 2)} \big \vert &= \big \vert \SI{148,454}{\mega \hertz} - \SI{156,947}{\mega \hertz} \big \vert = \SI{8,493}{\mega \hertz} \approx 0,6 \langle \gamma \rangle, \\
+    \big \vert \nu_{4,6} - \nu_{(F = 2), (F = 3)} \big \vert &= \big \vert \SI{247,326}{\mega \hertz} - \SI{266,650}{\mega \hertz} \big \vert = \SI{19,323}{\mega \hertz} \approx 1,4 \langle \gamma \rangle.
+\end{align*}
+
+\subsubsection{Dip \textcolor{green!50!black}{\#2}}
+
+\noindent Durch den Vergleich der ermittelten Frequenzabstände (Tabelle \ref{tab:plot-data20-gain30-01-dip-2}) mit den Literaturwerten (Tabelle \ref{tab:lit-5p-85-rb}) ergibt sich eine ungefähre Zuordnung für den $5^{2}P_{3/2}$-Zustand (bei $^{87}$Rb), 
+\begin{align*}
+    \#1 &\mapsto \ ^{85}\text{Rb}(F = 1), \qquad 1 - \frac{\nu_{1,2}}{\nu_{(F = 1, F = 2)}} \approx -15,3\%, \\
+    \#2 &\mapsto \ ^{85}\text{Rb}(F = 2), \qquad 1 - \frac{\nu_{2,4}}{\nu_{(F = 2, F = 3)}} \approx -0,3 \%, \\
+    \#3 &\mapsto \text{Cross-Over Peak zwischen $F = 2$ und $F = 3$}, \\
+    \#4 &\mapsto \ ^{85}\text{Rb}(F = 3), \qquad 1 - \frac{\nu_{4,6}}{\nu_{(F = 3, F = 4)}} \approx 31,0 \%, \\
+    \#5 &\mapsto \text{Cross-Over Peak zwischen $F = 3$ und $F = 4$}, \\
+    \#6 &\mapsto \ ^{85}\text{Rb}(F = 4),
+\end{align*}
+welche unter anderem zeigt, dass der Unterschied zu den errechneten Frequenzabständen jeweils unter 31,0\% liegt. \\
+
+\noindent Auffällig ist hier, dass die Zuordnung von $\#2 \mapsto \ ^{85}\text{Rb}(F = 2)$ sehr präzise zu sein scheint, durch die großen Abweichungen von $\#1 \mapsto \ ^{85}\text{Rb}(F = 1)$ und insbesondere $\#4 \mapsto \ ^{85}\text{Rb}(F = 3)$ zu den Literaturwerten zumindest diese Zuordnungen fraglich bleiben.
+
+\noindent Eine alternative Zuordnung wäre 
+\begin{align*}
+    \#3 &\mapsto \ ^{85}\text{Rb}(F = 3), \qquad 1 - \frac{\nu_{3,6}}{\nu_{(F = 3), (F = 4)}} \approx 7,6 \%,
+\end{align*}
+wonach aber \#4 als Cross-Over Peak betrachtet werden müsste und damit neben \#5 als Cross-Over Peak liegt, was der theoretischen Grundlage, dass zu je einem Paar von Lamb Peaks jeweils ein dazwischenliegender Cross-Over Peak liegen muss, widerspricht. 
+
+\noindent Auch an dieser Stelle ist es für die Fehlerbetrachtung sinnvoll, die Standardabweichung $\sigma_{\gamma}$ und den Mittelwert $\langle \gamma \rangle$ der Halbwertsbreiten $\gamma_{i}$ der Lorentz-förmigen Peaks heranzuziehen.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+         $\#i$      &       $\gamma_{i}$ in \SI{}{\mega \hertz}  \\
+        \hline
+        \hline
+         \#1        &        23,157         \\
+        \hline
+         \#2        &        14,235         \\
+        \hline
+         \#3        &        16,368         \\
+        \hline
+         \#4        &        10,080         \\
+        \hline
+         \#5        &        11,331         \\
+        \hline
+         \#6        &         8,252         \\
+        \hline
+    \end{tabular}
+    \caption{Ermittelte Parameter für $\gamma_{i}$, Dip \textcolor{green!50!black}{\#2}}
+    \label{tab:gamma-parameter-dip-2}
+\end{table}
+
+\noindent Aus den durch das \href{https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.curve_fit.html}{\mintinline{python}{scipy.optimize.curve_fit}} Python-Modul ermittelten Parametern (siehe Tabelle \ref{tab:gamma-parameter-dip-1}) für die jeweiligen Halbwertsbreiten $\gamma_{i}$ ergibt sich $\langle \gamma \rangle = \SI{13,904}{\mega \hertz}$ und $\sigma_{\gamma} = \SI{4,915}{\mega \hertz}$. \\
+Beim Vergleich der ermittelten Frequenzabstände (Tabelle \ref{tab:plot-data20-gain30-01-dip-2}) zu den Literaturwerten (Tabelle \ref{tab:lit-5p-85-rb}) im Kontext der Abweichungen zueinander wird deutlich, dass der Fehler für die Zuordnungen $\#1 \mapsto \ ^{85}\text{Rb}(F = 1)$ und $\#2 \mapsto \ ^{85}\text{Rb}(F = 2)$ in etwa auf $\sigma_{\gamma} = \SI{4,915}{\mega \hertz}$ geschätzt werden kann, da 
+\begin{align*}
+    \big \vert \nu_{1,2} - \nu_{(F = 1), (F = 2)} \big \vert &= \big \vert \SI{33,869}{\mega \hertz} - \SI{29,372}{\mega \hertz} \big \vert = \SI{4,497}{\mega \hertz} \approx 0,9 \sigma_{\gamma}, \\
+    \big \vert \nu_{2,4} - \nu_{(F = 2), (F = 3)} \big \vert &= \big \vert \SI{63,573}{\mega \hertz} - \SI{63,401}{\mega \hertz} \big \vert = \SI{0,172}{\mega \hertz} \approx 0,035 \sigma_{\gamma},
+\end{align*}
+aber 
+\begin{align*}
+    \big \vert \nu_{4,6} - \nu_{(F = 3), (F = 4)} \big \vert &= \big \vert \SI{83,232}{\mega \hertz} - \SI{120,640}{\mega \hertz} \big \vert = \SI{37,408}{\mega \hertz} \approx 7,6 \sigma_{\gamma}.
+\end{align*}
+Selbst mit der Schätzung des Fehlers auf $\langle \gamma \rangle = \SI{13,904}{\mega \hertz}$ ergäbe sich noch immer $\big \vert \nu_{4,6} - \nu_{(F = 3), (F = 4)} \big \vert \approx 2,7 \langle \gamma \rangle$. \\
+
+\noindent Es bleibt also festzuhalten, dass diese Zuordnung nur teilweise eine Nähe zu den Literaturwerten rechtfertigt.
+
+\subsubsection{Dip \textcolor{pink!50!purple}{\#3} und Dip \textcolor{cyan}{\#4}}
+
+In Anbetracht dessen, dass eine Auflösung einzelner Peaks (siehe Abbildung \ref{fig:plot-data20-gain30-03-rubidium-normalized-fit} und Abbildung \ref{fig:plot-data20-gain30-04-rubidium-normalized-fit}) hier nur noch kaum oder teilweise gar nicht möglich ist und die gemittlete Halbwertsbreite der Peaks ($\langle \gamma \rangle = \SI{17,593}{\mega \hertz}$ für Dip \textcolor{pink!50!purple}{\#3} und $\langle \gamma \rangle = \SI{24,111}{\mega \hertz}$ für Dip \textcolor{cyan}{\#4}) größer ist als einige Peak-Abstände (siehe Tabelle \ref{tab:plot-data20-gain30-03} und Tabelle \ref{tab:plot-data20-gain30-04}), erlaubt sich für beide Dips keine sinnvolle, quantitative Fehleranalyse. \\
+Qualitativ lässt sich sagen, dass eine breite Streuung der Datenpunkte (sehr deutlich bei Peak \#2 und \#3 für Dip \textcolor{cyan}{\#4}) das Fitten einer Lorentz-Kurve erschwert oder gar unmöglich macht (deutlich bei Abbildung \ref{fig:plot-data20-gain30-03-rubidium-normalized-fit}). \\
+
+
+\noindent Abschließend ist für eine qualitative Betrachtung der Fehler anzumerken, dass möglichst scharf definierte Peaks eine exaktere Bestimmung der (mittleren) Positionen (bei $\nu_{0,i}$) erlauben.
+Hierbei spielt das Auflösungsvermögen der Peaks eine tragende Rolle. Kleinere Halbwertsbreiten und höhere Amplituden führen zu genaueren Fits.
+
+
+\cleardoublepage{}
