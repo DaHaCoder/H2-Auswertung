@@ -87,7 +87,7 @@ def main():
     ax.plot(time, voltage_1, label = 'Res', color = 'tab:orange')
     
     ax.set_xlabel(r'Zeit $t$ in s')
-    ax.set_ylabel('Spannung $U$ in mV')
+    ax.set_ylabel(r'Spannung $U$ in mV')
     
     secax = ax.secondary_xaxis('top', functions = (time_to_freq, freq_to_time))
     secax.set_xlabel(r'Frequenz $\nu$ in Hz')

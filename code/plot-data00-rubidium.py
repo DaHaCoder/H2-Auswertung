@@ -35,6 +35,7 @@ def find_local_maxima(thresh: float, time: np.ndarray, voltage: np.ndarray) -> n
 
 def gauss_fit_func(nu, I_0, nu_0, delta_nu, I_y):
     return I_0*np.exp(-((nu - nu_0)/(delta_nu/(2.0*np.sqrt(np.log(2.0)))))**2.0) + I_y
+
 def lin_fit_func(t, a, U0):
     return a*t + U0
 
@@ -75,6 +76,7 @@ def main():
     mass_Rb_85 = 1.409993199*10**(-25)              #   atomic mass of Rb85 in kg -- https://www.steck.us/alkalidata/rubidium85numbers.pdf
     mass_Rb_87 = 1.443160648*10**(-25)              #   atomic mass of Rb87 in kg -- https://www.steck.us/alkalidata/rubidium87numbers.pdf
 
+    LIST_I_0 = []
     LIST_nu_0 = []
     LIST_delta_nu = []
     
@@ -133,7 +135,7 @@ def main():
     a, U0 = popt
                                 
     print("\n=== PARAMETERS FOR LINEAR FIT ===")
-    print("================================")
+    print("=================================")
     print("a, U0 = ", popt)
     voltage_3_lin_fit = lin_fit_func(time, *popt)
 
@@ -147,6 +149,7 @@ def main():
     print("\n=== PARAMETERS FOR DIP #1 ===")
     print("=============================")
     print("I_0, nu_0, delta_nu, I_y = ", popt_1)
+    LIST_I_0.append(popt_1[0])
     LIST_nu_0.append(popt_1[1])
     LIST_delta_nu.append(popt_1[2])
     
@@ -161,6 +164,7 @@ def main():
     print("\n=== PARAMETERS FOR DIP #2 ===")
     print("=============================")
     print("I_0, nu_0, delta_nu, I_y = ", popt_2)
+    LIST_I_0.append(popt_2[0])
     LIST_nu_0.append(popt_2[1])
     LIST_delta_nu.append(popt_2[2])
     
@@ -175,6 +179,7 @@ def main():
     print("\n=== PARAMETERS FOR DIP #3 ===")
     print("=============================")
     print("I_0, nu_0, delta_nu, I_y = ", popt_3)
+    LIST_I_0.append(popt_3[0])
     LIST_nu_0.append(popt_3[1])
     LIST_delta_nu.append(popt_3[2])
 
@@ -189,6 +194,7 @@ def main():
     print("\n=== PARAMETERS FOR DIP #4 ===")
     print("=============================")
     print("I_0, nu_0, delta_nu, I_y = ", popt_4)
+    LIST_I_0.append(popt_4[0])
     LIST_nu_0.append(popt_4[1])
     LIST_delta_nu.append(popt_4[2])
 
@@ -339,48 +345,67 @@ def main():
     print("\n=== TEMP DIP #1 ===")
     print("===================")
     
-    print("LIST_nu_0[0] - t_init_1 = ", LIST_nu_0[0] - t_init_1)
-    print("LIST_delta_nu[0] = ", LIST_delta_nu[0])
-    print("(LIST_nu_0[0] - t_init_1)/LIST_delta_nu[0] = ", (LIST_nu_0[0] - t_init_1)/LIST_delta_nu[0]) 
-
-    #print("time_to_freq(LIST_nu_0[0], c, d, mean_delta_t) = ", time_to_freq(LIST_nu_0[0], c, d, mean_delta_t))
-    #print("time_to_freq(LIST_delta_nu[0], c, d, mean_delta_t) = ", time_to_freq(LIST_delta_nu[0], c, d, mean_delta_t))
-            
-    print("mass_Rb_85 = ", mass_Rb_85)
-    print("c = ", c)
-    print("kB = ", kB)
-    print("temp((LIST_nu_0[0] - t_init_1), LIST_delta_nu[0], mass_Rb_85, c, kB) = ", temp((LIST_nu_0[0] - t_init_1), LIST_delta_nu[0], mass_Rb_85, c, kB))
-    '''
+    print("nu_0 = ", LIST_nu_0[0])
+    print("delta_nu = ", LIST_delta_nu[0])
+    print("delta_nu/nu_0 = ", LIST_delta_nu[0]/LIST_nu_0[0]) 
+    #print("mass_Rb_85 = ", mass_Rb_85)
+    #print("mass_Rb_87 = ", mass_Rb_87)
+    #print("c = ", c)
+    #print("kB = ", kB)
+    #print("temp in K for 85 Rb = ", temp(LIST_nu_0[0], LIST_delta_nu[0], mass_Rb_85, c, kB))
+    print("temp in K for 87 Rb = ", temp(LIST_nu_0[0], LIST_delta_nu[0], mass_Rb_87, c, kB))
+    
     print("\n=== TEMP DIP #2 ===")
     print("===================")
     print("nu_0 = ", LIST_nu_0[1])
     print("delta_nu = ", LIST_delta_nu[1])
     print("delta_nu/nu_0 = ", LIST_delta_nu[1]/LIST_nu_0[1])
-    print("mass_Rb_85 = ", mass_Rb_85)
-    print("c = ", c)
-    print("kB = ", kB)
-    print("temp in K = ", temp(LIST_nu_0[1], LIST_delta_nu[1], mass_Rb_85, c, kB))
+    #print("mass_Rb_85 = ", mass_Rb_85)
+    #print("mass_Rb_87 = ", mass_Rb_87)
+    #print("c = ", c)
+    #print("kB = ", kB)
+    print("temp in K for 85 Rb = ", temp(LIST_nu_0[1], LIST_delta_nu[1], mass_Rb_85, c, kB))
+    #print("temp in K for 87 Rb = ", temp(LIST_nu_0[1], LIST_delta_nu[1], mass_Rb_87, c, kB))
     
     print("\n=== TEMP DIP #3 ===")
     print("===================")
     print("nu_0 = ", LIST_nu_0[2])
     print("delta_nu = ", LIST_delta_nu[2])
     print("delta_nu/nu_0 = ", LIST_delta_nu[2]/LIST_nu_0[2])
-    print("mass_Rb_85 = ", mass_Rb_85)
-    print("c = ", c)
-    print("kB = ", kB)
-    print("temp in K = ", temp(LIST_nu_0[2], LIST_delta_nu[2], mass_Rb_85, c, kB))
+    #print("mass_Rb_85 = ", mass_Rb_85)
+    #print("mass_Rb_87 = ", mass_Rb_87)
+    #print("c = ", c)
+    #print("kB = ", kB)
+    print("temp in K for 85 Rb = ", temp(LIST_nu_0[2], LIST_delta_nu[2], mass_Rb_85, c, kB))
+    #print("temp in K for 87 Rb = ", temp(LIST_nu_0[2], LIST_delta_nu[2], mass_Rb_87, c, kB))
 
     print("\n=== TEMP DIP #4 ===")
     print("====================")
     print("nu_0 = ", LIST_nu_0[3])
     print("delta_nu = ", LIST_delta_nu[3])
     print("delta_nu/nu_0 = ", LIST_delta_nu[3]/LIST_nu_0[3])
-    print("mass_Rb_85 = ", mass_Rb_85)
-    print("c = ", c)
-    print("kB = ", kB)
-    print("temp in K = ", temp(LIST_nu_0[3], LIST_delta_nu[3], mass_Rb_85, c, kB))
-    '''
+    #print("mass_Rb_85 = ", mass_Rb_85)
+    #print("mass_Rb_87 = ", mass_Rb_87)
+    #print("c = ", c)
+    #print("kB = ", kB)
+    #print("temp in K for 85 Rb = ", temp(LIST_nu_0[3], LIST_delta_nu[3], mass_Rb_85, c, kB))
+    print("temp in K for 87 Rb = ", temp(LIST_nu_0[3], LIST_delta_nu[3], mass_Rb_87, c, kB))
+   
+
+    ### ======================= ###
+    ### CALCULATE ISOTOPY RATIO ###
+    ### ======================= ###
+
+    print("\n=== ISOTOPY RATIO WITH DIP #1 AND DIP #2 ===")
+    print("=============================================")
+    print("amount of 87 Rb in %:  I_0_dip_1/(I_0_dip_1 + I_0_dip_2) = ", LIST_I_0[0]/(LIST_I_0[0] + LIST_I_0[1]))
+    print("amount of 85 Rb in %:  I_0_dip_2/(I_0_dip_1 + I_0_dip_2) = ", LIST_I_0[1]/(LIST_I_0[0] + LIST_I_0[1]))
+
+    print("\n=== ISOTOPY RATIO WITH DIP #3 AND DIP #4 ===")
+    print("=============================================")
+    print("amount of 85 Rb in %:  I_0_dip_3/(I_0_dip_3 + I_0_dip_4) = ", LIST_I_0[2]/(LIST_I_0[2] + LIST_I_0[3]))
+    print("amount of 87 Rb in %:  I_0_dip_4/(I_0_dip_3 + I_0_dip_4) = ", LIST_I_0[3]/(LIST_I_0[2] + LIST_I_0[3]))
+
 
 if __name__ == "__main__":
     main()
