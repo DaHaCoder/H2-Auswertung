@@ -66,7 +66,7 @@ für die vier Dips im jeweiligen Intervall fitten.
 \begin{figure}[H]
     \centering
     \includegraphics[scale = 0.8]{figures/plots/PDF/plot-data00-rubidium-normalized-fit.pdf}
-    \caption{Gauß-Fits für normierten Spannungsverlauf [Quellcode:]}
+    \caption{Gauß-Fits für normierten Spannungsverlauf}
     \label{fig:plot-data00-rubidium-normalized-fit}
 \end{figure}
 \noindent Die vier Spannungsminima werden im Folgenden von links nach rechts von \#1 bis \#4 durchnummeriert. Aus den gefitteten Kurven und deren mittleren Position ergeben sich die Frequenzabstände in Tabelle \ref{tab:plot-data00-rubidium}. 
@@ -111,10 +111,67 @@ für die vier Dips im jeweiligen Intervall fitten.
 \end{minipage}
 \end{table}
 
+\subsubsection{Temperaturbestimmung der Rubidiumzelle und Isotopieverhältnis}
+Mittels der Formel \eqref{eq:delta-omega} lässt sich die Temperatur der Rubidiumzelle wie folgt bestimmen:
+\begin{align*}
+    \Delta \nu = 2 \sqrt{\ln(2)} \frac{\nu_{0}}{c} \sqrt{\frac{2 k_{B} T}{m}} = \frac{\nu_{0}}{c} \sqrt{\frac{8 \ln(2) k_{B} T}{m}} \ \Rightarrow T = \frac{m c^2}{8 \ln(2) k_{B}} \biggl(\frac{\Delta \nu}{\nu_{0}} \biggr)^2.
+\end{align*}
+
+\noindent Zunächst berechnen wir, welches Verhältnis von Halbwertsbreite $\Delta \nu$ zur Peak Position $\nu_{0}$ bei Raumtemperatur ($T \approx \SI{300}{\kelvin}$) für $^{85}$Rb ($m =: m_{85} \approx \SI{1,409e-25}{\kilogram}$, siehe \cite{Steck85}, S. 16, Tabelle 2) und für $^{87}$Rb ($m =: m_{87} \approx \SI{1,443e-25}{\kilogram}$, siehe \cite{Steck87}, S. 17, Tabelle 2) zu erwarten ist.
+\begin{align*}
+    \biggl(\frac{\Delta \nu}{\nu_{0}}\biggr)_{85} & \approx \sqrt{\frac{8 \ln(2) \cdot  \SI{1,38e-23}{\frac{\joule}{\kelvin} \cdot \SI{300}{\kelvin}}}{\SI{1,409e-25}{\kilogram} \cdot (\SI{299792458}{\frac{\meter}{\second}})^2}} \approx \SI{1,346e-6}{}\\ \\
+    \biggl(\frac{\Delta \nu}{\nu_{0}}\biggr)_{87} & \approx \sqrt{\frac{8 \ln(2) \cdot  \SI{1,38e-23}{\frac{\joule}{\kelvin} \cdot \SI{300}{\kelvin}}}{\SI{1,443e-25}{\kilogram} \cdot (\SI{299792458}{\frac{\meter}{\second}})^2}} \approx \SI{1,330e-6}{}
+\end{align*}
+
+\noindent Für jeden Dip in der Absorptionsspektroskopie (siehe Abbildung \ref{fig:plot-data00-rubidium-normalized-fit}) lässt sich mit den ermittelten Parametern für $\Delta \nu_{i}$ und $\nu_{0,i}$ deren Verhältnis und somit auch eine Temperatur bestimmten.
+
+\begin{table}[!h]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        $\#i$   &   $\Delta \nu_{i}/\nu_{0,i}$   &   $T$ in $\SI{}{\kelvin}$     \\
+        \hline
+        \hline 
+         \textcolor{red!80!black}{\#1}      &     0,0305      &        157810701996        \\
+        \hline
+         \textcolor{green!50!black}{\#2}    &     0,0384      &        245088487859        \\
+        \hline
+         \textcolor{pink!50!purple}{\#3}    &     0,0353      &        206345708607        \\
+        \hline 
+         \textcolor{cyan}{\#4}              &     0,0290      &        143143992759        \\
+        \hline 
+    \end{tabular}
+    \caption{Ermittelte Temperaturen}
+    \label{tab:temperatures}
+\end{table}
+
+\noindent Auf den ersten Blick wird deutlich, dass diese Werte in der Größenordnung $\sim 10^{12}\SI{}{\kelvin}$ keinem realistischen Ergebnis entsprechen. Zum Vergleich: die Temperatur im Kern der Sonne entspricht etwa 
+\href{https://www.wolframalpha.com/input/?i=temperature+core+of+the+sun}{$\SI{1,57e7}{\kelvin}$}. \\
+\noindent Dieser exorbitant hohe Wert resultiert aller Wahrscheinlichkeit nach aus der in Kapitel \ref{subsec:linewidth} diskutierten Linienbreite. Dabei tragen vor allem die Doppler- und Sättigungsverbreiterung maßgeblich zur Verfälschung des Ergebnisses bei.
+
+\noindent Zuletzt wird noch das Verhältnis der Isotope $^{85}$Rb und $^{87}$Rb in der Rubidiumzelle abgeschätzt. Dafür werden die Amplituden der Dips gemäß ihrer Zuordnung paarweise betrachtet.
+
+\begin{table}[!h]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        $\#i$, $\#j$    &       Anteil $^{85}$Rb in \%      &       Anteil $^{87}$Rb in \%  \\
+        \hline
+        \hline
+         \textcolor{red!80!black}{\#1}, \textcolor{green!50!black}{\#2}     &       68,66       &       31,33       \\
+        \hline
+         \textcolor{pink!50!purple}{\#3}, \textcolor{cyan}{\#4}             &       72,15       &       27,84       \\
+        \hline
+    \end{tabular}
+    \caption{Ermitteltes Isotopieverhältnis von $^{85}$Rb und $^{87}$Rb}
+    \label{tab:isotopy-ratio}
+\end{table}
+
 
 \subsection{Fehleranalyse und Diskussion}
+\label{subsec:absorption-error-analysis-and-discussion}
 
-Durch den Vergleich mit den Literaturwerten in Tabelle \ref{tab:lit-freq-distance} ergibt sich eine relativ eindeutige Zuordnung für die $5^{2}S_{1/2}$-Zustände, 
+Durch den Vergleich mit den Literaturwerten in Tabelle \ref{tab:lit-plot-data00-rubidium} ergibt sich eine relativ eindeutige Zuordnung für die $5^{2}S_{1/2}$-Zustände, 
 \begin{align*}
     \textcolor{red!80!black}{\#1} &\mapsto \ ^{87}\text{Rb}(F = 2), \qquad 1 - \frac{\nu_{1,2}}{\nu_{(87, F = 2),(85, F = 3)}} \approx 6,1 \%,  \\ \textcolor{green!50!black}{\#2} &\mapsto \ ^{85}\text{Rb}(F = 3), \qquad 1 - \frac{\nu_{2,3}}{\nu_{(85, F = 2),(85, F = 3)}} \approx 5,8 \%, \\
     \textcolor{pink!50!purple}{\#3} &\mapsto \ ^{85}\text{Rb}(F = 2), \qquad 1 - \frac{\nu_{3,2}}{\nu_{(87, F = 1),(85, F = 2)}} \approx 9,6 \%, \\
@@ -192,9 +249,9 @@ im jeweiligen Intervall gefittet.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale = 0.8]{figures/plots/PDF/plot-data20-gain30-01-dip-1-rubidium-normalized-fit.pdf}
+    \includegraphics[scale = 0.8]{figures/plots/PDF/plot-data20-gain30-01-dip-1-rubidium-normalized-1-fit.pdf}
     \caption{Normierter Spannungsverlauf für Peaks in Region von Dip \textcolor{red!80!black}{\#1} mit Lorentz-Fit}
-    \label{fig:plot-data20-gain30-01-dip-1-rubidium-normalized-fit}
+    \label{fig:plot-data20-gain30-01-dip-1-rubidium-normalized-1-fit}
 \end{figure}
 
 \noindent Die sechs Peaks werden von links nach rechts von \#1 bis \#6 durchnummeriert. Aus den gefitteten Kurven und deren mittleren Position ergeben sich die Frequenzabstände in Tabelle \ref{tab:plot-data20-gain30-01-dip-1}.
@@ -275,9 +332,9 @@ Hierbei ist zu beachten, dass zur Bestimmung der Peaks, welche aus atomaren Übe
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale = 0.8]{figures/plots/PDF/plot-data20-gain30-01-dip-2-rubidium-normalized-fit.pdf}
+    \includegraphics[scale = 0.8]{figures/plots/PDF/plot-data20-gain30-01-dip-2-rubidium-normalized-1-fit.pdf}
     \caption{Normierter Spannungsverlauf für Peaks in Region von Dip \textcolor{green!50!black}{\#2} mit Lorentz-Fit}
-    \label{fig:plot-data20-gain30-01-dip-2-rubidium-normalized-fit}
+    \label{fig:plot-data20-gain30-01-dip-2-rubidium-normalized-1-fit}
 \end{figure}
 
 \begin{table}[H]
@@ -498,7 +555,7 @@ welche unter anderem zeigt, dass der Unterschied zu den errechneten Frequenzabst
 
 \subsubsection{Dip \textcolor{green!50!black}{\#2}}
 
-\noindent Durch den Vergleich der ermittelten Frequenzabstände (Tabelle \ref{tab:plot-data20-gain30-01-dip-2}) mit den Literaturwerten (Tabelle \ref{tab:lit-5p-85-rb}) ergibt sich eine ungefähre Zuordnung für den $5^{2}P_{3/2}$-Zustand (bei $^{87}$Rb), 
+\noindent Durch den Vergleich der ermittelten Frequenzabstände (Tabelle \ref{tab:plot-data20-gain30-01-dip-2}) mit den Literaturwerten (Tabelle \ref{tab:lit-5p-85-rb}) ergibt sich eine ungefähre Zuordnung für den $5^{2}P_{3/2}$-Zustand (bei $^{85}$Rb), 
 \begin{align*}
     \#1 &\mapsto \ ^{85}\text{Rb}(F = 1), \qquad 1 - \frac{\nu_{1,2}}{\nu_{(F = 1, F = 2)}} \approx -15,3\%, \\
     \#2 &\mapsto \ ^{85}\text{Rb}(F = 2), \qquad 1 - \frac{\nu_{2,4}}{\nu_{(F = 2, F = 3)}} \approx -0,3 \%, \\

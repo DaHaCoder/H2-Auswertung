@@ -1,4 +1,4 @@
-## matplotlib package -- https://matplotlib.org/4.5.0/index.html ###
+### matplotlib package -- https://matplotlib.org/4.5.0/index.html ###
 from matplotlib import pyplot as plt    #   for plots -- https://matplotlib.org/3.5.0/api/pyplot_summary.html
 from matplotlib import rc               #   for rcParams -- https://matplotlib.org/3.5.0/api/_as_gen/matplotlib.pyplot.rc.html 
  

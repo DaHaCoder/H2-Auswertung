@@ -1,10 +1,12 @@
 \chapter{Theoretische Grundlagen}
 \label{chap:theoretical-basics}
 
+\noindent Dieses Kapitel soll im Wesentlichen als Zusammenfassung der für das Verständnis notwendigen experimentellen Komponenten dienen. Dabei wird zunächst näher auf die verwendete Probe in der Gaszelle und dessen  Klassifikation im Termschema eingegangen, bevor die angewendeten spektroskopischen Methoden diskutiert werden.
+
 \section{Das Rubidium-Atom}
 
 \noindent Als Alkalimetall befindet sich Rubidium  in der ersten Hauptgruppe des Periodensystems und besitzt gemäß dem Bohr'schen Atommodell vier gefüllte Schalen und ein Valenzelektron in seiner äußersten Schale. Dadurch wird es als wasserstoffähnlich angenommen und es ergibt sich folgende Elektronenkonfiguration: $[\text{Kr}]5s^{1}$\\
-\noindent Im Allgemeinen liegt der Anteil des natürlich vorkommenden $^{85}\text{Rb}$ bei $\approx72\%$ und der des $^{87}\text{Rb}$ bei $\approx28\%$ (\cite[S. ]{H2}). Beide Isotope unterscheiden sich sowohl in ihrer Masse (\cite{MassRb}), als auch in ihrem Kernspin \cite{H2}.
+\noindent Im Allgemeinen liegt der Anteil des natürlich vorkommenden $^{85}\text{Rb}$ bei $\approx72\%$ und der des $^{87}\text{Rb}$ bei $\approx28\%$ (\cite{H2}). Beide Isotope unterscheiden sich sowohl in ihrer Masse (\cite{MassRb}), als auch in ihrem Kernspin \cite{H2}.
 
 \begin{align}
     m_{85} & \approx \SI{84,9118}{u}, && I_{85} = 5/2 \\
@@ -13,7 +15,7 @@
 
 \noindent Die Schmelztemperatur von Rubidium befindet sich bei $T_{\text{M}} = \SI{39,3}{\celsius}$ und seine Siedetemperatur bei $T_{\text{B}} = \SI{688}{\celsius}$ (\cite{Steck85} Table 2). Ebenso nehmen wir für das folgende Experiment an, dass beide Isotope stabil sind, obwohl $^{87}\text{Rb}$ als radioaktiver $\beta$-Strahler in $^{87}\text{Sr}$ mit einer zur Messzeit verhältnismäßig großen Halbwertszeit von ${t_{1/2}}= 4,7 \cdot 10^{10}a$ zerfällt. \cite{HWZ}\\
 
-\noindent Im Folgenden soll nun allgemein auf die Aufspaltung der Energieniveaus wasserstoffähnlicher Atome eingegangen und sämtliche Korrekturen bis hin zur Hyperfeinstruktur erläutert werden.
+\noindent Im Folgenden soll nun allgemein auf die Aufspaltung der Energieniveaus wasserstoffähnlicher Atome eingegangen und sämtliche Korrekturen bis hin zur Hyperfeinstruktur erläutert werden, bevor die theoretischen Werte für den Übergang vom Grundzustand in den ersten angeregten Zustand präsentiert werden. Wir beschränken uns in unserer Betrachtung ausschließlich auf die $D2$ Linie, die im Anschluss in Kapitel $4$ ausgewertet und experimentell nachgewiesen wird.
 
 \subsection{Grobstruktur}
 
@@ -57,7 +59,7 @@
 
 \subsection{Hyperfeinstruktur}
 
-\noindent Unter der Annahme der Atomkern sei räumlichen Ausgedehnt, wird auch diesem ein Spin -- der Kernspin $\bs{I}$ -- mit Eigenwerten $\bs{I}\ket{\Psi_{n, \ell, m}}=\sqrt{I(I+I)}\hbar\ket{\Psi_{n,\ell,m}}$ zugeschrieben. Das damit verknüpfte magnetische Kernmoment $\mu_{K}$ wechselwirkt mit dem Magnetfeld, welches durch die Bahnbewegung des Elektrons erzeugt wird und spalten  die Energieniveaus aus \eqref{EnergieFS} in Hyperfeinstrukturkomponenten auf.
+\noindent Mit dem letzten Korrekturschritt folgt die Auflösung der Hyperfeinstruktur. Diese resultiert aus der Annahme, dass der Atomkern räumlichen ausgedehnt sei, woraufhin auch diesem ein Spin -- der Kernspin $\bs{I}$ -- mit Eigenwerten $\bs{I}\ket{\Psi_{n, \ell, m}}=\sqrt{I(I+I)}\hbar\ket{\Psi_{n,\ell,m}}$ zugeschrieben wird. Das damit verknüpfte magnetische Kernmoment $\mu_{K}$ wechselwirkt mit dem Magnetfeld, welches durch die Bahnbewegung des Elektrons erzeugt wird und spalten  die Energieniveaus aus \eqref{EnergieFS} in Hyperfeinstrukturkomponenten auf.
 
 %\begin{align}
    % &E_{\text{HFS}}= E_{n,\ell, j} + \frac{A}{2}[F(F+1)-j(j+1)-I(I+1)]\\
@@ -107,6 +109,9 @@
     \label{fig:isotopieverschiebung}
 \end{figure}
 
+\noindent Da die Wellenlänge des im Experiment verwendeten Lasers mit $\lambda = 780$ nm genau der Resonanzwellenlänge des Übergangs aus Abbildung \ref{fig:termschema} entspricht und dieser damit gut angeregt werden kann, wird auch ersichtlich, weshalb wir uns auf die Untersuchung der $D2$ und nicht auf die der $D1$-- Linie mit $\lambda_{res}= 794,979$ nm \cite{Steck85,Steck87} beschränken. Im Allgemeinen ist auch zu erkennen, das sich Rubidium aufgrund seiner beträchtlichen Aufspaltung gut zur experimentellen Demonstration der Fein-- und Hyperfeinstruktur eignet.
+
+
 \section{Laserspektrosopie}
 
 
@@ -119,11 +124,12 @@
     \label{fig:littrowgitter}
 \end{figure}
 
-\noindent Unter Verwendung eines drehbaren \textbf{Littrow-Gitters}, welches durch die Ausdehnung eines an Spannung angeschlossenen Piezo-Elements in Bewegung gesetzt wird, entsteht ein frequenzselektiver externer Resonator, der das 1. Beugungsmaximum am Gitter in die Laserdiode zurückreflektiert. Diese Konfiguration, abgebildet in \ref{fig:littrowgitter}, führt zu einem Einmoden-Betrieb, wenn ein deutliches globales Maximum im kombinierten Verstärkungsprofil existiert. Für die Gesamtverstärkung betrachtet man neben der Verstärkung des Lasermediums und der frequenzabhängigen Reflektivität des Gitters auch die Transmission sowohl vom internen Resonator der Diode $T_{int}$ als auch vom externen Resonator $T_{ext}$. Die emittierte Frequenz des Laser entspricht dabei, der Frequenz bei maximaler Verstärkung. Durch die Drehung des Gitters ändert sich der Gitterwinkel und die Länge des externen Resonators, wobei anhand der Wahl des Drehpunktes die reflektierten Resonanzen und die Verstärkung des externen Resonators synchron verschoben werden können, um im kombinierten Verstärkungsprofil ein Maximum beizubehalten. Um Modensprünge in der Gesamtverstärkung zu vermeiden, wird der Strom im Halbleiterlaser erhöht, was neben dem Brechungsindex n auch die optische Weglänge im internen Resonator erhöht. \cite{H2}\\
+\noindent Unter Verwendung eines drehbaren \textbf{Littrow-Gitters}, welches durch die Ausdehnung eines an Spannung angeschlossenen Piezo-Elements in Bewegung gesetzt wird, entsteht in Kombination mit der Laserdiode ein frequenzselektiver externer Resonator, der das 1. Beugungsmaximum am Gitter in die Diode zurückreflektiert. Diese Konfiguration, abgebildet in \ref{fig:littrowgitter}, führt zu einem Einmoden-Betrieb, wenn ein deutliches globales Maximum im kombinierten Verstärkungsprofil existiert. Für die Gesamtverstärkung betrachtet man neben der Verstärkung des Lasermediums und der frequenzabhängigen Reflektivität des Gitters auch die Transmission sowohl vom internen Resonator der Diode $T_{int}$ als auch vom externen Resonator $T_{ext}$. Die emittierte Frequenz des Laser entspricht dabei, der Frequenz bei maximaler Verstärkung. Durch die Drehung des Gitters ändert sich der Gitterwinkel und die Länge des externen Resonators, wobei anhand der Wahl des Drehpunktes die reflektierten Resonanzen und die Verstärkung des externen Resonators synchron verschoben werden können, um im kombinierten Verstärkungsprofil ein Maximum beizubehalten. Um Modensprünge in der Gesamtverstärkung zu vermeiden, wird der Strom im Halbleiterlaser erhöht, was neben dem Brechungsindex n auch die optische Weglänge im internen Resonator erhöht. \cite{H2}\\
 
- \noindent Im folgenden werden Begriffe, Apperaturen und Methoden die für die spektroskopische Untersuchung am Rubidium essenziell waren, erklärt.
+ \noindent Im folgenden werden nun Begriffe, Apperaturen und Methoden die für die spektroskopische Untersuchung am Rubidium essenziell waren, erklärt. Dabei sind das Zustandekommen der einzelnen Peaks im Spektrum und die Analyse der Peakbreiten für das verwendete Modell in der Auswertung von zentraler Bedeutung.
 
 \subsection{Linienbreite}
+\label{subsec:linewidth}
 
 \noindent Die absorbierte und emittierte Strahlung eines atomaren Übergangs in einem 2-Niveau-System ist nicht streng monochromatisch, sondern weist Frequenzen nahe der Resonanzbedingung (\ref{eq:Resonanzbedingung}) auf, wodurch die Übergangsenergien nicht beliebig scharf sind und die Spektrallinien eine \textbf{Linienbreite} besitzen.
 
@@ -157,8 +163,28 @@
     I(\omega) &= I(\omega_{0}) \cdot \exp \biggl[- \biggl(\frac{\omega-\omega_{0}}{\frac{\Delta \omega}{2\sqrt{\ln{2}}}}\biggr)^2 \biggr] \label{eq:gauss-intensity} \\
     \Delta \omega &= 2\sqrt{\ln 2} \frac{\omega_{0}}{c}\sqrt{\frac{2k_{B}T}{m}} \label{eq:delta-omega}
 \end{align}
+
+\noindent Darüber hinaus wird die Linienbreite auch durch die Sättigung der Absorption beeinflusst. Dies resultiert daraus, dass nicht nur Atome mit der Resonanzfrequenz, sondern auch jene in einem Bereich $\pm \epsilon$ um die Resonanzfrequenz herum angeregt werden. Insgesammt bleibt das Linienprofil bei der \textbf{Sättigungsverbreiterung} weiterhin Lorentzförmig für homogen verbreiterte Linien. Die Halbwärtsbreite einer solchen Absorptionslinie hängt über den Parameter $S_{0}$ von der Intensität des einfallenden monochromatischen Lasers ab. Sie ist definiert als:
+
+\begin{align}
+    \Delta\omega_{S}=\Delta\omega_{0}\sqrt{1+S_{0}}
+    \label{eq:Sätt}
+\end{align}
+
+\noindent Wobei $S_{0}$ der Sättigungsparameter und damit ein Maß für die Stärke der Sättigung des Übergangs ist.
+
+\begin{align}
+    S_{0}= \frac{I}{I_{Sat}}= \frac{I \cdot 3\lambda^{3}\tau}{\pi h c}
+\end{align}
+
+\noindent Definiert über die Sättigungsintensität $I_{Sat}$ welche von der Wellenlänge $\lambda$ und der Lebensdauer des Übergangs $\tau$ abhängt, ist er einer der wichtigsten Parameter der Licht-Atom- Wechselwirkung. Im Allgemeinen beschreibt er das Verhältnis der Rabifrequenz zur Dämpfung. Da wir uns allerdings in den folgenden Betrachtungen im Wesentlichen auf den Resonanzfall beschränken, genügt an dieser Stelle eine Dämpfungsfreie Betrachtung. \\
+
+\noindent Zusammenfassend tragen drei Formen der Linienbreite zu unserer spektroskopischen Untersuchung bei und erhöhen damit die Ungenauigkeit unserer Resultate -- wobei die natürliche Linienbreite, wie bereits erwähnt, nicht als klassischer Fehler aufgefasst werden kann.
+\noindent Im Folgenden Unterkapitel soll nun ein für unser Experiment essenzielles Bauteil erläutert werden.
+
 \newpage
 \subsection{Optische Resonatoren}
+\noindent Wie bereits einleitend zu Kapitel 2.2. beschrieben und in Abbildung \ref{fig:littrowgitter} gezeigt wurde, besteht der Aufbau des verwendeten Diodenlasers im Wesentlichen aus einem externen und einem internen Resonator. Darüber hinaus enthält der experimentell Aufbau einen Referenzresonator, weshalb die grundlegenden Konzepte optischer Resonatoren skizziert werden. \\
 
 \noindent Im Allgemeinen besteht ein \textbf{Fabry-Pérot-Resonator (FPI)} aus zwei zueinander parallelen Spiegeln, die einen einfallenden Laserstrahl zwischen sich hin und her reflektieren lassen und dabei an beiden Enden einen geringen Anteil absorbieren und transmittieren. Der reflektierte Strahl sammelt pro Umlauf eine Phase $\phi=2dk$ auf, wobei $d$ für den Spiegelabstand und $k$ für die Wellenzahl $k=\frac{2\pi}{\lambda}=\frac{\omega}{c}=2\pi\frac{\nu}{c}$ steht. Es kommt zu einer Interferenz zweier aufeinander folgender transmittierter Lichfelder, sobald die aufgesammelte Phase pro Umlauf einem ganzzahligen Vielfachen $n\in \N$ von $2\pi$ entspricht. In diesem Fall spricht man von einem sich reproduzierenden Strahl im Resonator.
 
@@ -180,7 +206,11 @@
     \nu_{\text{FSR}}=\frac{c}{4d} \label{eq:freier Spektral Bereich}
 \end{align}
 
+\noindent Die Verwendung des freien Spektralbereichs des Referenzresonators ist elementar, um die Zeitachse des Spektrums in Frequenzen ausdrücken zu können, um so später in Kapitel 4 aussagekräftige Frequenzabstände zu generieren. Doch dafür muss zunächst ein Spektrum aufgenommen werden. Um dies zu erreichen, bedienen wir uns der folgenden Methoden.
+
 \subsection{Absorptions- \& Sättigungsspektroskopie}
+
+\noindent Aufgrund der in Kapitel 2.1. diskutierten Isotopieverschiebung, die für Rubidium höher als die Dopplerverbreiterung ist und der Hyperfeinaufspaltung des Grundzustandes, die ebenfalls bei beiden Isotopen die Dopplerverbreiterung übersteigt, kann dieser vollständig mittels der Absoroptionsspektroskopie aufgelöst werden. Mit Hilfe der Sättigungsspektroskopie wird dies auch für den stark dopplerverbreiterten angeregten $P_{3/2}$--Zustand erreicht. 
 
 \noindent Im Wesentlichen basieren beide spektroskopischen Methoden auf dem Prinzip, dass ein Laserstrahl durch eine Probe gesendet und im Anschluss die transmittierte Intensität in Abhängigkeit der Frequenz gemessen wird. Bei der \textbf{Absorptionsspektroskopie} zeichnet sich jeder atomare Übergang über einen Einbruch in der Intensität aus. Liegen allerdings zwei Übergänge im Bereich der Dopplerverbreiterung, die für Gase bei $T=\SI{300}{\kelvin}$ in etwa $\SI{1}{GHz}$ beträgt, erscheinen beide Übergänge im Transmissionsspektrum als eine verbreiterte Linie und können daher mittels dieser Methodik nicht aufgelöst werden. Im Falle des Rubidiums erwarten wir resultierend daraus gemäß Abbildung \ref{fig:termschema} pro Isotop zwei Peaks in unserem Spektrum. Durch die kontinuierliche Durchstimmung der Frequenzen wird das gesamte Spektrum abgedeckt. 
 
@@ -188,7 +218,6 @@
 - und Teststrahl -- in jeweils entgegengesetzter Richtung durch die Probe propagieren. Entspricht die Frequenz beider Strahlen der Übergangsfrequenz $\nu_{a}=\nu_{\text{Pump}}=\nu_{\text{Test}}$, sind alle Atome mit  $v_{z}=0$, die also keine Bewegung entlang der optischen Achse aufweisen, aufgrund der fehlenden Dopplerverschiebung mit beiden Teilstrahlen resonant. Da der deutlich stärkere Pumpstrahl den Übergang sättigt und ein Besetzungsgleichgewicht erzeugt, sinkt die Absorptionswahrscheinlichkeit des Teststrahls und dessen Transmission zeigt sich im Absorptionsspektrum als \textbf{Lamb-Peak}, wie in Abbildung  \ref{fig:lamb-peak} gezeigt. Alle weiteren Atome für die $v_{z}\neq 0$ gilt, sind nur mit einem der zu ihnen dopplerverschobenen Strahlen resonant, welche abhängig von der Bewegungsrichtung des Atoms in dessen Inertialsystem entweder rot- oder blauverschoben sind. Sobald der Teststrahl mit der Übergangsfrequenz resonant ist, befinden sich die Atome im Grundzustand, die Absorptionswahrscheinlichkeit des Teststrahls ist sehr hoch und es wird ein gaußförmiger Einbruch in der Transmission verzeichnet. 
 
 \noindent Liegen im Falle der Sättigungsspektroskopie zwei Übergänge mit den Frequenzen $\nu_{a}$, $\nu_{b}$ im Bereich der Dopplerverbreiterung, macht sich dies im spektroskopischen Bild erkenntlich durch die in Abbildung \ref{fig:crossover-peak} auftretenden drei Peaks. Die zwei äußeren Lamb-Peaks resultieren wie zuvor schon aus den Atomen mit $v_{z}=0$ und der Resonanz beider Teilstrahlen mit jeweils einem Übergang. Zusätzlich wird allerdings die Laserfrequenz genau zwischen den zwei Übergangsfrequenzen auf $\nu_{L}=\frac{\nu_{a}+\nu_{b}}{2}$ gesetzt. Daraus folgt, dass es Atome mit den Geschwindigkeiten $\pm v_{c}$ gibt, bei denen aufgrund der gegenläufigen Dopplerverschiebung beide Teilstrahlen mit jeweils einer Übergangsfrequenz resonant sind. Während der Pumpstrahl den Übergang zu $\nu_{a}$ sättigt und somit ein Besetzungsgleichgewicht erzeugt, sinkt die Wahrscheinlichkeit für den Teststrahl die Atome in den Zustand zu $\nu_{b}$ anzuregen und dessen Transmission wird schließlich als \textbf{Cross-Over Peak}, mittig zwischen den beiden Lamb-Peaks auftretend, sichtbar. Da sowohl Atome mit $+v_{c}$ als auch Atome mit $-v_{c}$ zu einem Cross-Over Peak beitragen, ist dieser im spektroskopischen Bild wesentlich stärker zu erkennen als die Lamb-Peaks. Anhand der Breite der Geschwindigkeitsverteilung aus \ref{eq:Gaußverteilte Geschwindigkeit} und dem Abstand zwischen den beteiligten Übergängen lässt sich eine statistische Approximation für die Anzahl der zum Peak beitragenden Atome angeben. Für die Lamb-Peaks berechnet sich die Anzahl der beteiligten Atome über das Maximum von \ref{eq:Gaußverteilte Geschwindigkeit}.\cite{H2}
-
 
 \begin{figure}[!h]
     \begin{minipage}{7cm}
